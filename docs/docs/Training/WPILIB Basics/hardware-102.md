@@ -10,7 +10,9 @@ In this section we'll go through connections and wiring, as well as what radio t
 ## Daisy Chain Wiring
 
 First lets define some vocab:
+
 **can wires**: wires that send signals to tell motors on what to do, and send back data.  and allow us to access electrical data. There are two wires that we talk about for can wires: **can low** and **can high**.
+
 **CANBus** a canbus is a network of signals that we create for a mechanism or connected group of mechanisms. This allows us to access signals and electrical data from a motor and use it to determine many things.
 
 Now, imagine you are setting up a string of old-school Christmas lights. If one bulb isn't plugged into the next, the whole string won't light up. Daisy chaining is essentially the same concept, but for data.
