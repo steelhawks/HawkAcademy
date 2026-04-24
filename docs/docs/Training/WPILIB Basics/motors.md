@@ -95,3 +95,9 @@ within this function we're going to type the line `s_motor.set(output)` This is 
 
  Refer to the code explanations above for any questions, or reach out to a lead or the head programmer with any questions
 </details>
+
+## Robot Container
+
+Now that you've finished your code, you have to implement it in RobotContainer for the motor to actually run, so let's do it! First you're going to open your RobotContainer.java file, then make sure you have this line **outside** the construcutor: `public Turret s_Turret`, then you're going to add this line in the constructor, `m_Controller.b().whileTrue(s_Turret.runMotor(0.2))`, which should run the motor at 20% speed. If there are any problems, contact a lead programmer for help. If it's successful, come up to a lead programmer to test your code!
+
+**NEXT STEPS** Every subsystem we code is about motors, we use motors for everything so start to think about how we use motors in different scenarios. After that, move on to Motor Configs
