@@ -279,9 +279,10 @@ explanation: "While loops are great for situations where the end depends on a dy
 
 
 ## Next Steps
-If you understand everything, we have a brain teaser for you. Use what you've learned so far to solve this problem:
+If you understand everything, we have a slightly difficult question for you. Use what you've learned so far to solve this problem:
 
 We are trying to find the sum of a series of numbers in which each term is 3x the previous term. The last term is the 12 term, and the first term is 2. Find the sum of all terms
+**Hint**: You will need math for this, it's a simple Algebra question that can be modeled through code.
 
 <details>
   <summary>💡 See the solution</summary>
@@ -302,6 +303,8 @@ We are trying to find the sum of a series of numbers in which each term is 3x th
 
   Each iteration multiplies the current term by 3 and adds it to the running total. After 12 terms, the sum is **531440**
 </details>
+
+This problem and others like it are just simple examples of how much math and science translate into programming, so if you love those subjects you're in the right place!
 
 
 **You are done with this section and may move on to the next!**

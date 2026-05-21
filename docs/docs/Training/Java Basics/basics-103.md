@@ -7,7 +7,7 @@ import Quiz from '@site/src/components/Quiz.jsx'
 
 # Basics 103: Methods, Classes, Constructors & Interfaces
 
-In this section we are going to dive deep into a lot of complex topics, so be prepared to cry a bit. First, we're going to dive into methods.
+In this section we are going to dive deep into a lot of complex topics, so be prepared to cry a bit :). First, we're going to dive into methods.
 
 ## Methods
 Methods, or functions, are blocks of code that can be run at anytime. They can contain anything from if statements to lines of code that calculate angles. Functions are useful because instead of writing 40 lines each time you want to do the same thing, you can write 40 lines one time and call the function instead. 
@@ -262,4 +262,4 @@ Sometimes, there are multiple classes with the same name, so make sure you impor
 
 
 
-**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You may now move on to WPILIB Basics, which includes hardware and some basic programming concepts.**
+**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You now know the very basics of java needed to help you start your robotic programming journey. Be warned, this is just the beginning, if you found any ideas difficult talk to a lead programmer to help you better understand everything. If you are confident in your skills, you may now move onto You may now move on to WPILIB Basics, which includes getting set up, hardware, and some basic programming concepts.**
