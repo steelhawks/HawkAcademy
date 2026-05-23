@@ -5,32 +5,6 @@ import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
-// ─── Sub-nav ──────────────────────────────────────────────────────────────────
-
-const SUB_NAV = [
-  {label: 'Why CAD', href: '#why'},
-  {label: 'Learn CAD', href: '/cad/learn/intro'},
-  {label: 'Workflow', href: '#workflow'},
-  {label: '3D Printing', href: '/cad/learn/intro'},
-  {label: 'Laser Cutting', href: '/cad/learn/intro'},
-  {label: 'Resources', href: '#resources'},
-];
-
-function SubNav() {
-  return (
-    <nav className={styles.subNav} aria-label="CAD sections">
-      <div className={styles.subNavInner}>
-        {SUB_NAV.map((item, i) => (
-          <Link key={item.label} to={item.href} className={styles.subNavItem}>
-            <span className={styles.subNavIndex}>{String(i + 1).padStart(2, '0')}</span>
-            <span>{item.label}</span>
-          </Link>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function Hero() {
@@ -261,7 +235,6 @@ export default function CadHome(): ReactNode {
       description="Steel Hawks CAD curriculum — Onshape, part studios, assemblies, manufacturing outputs.">
       <main className={styles.page}>
         <Hero />
-        <SubNav />
         <WhyCad />
         <Workflow />
         <DiveIn />
