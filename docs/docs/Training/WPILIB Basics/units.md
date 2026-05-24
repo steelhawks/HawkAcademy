@@ -11,8 +11,7 @@ In robotics, a lot of math is modeled through coding, so having accurate units f
 ## Data Types
 Let's start listing out some basic data types:
 
-**Suppliers** What are suppliers? Suppliers are a class of data types, which are basically containers for certain values. Think of it like a constantly updating value when a data type is put into a supplier, rather than a once given data value. Let's imagine a function takes in a parameter of `DoubleSupplier age`, then we would provide this as the double supplier: `() -> 3`. look familiar? The way to provide a DoubleSupplier is by using a shorthand function (lambda function)! To get the value of `age`, we would use `age.get()`, which would return 3, instead of an object. 
+**Suppliers** What are suppliers? A supplier is something that provides a value when your code asks for it. Think of it like a value source instead of a normal variable. For example, if a function takes in a parameter of `DoubleSupplier age`, we could provide it like this: `() -> 3`. This works because a `DoubleSupplier` gives back a `double` value whenever it is called. To get the value from `age`, we would use `age.get()`, which would return `3`.
 
 **Poses**
-Pose is short for position. In WPILIB we have `Pose2d` and `Pose3d`. Both of these represent a  position in 2d space and in 3d space. Poses are useful for modeling components in a 3d space with a single variable. We intialize a Pose by saying `Pose2d` or `Pose3d`, then the variable name. For example `Pose3d something = new Pose3d(0, 0, 0)` To retrieve data from a Pose2d or Pose3d, we have a variety of methods. 
-
+Pose is short for position, but in WPILIB a pose also includes rotation. We have `Pose2d` for 2D space and `Pose3d` for 3D space. These are useful because they let us store where something is and how it is oriented in a single variable. We initialize a pose by creating a `Pose2d` or `Pose3d` variable. For example, a `Pose2d` represents an object's x position, y position, and rotation. To retrieve data from a `Pose2d` or `Pose3d`, we can use the methods built into those classes.

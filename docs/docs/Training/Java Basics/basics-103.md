@@ -131,7 +131,24 @@ explanation: "The 'class' keyword is the specific identifier used to declare a n
 ]} />
 
 ## Constructors
-Constructors are a way of declaring that instance that you created. So going back to the dog named mark example, the `public Dog mark` line would be continued by `public Dog mark = new Dog();`. The `new Dog();` is references a constructor. The constructor acts like a package for the class, if the blueprint is the class itself, the constructor is the construction company we call to make the object.
+Constructors are what we run when you create a new object from a class. For example, when you create a new dog from the `Dog` class above, a constructor runs to actually "create" that dog. A code example is provided below:
+
+```
+Dog rufus = new Dog();
+```
+In this example we create a variable with name of `rufus`, data type of `Dog` and we set it equal to `new Dog();`. this just means it's running the constructor for a new object.
+
+**IMPORTANT**: `Dog();` is the constructor, not the entire line.
+
+**ANOTHER WAY**
+
+```
+Dog rufus;
+
+/* inside the constructor code */
+rufus = new Dog();
+```
+> /* */ are comments, comments are things you can write but do not get picked up by the code at all
 
 how do we create a constructor:
 
@@ -149,7 +166,9 @@ public class Dog {
     }
 }
 ```
-> the double backslash // is for comments, comments are things you can write but do not get picked up by the code at all.
+> the double backslash // is also for comments
+
+In this example, we label each property of the dog in the constructor, and we learned that the constructor gets run when a new object is created, so it creates a dog with those properties.
 
 The constructor takes the blueprint we made and starts to literally build it, before presenting the finished object (instance) when we call it. This is the basics of how we create files in java. Each file contains one class, or a class within a class, and we call those classes in order to reach the methods inside each class. 
 
@@ -206,10 +225,9 @@ It must provide electricity.
 Any battery (Duracell, Energizer, or a generic brand) can work in your clock as long as it "implements" those battery rules.
 
 In Programming Terms
-An interface tells a Class what to do, but not how to do it. It’s a list of empty methods that a class must fill in if it wants to follow that standard. We not only use interfaces for empty methods, but also use it for data we want to keep track of.
+An interface tells a class what it must be able to do, but not how it should do it. Think of it like a checklist of required methods. Any class that implements that interface must write code for those methods.
 
-an interface is created like this: `public interface TurretIO {}`, and inside the empty methods would be created like this: `default void randomMethod() {}`. When using an interface with a class, we want to keep track of variables (characteristics) inside of the interface, then use the empty methods to do something. To use an interface within a class we do this: `public class Turret implements TurretIO {}` Then we say this for each of the methods:
-
+An interface is created like this: `public interface TurretIO {}`. Inside the interface, we would list required methods like this: `void randomMethod();`. To use an interface with a class we do this: `public class Turret implements TurretIO {}`. Then the class writes the actual code for each required method:
 ```
 @Override
 public void randomMethod() {
@@ -267,4 +285,4 @@ Sometimes, there are multiple classes with the same name, so make sure you impor
 
 
 
-**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You now know the very basics of java needed to help you start your robotic programming journey. Be warned, this is just the beginning, if you found any ideas difficult talk to a lead programmer to help you better understand everything. If you are confident in your skills, you may now move onto You may now move on to WPILIB Basics, which includes getting set up, hardware, and some basic programming concepts.**
+**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You now know the very basics of java needed to help you start your robotic programming journey. Be warned, this is just the beginning, if you found any ideas difficult talk to a lead programmer to help you better understand everything. If you are confident in your skills, you may now move onto WPILIB Basics, which includes getting set up, hardware, and some basic programming concepts.**

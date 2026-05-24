@@ -16,11 +16,11 @@ As you know, we use a lot of different softwares and programs when we code. To h
 
 
 ## Creating a motor
-In your turret.java file in the Curriculum project (you thought we were done with that?), create a new variable like we create strings and doubles, but don't assign a value yet. **Remember to put this outside the constructor**. This time however, your variable should be a data type of TalonFX (make sure you click enter when the autocomplete option comes up). let's name the motor `s_motor`. The final line should be `private TalonFX s_motor;` TalonFX is the type of motor controller, and we're creating a new motor. You can think of your basic data types, and add TalonFX as one of the datatypes for a motor your running. You're also going to need a canbus (look at hardware 102 if you forgot!!), which we'll create by saying `private CANBus bus`, where CANBus is the data type in this case.
+In your turret.java file in the Curriculum project (you thought we were done with that?), create a new variable like we create strings and doubles, but don't assign a value yet. **Remember to put this outside the constructor**. This time however, your variable should be a data type of TalonFX (make sure you click enter when the autocomplete option comes up). let's name the motor `s_motor`. The final line should be `private TalonFX s_motor;` TalonFX is the type of motor controller, and we're creating a new motor. You can think of your basic data types, and add TalonFX as one of the datatypes for a motor you're running.
 
-Next, we're going to assign a value to this variable in the constructor. Type this line inside the constructor: `s_motor = new TalonFX(bus, 1)`.
+Next, we're going to assign a value to this variable in the constructor. Type this line inside the constructor: `s_motor = new TalonFX(1);`
 
-Now what does this mean? So first we create a new instance of a TalonFX (`new TalonFX()`), which corresponds to a certain CANBus, and has a device ID. You might be asking how do you know what the device id is? That's where pheonix tuner comes into play. For more information visit our Software Tools section to learn EVERYTHING about pheonix tuner. 
+Now what does this mean? So first we create a new instance of a TalonFX (`new TalonFX(1)`), and the `1` is the motor's device ID on the CANBus. You might be asking how do you know what the device id is? That's where pheonix tuner comes into play. For more information visit our Software Tools section to learn EVERYTHING about pheonix tuner. 
 
 Now that we've created our motor, let's learn how to run and stop it.
 
@@ -48,7 +48,7 @@ correct: 1,
 explanation: "Defining the variable outside the constructor ensures it is a field of the class, meaning it is accessible to all methods within that class."
 },
 {
-prompt: "In the line 's_motor = new TalonFX(bus, 1);', what does the number '1' represent?",
+prompt: "In the line 's_motor = new TalonFX(1);', what does the number '1' represent?",
 options: [
 "The motor's voltage",
 "The device ID assigned to that specific motor",
@@ -77,10 +77,9 @@ within this function we're going to type the line `s_motor.set(output)` This is 
   class Turret {
 
     private TalonFX s_motor;
-    private CANBus bus;
 
     public Turret() { // constructor
-        s_motor = new TalonFX(bus, 1);
+        s_motor = new TalonFX(1);
     }
 
     public void runMotor(double output) {
@@ -98,6 +97,12 @@ within this function we're going to type the line `s_motor.set(output)` This is 
 
 ## Robot Container
 
-Now that you've finished your code, you have to implement it in RobotContainer for the motor to actually run, so let's do it! First you're going to open your RobotContainer.java file, then make sure you have this line **outside** the construcutor: `public Turret s_Turret`, then you're going to add this line in the constructor, `m_Controller.b().whileTrue(s_Turret.runMotor(0.2))`, which should run the motor at 20% speed. If there are any problems, contact a lead programmer for help. If it's successful, come up to a lead programmer to test your code!
+Now that you've finished your code, you have to implement it in RobotContainer for the motor to actually run, so let's do it! First you're going to open your RobotContainer.java file, then make sure you have this line **outside** the constructor: `private final Turret s_Turret;`
+
+Inside the constructor, initialize it with `s_Turret = new Turret();`
+
+For a quick button test, bind the `B` button like this: `m_Controller.b().whileTrue(Commands.startEnd(() -> s_Turret.runMotor(0.2), () -> s_Turret.stop(), s_Turret));`
+
+This command runs the motor at 20% while the button is held, then stops the motor when you let go. You'll also need to import `edu.wpi.first.wpilibj2.command.Commands`. If there are any problems, contact a lead programmer for help. If it's successful, come up to a lead programmer to test your code!
 
 **NEXT STEPS** Every subsystem we code is about motors, we use motors for everything so start to think about how we use motors in different scenarios. After that, move on to Motor Configs

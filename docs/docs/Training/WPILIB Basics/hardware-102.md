@@ -20,7 +20,7 @@ Now, imagine you are setting up a string of old-school Christmas lights. If one 
 In robotics, we use a "highway" for data called the CANBus. Instead of running a separate pair of wires from the brain (Systemcore) to every single motor, we connect them in a long, continuous chain.
 
 The Anatomy of the Chain
-Every device on the CANBus (like a Kraken motor or a Cancoder) has two pairs of wires:
+Every device on the CANBus (like a Kraken motor or a Cancoder) has a pair (one green and one blue) of wires:
 
 How It Works
 The Start: You start with two CAN wires (one Yellow, one Green) coming out of the Systemcore.

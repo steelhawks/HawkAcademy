@@ -19,7 +19,7 @@ After installing Git, install Github Desktop. Go to this link **[Github Desktop]
 
 Open up powershell on windows by going to the start menu and typing in powershell, then type these two lines one after another and click enter after each one.
 
-`git config --global user.name "[Your Name]"` and then after clicking `enter` type `$ git config --global user.email [Your Personal Email]` and click enter again. Now you have set up git and github desktop.
+`git config --global user.name "[Your Name]"` and then after clicking `enter` type ` git config --global user.email [Your Personal Email]` and click enter again. Now you have set up git and github desktop.
 
 
 ## Github Basics
@@ -60,4 +60,4 @@ and go through **EVERYTHING** because this will be very useful and neccessary in
 Remember this is a two way commitment, and you need to put in the work for you to get amazing results, and it starts with going through long and tedious processes to learn.
 
 
-**After you're done with this section, you can finally learn Java!. Please move on to the next section of Basics 1 of Java.**
+**After you're done with this section, you can finally learn Java!. Please move on to the next section of Basics 101 of Java.**

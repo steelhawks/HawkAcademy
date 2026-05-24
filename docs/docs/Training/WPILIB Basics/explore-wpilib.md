@@ -30,10 +30,10 @@ Here is where we will explore the folders and files of this project. It's ok not
 
 RobotContainer.java is where we **Initialize** our subsystems and configure our controllers. **A subsystem is a specific part of our robot**, such a robot arm, our wheels and driving system (called the drivetrain), and any other mechanisms we want. For example, last year we had a rotating shooter. This is an example of a subsystem that we would be programming.
 
-Robot.java is our main robot loop. This means that every 20 milliseconds, we are monitoring the robot. We also  **Initialize** our robot container and **Command Scheduler**. These things are a necessity for our robot to run. Robot.java isn't touched that much, and we mainly do all of our configurations in RobotContainer.java.
+Robot.java is our main robot loop. This means that every 20 milliseconds, we are monitoring the robot. We also  **Initialize** our robot container. These things are a necessity for our robot to run. Robot.java isn't touched that much, and we mainly do all of our configurations in RobotContainer.java.
 
 ![Alt text](../../../static/img/robot-robotcontainer.png)
-> P.S. It's ok if you don't know what any of the bold words mean (Initialize, Loops, Command Scheduler). These are relatively advanced concepts, and will definitely be covered. If you're curious about them ask a lead programmer.
+> P.S. It's ok if you don't know what some of the code is in the image. These are relatively advanced concepts, and will definitely be covered. If you're curious about them ask a lead programmer.
 
 
 ### Subsystems
@@ -52,4 +52,4 @@ We will cover commands in depth later too, but they are a way of basically telli
 
 ## Next Steps
 
-Good Job! You have sucessfully downloaded and installed WPILIB, created your first project, and learned about subsystems and our main files. Now it's time to delve into actual programming, but before that we have to cover one more topic in depth: Github. After that, you'll become a Java Pro. You can now move onto the next Section **Github Basics**
+Good Job! You have sucessfully downloaded and installed WPILIB, created your first project, and learned about subsystems and our main files. Now it's time to delve into actual programming, but before that you have 1 more topic to complete: hardware. We use specialized hardware in robotics, and it's important to know what each component does.  You can now move onto the next section **Hardware 101**

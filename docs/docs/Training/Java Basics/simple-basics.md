@@ -61,12 +61,12 @@ So what is a data type. A data type is the type of thing we store in a variable.
 Arrays (lists), is a special type of data that is widely used throughout programming. Essentially, it is list of a certain data type. For example, if you wanted to store a list of grocery items, you would create an array of type String, which would then contain all grocery items. Arrays are useful for storing a lot of the same related data together, just like a normal list. Here's how we create an array
 
 ```
-String[] grocery_items = ["Banana", "Milk", "Bread", "Bulgogi Beef"];
+String[] grocery_items = {"Banana", "Milk", "Bread", "Bulgogi Beef"};
 ```
 
 when declaring the type of an array, make sure to add `[]` at the end. 
 
-**Multi Dimensional Arrays**: The grocery list array above is known as a 1d array. In the simplest terms possible, this means that there is only 1 set of `[]`. When you have a 2d or 3d array, you have more brackets, so you're data would look way more complicated. 2d and 3d arrays are pretty complicated, but if you can imagine a 2d or 3d graph, points can be modeled with a 2d or 3d array, which is again just arrays within arrays. an example of a 2d array would be `double[][] random = [[3, 2, 4], [4, 2, 3]];` This kind of array is essentially `[]` within a `[]`, which is considered a multidimensional array.
+**Multi Dimensional Arrays**: The grocery list array above is known as a 1d array. In the simplest terms possible, this means that there is only 1 set of `[]`. When you have a 2d or 3d array, you have more brackets, so you're data would look way more complicated. 2d and 3d arrays are pretty complicated, but if you can imagine a 2d or 3d graph, points can be modeled with a 2d or 3d array, which is again just arrays within arrays. an example of a 2d array would be `double[][] random = {{3, 2, 4], [4, 2, 3}};` This kind of array is essentially `[]` within a `[]`, which is considered a multidimensional array.
 
 #### Creating Variables
 
@@ -100,7 +100,7 @@ We just created a variable called my_name and gave it a value, but how do we act
 
 Well lets think about it, to display something out onto the console, we're going to use `System.out.println();`. Which will always be referenced as print statements. 
 
-I would write this line `System.out.println("Hi my name is " + my_name)` This is called concatenation, where you "add" a variable to something else. Variables are used all over our code base, from calculations to datapoints that we log, variables are a key component of everything we do. To print a variable using a **print statement** concatenate the variable and whatever message you want to send, making sure the variable is outside the quotations. 
+I would write this line `System.out.println("Hi my name is " + my_name);` This is called concatenation, where you "add" a variable to something else. Variables are used all over our code base, from calculations to datapoints that we log, variables are a key component of everything we do. To print a variable using a **print statement** concatenate the variable and whatever message you want to send, making sure the variable is outside the quotations. 
 
 
 ## Next Steps
