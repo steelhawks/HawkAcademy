@@ -1,0 +1,94 @@
+.noteBox {
+  position: relative;
+  background-color: #111111;
+  border: 1px solid #2a0a0a;
+  border-left: 4px solid #dc143c;
+  border-radius: 0 6px 6px 0;
+  padding: 1rem 1.25rem 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #e8e0e0;
+  overflow: hidden;
+}
+
+.noteBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #dc143c 0%, transparent 60%);
+}
+
+.noteHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.6rem;
+}
+
+.noteDiamond {
+  color: #dc143c;
+  font-size: 0.55rem;
+  line-height: 1;
+}
+
+.noteTitle {
+  color: #dc143c;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.noteContent p {
+  margin: 0 0 0.5rem;
+  color: #e8e0e0;
+}
+
+.noteContent p:last-child {
+  margin-bottom: 0;
+}
+
+.noteContent strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.noteContent code {
+  background-color: #1f0808;
+  color: #ff6b6b;
+  border: 1px solid #3d1010;
+  border-radius: 4px;
+  padding: 0.1em 0.45em;
+  font-size: 0.88em;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.noteContent ul,
+.noteContent ol {
+  margin: 0.4rem 0;
+  padding-left: 1.4rem;
+  color: #e8e0e0;
+}
+
+.noteContent li {
+  margin: 0.25rem 0;
+  color: #e8e0e0;
+}
+
+.noteContent li::marker {
+  color: #dc143c;
+}
+
+.noteContent a {
+  color: #ff4d6d;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.noteContent a:hover {
+  color: #ff7096;
+}

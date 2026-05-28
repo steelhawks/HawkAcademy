@@ -3,40 +3,46 @@ sidebar_position: 1
 ---
 
 import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
 
 # Basics 101 of Java
-Now we start learning a new programming language. The first step is to learn how to go to an IDE, Then we'll learn how to print out statements, and much more! This is where programming will start to get hard, this is where most people quit, but this is also the start of success if you're willing to persevere. 
+Welcome to your very first programming lesson! This is an exciting time, but we have a lot to cover in this one short document, so let's break down what you are going to cover in this specific lesson:
+- Typing your first line, print statements
+- Variables & Data types
+- A little thing on Arrays
+
+This is a topic-dense lesson, so if you have any questions, pause a moment, ask someone for help (or chatgpt) and continue through. Don't leave this lesson feeling icky about things you learned here, after all these are the *very* basics. This is the foundation for everything else, so try to fully comprehend everything.
+
+## First Line of Code
+Before you write your first line of code, *where do you write it?* A google document won't work for us, so let's figure out where we'll code. 
 
 
-## Opening an IDE
+  **Usually**, we'll program in a desktop application (something you download and install), **BUT**, for this lesson we'll use an online tool for coding, which will help us run code without a lot of setup
 
-First, what is an IDE. An Integrated Development Environment is essentially any place where you can code. It could be a desktop application you install, or website online where you code. You'll learn how to setup an IDE and all our tools later, but just know that we use 2 different IDE's, either Visual Studio Code or IntelliJ. Either one works well with java code, but IntelliJ is built for Java development. 
 
-For this lesson, we're going to use the Programiz Java Editor online instead of a desktop IDE. This will help get you familiarized with coding before all the setup. Open [Programiz](https://www.programiz.com/java-programming/online-compiler/) and you should see something like the image below. If you already have it open, you can move on to the next step.
-
-You don't need to create folders or robot classes yet. Programiz gives you a file to work in already, which is perfect for learning the basics first.
+Head over to the **[Programiz Editor](https://www.programiz.com/java-programming/online-compiler/)** and you should see something like the image below.
 
 ![Alt text](@site/static/img/programiz.png)
-## Programming Time!
-Now we start actually programming stuff such as print statements and variables.
 
-So let's begin. 
+*What's really happening in this image?* Let's break it down:
+- `class Main` this basically says *"I'm the container where all code is going to go"* If you look at the top you'll see `Main.java`. Just to keep in mind: usually the class corresponds to the name of the file.
+- `public static void main(String[] args) {` This is the **Main Function**.  If the class is where all the code goes, anything inside of the curly braces here `{}` is what actaully runs. If you have code outside the main function it won't run. *In robot code, we don't see this main function very often*
+- `System.out.println("start small. Ship something");` We call this a **Print Statement**. It will display whatever is in the quotation marks into the **Console**.
+<Note>
+IMPORTANT: If there is no semicolon after every line (almost every line), Java will throw an error, so please make sure you put semicolons everywhere
+</Note>
 
-### Print Statements
+### Creating Your Own Print Statements
 
-After opening the Programiz Java editor, you'll see some starter code, let's break it down!
-
-The first line is `class Main`, you'll learn about classes later, but for now think of it like the container where you hold all of your file contents. we define a class by typing `class`, and then the name of the class. In this case, it's called Main. The next line is `public static void main(String[] args)`.  This is how we create a method, which you'll also learn later. For now, think of it like the place all your code runs from, if no code is referenced there then no code get's run.
-
-
-#### Running Your Code
-So, now let's run some code! You'll see a line that says something like `System.out.println("Something here");` This is how we display things to a user through pure text. Click the big purple run button in Programiz and see the result, the inside the quotations write whatever you want. Any text that you want to say must be in quotation marks, otherwise there'll be an error `System.out.println(Hello);` isn't correct because there aren't any quotation marks. `System.out.println("Hello Steel Hawks");` is correct. 
+First let's run our code. Click the big purple run button, and you should see a message in the console, just like below:
 
 ![Alt text](@site/static/img/basicscompletecode.png)
 
-That's it! You have written your first program. So what specifically does this do. The semicolon indicates an end to that line. After writing any line of code (with a few exceptions), you must put a semicolon.  The console is where these print statements (what you just did) and error messages get shown. 
+Now let's change the text in the quotation marks. After you finish changing it to be whatever you want, click run again and see the new text appear on the screen.
 
- When you want to edit that message, just go back to the code and write whatever you want. Or make multiple print statements. Try it out! If you have any questions, please ask a lead programmer.
+Congratulations! You created you're own print statements!
+
+   <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>*HERE'S A CHALLENGE*</span> Create multiple print statements, each telling something different about you. Remember everything displayed should be in quotation marks.  **YOU MUST HAVE SEMICOLONS**
 
 
 ### Variables
