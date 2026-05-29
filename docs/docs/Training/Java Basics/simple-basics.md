@@ -46,12 +46,19 @@ Congratulations! You created you're own print statements!
 
 
 ### Variables
-Now were going to talk about variables, what are the main types of variables, how to create and use them.
+You've touched your first line of code! Now, lets get a bit more complicated with something called <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**Variables**</span>
 
-So what are variables. You can think of variables as containers that store values. Just like in algebra, they can be called by a letter, name, or anything at all! They store values of different types, like text, numbers, and many others.
 
-#### Data Types
-So what is a data type. A data type is the type of thing we store in a variable. Text and numbers for example, cannot be stored the same way.
+*So what are variables?*
+
+ You can think of variables as containers that store values. Just like in algebra, we say it's x or y or z, and we assign a value to it. <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>In Programming</span> we assign letters, names, or anything at all! They store values of different types, like text, numbers, and many others.
+
+### Data Types
+Each variable has an assigned data type to it, which **cannot** change unless there is no predefined data type
+
+*But what is a data type?*
+
+A data type is the classification of what we store in a variable. Text and numbers for example, cannot be stored in the same data type.
 
 | Data Type | Name | Example |
 |------|------|------------ |
@@ -59,24 +66,16 @@ So what is a data type. A data type is the type of thing we store in a variable.
 | Number | int | 5 |
 | Decimal | double | 5.4 |
 | True/False | boolean | false |
-> Note that int and double don't have quotation marks, if you put quotations marks around anything (including numbers), they become the String data type. So be careful what data type you use.
+<Note>
+Most data types besides Strings don't have quotation marks, if you put quotations marks around anything (including numbers), they become the String data type. So be careful what data type you use.
+</Note>
 
 
-
-#### Arrays
-Arrays (lists), is a special type of data that is widely used throughout programming. Essentially, it is list of a certain data type. For example, if you wanted to store a list of grocery items, you would create an array of type String, which would then contain all grocery items. Arrays are useful for storing a lot of the same related data together, just like a normal list. Here's how we create an array
-
-```
-String[] grocery_items = {"Banana", "Milk", "Bread", "Bulgogi Beef"};
-```
-
-when declaring the type of an array, make sure to add `[]` at the end. 
-
-**Multi Dimensional Arrays**: The grocery list array above is known as a 1d array. In the simplest terms possible, this means that there is only 1 set of `[]`. When you have a 2d or 3d array, you have more brackets, so you're data would look way more complicated. 2d and 3d arrays are pretty complicated, but if you can imagine a 2d or 3d graph, points can be modeled with a 2d or 3d array, which is again just arrays within arrays. an example of a 2d array would be `double[][] random = {{3, 2, 4], [4, 2, 3}};` This kind of array is essentially `[]` within a `[]`, which is considered a multidimensional array.
+These are your basic data types, and we use them in almost **every** programming language in some way or form. You'll learn about the robot specific data types/units in WPILIB Basics!
 
 #### Creating Variables
 
-Let's do a small quiz to see if you can develop your own variable:
+Let's do a small quiz to see if you can pick the right data type for each variable:
 
 <Quiz questions={[
   {
@@ -93,23 +92,24 @@ Let's do a small quiz to see if you can develop your own variable:
   }
 ]} />
 
-Now that we got you're concepts down let's actually create a variable. In your Programiz code, create a new variable for your name: `String my_name;`
+Now that you got that down, let's see if you can create your own data type!
 
-Then, in our main method (It's that thing that starts with `public static void main(String[] args) {}`), type this: `my_name = "Krish";`
+<span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**Here's the challenge:**</span> Create separate variables in the editor for your name, age, and a list of your favorite things,
+then print out all three of those in separate print statements.
 
-So what exactly makes up a variable. The structure of making a variable is very simple. First you put the data type (String in this case), then you put the name of the variable (my_name). 
+### Concatenation
+Contatenation is the process of combining variables or text + variables. We do this very simply by *adding* these variables to text. Here's an example:
 
-**JAVA IS CAPS SENSITIVE SO DON'T PUT ANYTHING IN CAPS THATS NOT SUPPOSED TO BE IN CAPS**
+```
+String name = "Steel Hawks";
+System.out.println("My name is " + name);
+```
 
-#### Using Variables
-We just created a variable called my_name and gave it a value, but how do we actually use that variable.
-
-Well lets think about it, to display something out onto the console, we're going to use `System.out.println();`. Which will always be referenced as print statements. 
-
-I would write this line `System.out.println("Hi my name is " + my_name);` This is called concatenation, where you "add" a variable to something else. Variables are used all over our code base, from calculations to datapoints that we log, variables are a key component of everything we do. To print a variable using a **print statement** concatenate the variable and whatever message you want to send, making sure the variable is outside the quotations. 
-
+In this example we added a string to text (also a string), but you can add anything to anything else within a print statement, You **cannot** add a string to int or double in a variable.
 
 ## Next Steps
-Practice creating variables that define parts of you: Your age, your name, how tall you are (double values) and your favorite thing to eat. Create variables and print statements for these things in Programiz and show them to your lead programmer.
+There is no challenge or assignment this time :( 
+syou have to learn about arrays first :)
 
-You are officially done with this section! **You may move on to Logic and Loops**
+
+You are officially done with this section! **You may move on to Arrays**
