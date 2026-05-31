@@ -103,46 +103,41 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Team 2601',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Townsend Harris High School',
+              href: 'https://www.thhs.qc.edu/',
+            },
+            {
+              label: 'steelhawks.org',
+              href: 'https://steelhawks.org',
+            },
+            {
+              label: 'steelhawks.net',
+              href: 'https://steelhawks.net',
             },
           ],
         },
         {
-          title: 'Community',
+          title: 'Connect',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/steelhawks',
+            },
+            {
+              label: 'Instagram',
+              href: 'https://www.instagram.com/steelhawks2601',
+            },
+            {
+              label: 'The Blue Alliance',
+              href: 'https://thebluealliance.com/team/2601',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} SteelHawks Robotics Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Steel Hawks Robotics — Team 2601. Built on Docusaurus, heavily modified.`,
     },
     prism: {
       theme: prismThemes.github,
