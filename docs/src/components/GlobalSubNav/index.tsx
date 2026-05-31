@@ -66,9 +66,6 @@ const SECTIONS: Section[] = [
         to: '/docs/Training/github-basics',
         children: [
           {label: 'GitHub Basics', to: '/docs/Training/github-basics'},
-          {label: 'Markdown Features', to: '/docs/Training/markdown-features'},
-          {label: 'Deploy Your Site', to: '/docs/Training/deploy-your-site'},
-          {label: 'Congratulations', to: '/docs/Training/congratulations'},
         ],
       },
       {
