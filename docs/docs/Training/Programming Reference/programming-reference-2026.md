@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # 2026 Programming Reference
 
-> **Good Resource to learn FRC code:** [Mission4STEM](https://mission4stem.com/index.html)
+> **This is a conversion from our Google Docs version. To see the original click** [here](https://docs.google.com/document/d/1cYESccVNGiP9auOqsNPCvrLDYXkARsxuzas-YJPPSfU/edit?usp=sharing)
 
 ---
 

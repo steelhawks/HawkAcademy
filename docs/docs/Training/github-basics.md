@@ -2,24 +2,24 @@
 sidebar_position: 3
 ---
 
-# Github Basics
+# GitHub Basics
 
-Github is what we use on a daily basis to share code with each other, it's a place to view, collaborate, and work on projects simultaneously while keeping our code intact.
+GitHub is what we use on a daily basis to share code with each other, it's a place to view, collaborate, and work on projects simultaneously while keeping our code intact.
 
-## What is Github?
-Github is a place where people store they're code, share it, and have people collaborate on it. Code there is usually open source (people can copy it) and is openly shared with other members of the community. Our team uses Github to share code with each other and collaborate from separate devices, which is extremely useful with such a large team. 
+## What is GitHub?
+GitHub is a place where people store they're code, share it, and have people collaborate on it. Code there is usually open source (people can copy it) and is openly shared with other members of the community. Our team uses GitHub to share code with each other and collaborate from separate devices, which is extremely useful with such a large team. 
 
-## Installing Git & Github
+## Installing Git & GitHub
 
 First, headover to this link **[Install Git](https://git-scm.com/install/)** and choose your operating system, and click download. After installing, you'll need to follow some steps for setup, but we'll go through that later. 
 
-After installing Git, install Github Desktop. Go to this link **[Github Desktop](https://desktop.github.com/download/)** and install github desktop, then sign-in with your account.
+After installing Git, install GitHub Desktop. Go to this link **[GitHub Desktop](https://desktop.github.com/download/)** and install github desktop, then sign-in with your account.
 
 At this point, you should have:
 
 - Git installed and ready to set up
-- Github Desktop installed
-- Signed into Github Desktop through your account
+- GitHub Desktop installed
+- Signed into GitHub Desktop through your account
 
 ## Setup Git
 We need to setup some configurations for Git before you continue
@@ -38,10 +38,10 @@ Open up powershell from the *Start Menu*, and type the same two lines one after 
 - ` git config --global user.email [Your Personal Email]`
 
 
-## Github Basics
+## GitHub Basics
 Now we will talk about how to use github and when to use github
 
-### How to Use Github
+### How to Use GitHub
 First, let's go over some vocab:
 
 - **Repository** A project that is on github. A project can be either public (open to view for everyone), or private, and collaborators can be added to repos (repositories)
@@ -55,7 +55,7 @@ After a coding session, you should check to make sure your code isn't incorrect 
 
 Put a simple summary, just one to two words. You might need a description if you have more than a few words or more than one concept to say, then click commit. After it's commited, you'll see an option to push the code, which will lead to it being in github on the web. **Congratulations, you have learned how to commit and push code!**
 
-### When To Use Github
+### When To Use GitHub
 
 You should use github whenever you...
 - After every coding session to keep track of your work
@@ -69,7 +69,7 @@ You should use github whenever you...
 
 You should commit whenever you finish your coding session, and push whenever you reached a goal or point, for example, if you're working on a main subsystem file over multiple sessions, then commit each session and push once that file is complete. 
 
-You should pull your repo every time you start working, in order to stop something called merge conflicts, which you will learn about later. But if you forget, it's not the end of the world, as Github Desktop handles these conflicts quite well.
+You should pull your repo every time you start working, in order to stop something called merge conflicts, which you will learn about later. But if you forget, it's not the end of the world, as GitHub Desktop handles these conflicts quite well.
 
 ## Branching
 Let's imagine this scenario: you have some code, and want to work on this expiremental feature, but if somethinges goes wrong all your code could be lost. *What do you do?*
@@ -83,7 +83,7 @@ A git branch is essentially a copy of you're current code that you can start wor
 - Write subsystems (rookies)
 - Test some extremely experimental design
 
-You'll learn how to branch in homework, but you can also create them through Github Desktop.
+You'll learn how to branch in homework, but you can also create them through GitHub Desktop.
 
 ## Next Steps
 
