@@ -6,10 +6,9 @@ import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
 
 # Basics 101 of Java
-Welcome to your very first programming lesson! This is an exciting time, but we have a lot to cover in this one short document, so let's break down what you are going to cover in this specific lesson:
+Welcome to your very first programming lesson! This is an exciting time, but we have a lot to cover in this one short document. Let's break down what you will cover in this specific lesson:
 - Typing your first line, print statements
 - Variables & Data types
-- A little thing on Arrays
 
 This is a topic-dense lesson, so if you have any questions, pause a moment, ask someone for help (or chatgpt) and continue through. Don't leave this lesson feeling icky about things you learned here, after all these are the *very* basics. This is the foundation for everything else, so try to fully comprehend everything.
 
@@ -17,7 +16,7 @@ This is a topic-dense lesson, so if you have any questions, pause a moment, ask 
 Before you write your first line of code, *where do you write it?* A google document won't work for us, so let's figure out where we'll code. 
 
 
-  **Usually**, we'll program in a desktop application (something you download and install), **BUT**, for this lesson we'll use an online tool for coding, which will help us run code without a lot of setup
+**Usually**, we'll program in a desktop application (something you download and install), **BUT**, for this lesson we'll use an online tool for coding, which will help us run code without a lot of setup
 
 
 Head over to the **[Programiz Editor](https://www.programiz.com/java-programming/online-compiler/)** and you should see something like the image below.
@@ -25,7 +24,10 @@ Head over to the **[Programiz Editor](https://www.programiz.com/java-programming
 ![Alt text](@site/static/img/programiz.png)
 
 *What's really happening in this image?* Let's break it down:
-- `class Main` this basically says *"I'm the container where all code is going to go"* If you look at the top you'll see `Main.java`. Just to keep in mind: usually the class corresponds to the name of the file.
+- `class Main` this basically says *"I'm the container where all code is going to go"* If you look at the top you'll see `Main.java`.
+:::tip
+The class name usually corresponds to the name of the file. Main.java is the file name, Main is the class name
+:::
 - `public static void main(String[] args) {` This is the **Main Function**.  If the class is where all the code goes, anything inside of the curly braces here `{}` is what actaully runs. If you have code outside the main function it won't run. *In robot code, we don't see this main function very often*
 - `System.out.println("start small. Ship something");` We call this a **Print Statement**. It will display whatever is in the quotation marks into the **Console**.
 <Note>
@@ -63,9 +65,9 @@ A data type is the classification of what we store in a variable. Text and numbe
 | Data Type | Name | Example |
 |------|------|------------ |
 | Text | String | "Hello World" |
-| Number | int | 5 |
+| Integer | int | 5 |
 | Decimal | double | 5.4 |
-| True/False | boolean | false |
+| Truth value | boolean | false |
 <Note>
 Most data types besides Strings don't have quotation marks, if you put quotations marks around anything (including numbers), they become the String data type. So be careful what data type you use.
 </Note>

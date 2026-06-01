@@ -3,15 +3,16 @@ sidebar_position: 2
 ---
 
 import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
 import JavaRunner from '@site/src/components/JavaRunner'
 
 
 # Basics 102 Logic & Loops
-Now that you know about variables and print statements, it's time to learn some logic. With logical conditions you can control when and why things happen, which help when programming something complex.
+Now that you know about variables and print statements, it's time to learn some logic! Let's define what logic is first.
 
-## Logic
-Within this idea of logic, we have two main ways of creating logic. The first is an if statement, which is basically if condition is true then run some code. A switch statement is a little more complex. A switch statement works off of a state, in which something can be this or that, and based on what state it's in a specific block of code will run.
+## What is Logic
+Logic is when to do something and what to do. **Logical Statements** evaluate a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>condition:</span> is it raining today, and perform <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>an action:</span> bring an umbrella. These kinds of statements help to check certain scenarios in code, and produce a result.
 
 <Quiz questions={[
   {
@@ -22,20 +23,34 @@ Within this idea of logic, we have two main ways of creating logic. The first is
   },
 ]} />
 
+
+## Comparative Operators
+Within logical statements, we evaulate if a condition is true based on comparative operators. This means we check whether something is equal to something else, greater than, less than, and many others.
+
+Here are the operators:
+- `==` This simply evaulates whether something is equal to something else
+- `!=` This evaulates whether something is **NOT** equal to something else
+- `>` and `<` Evaulates whether something is greater than/less than something else
+- `≥` and `≤` checks if something is equal to or greater than/equal to or less than something else
+- `||` This is the or operator. If  **EITHER** this condition is true **OR** this condition is true then run the action
+- `&&` This is the and operator. If **BOTH** this condition is true **AND** this condition is true then run the action
+
+
+
+## Types of Logical Statements
+
+In this section you will learn about 2 types of logical statements:
+- if statements
+- switch cases
+
+These are the most common you'll encounter throughout our code.
+
 ### If Statements
-an if statement is constructed like this:
+An if statement works like this: 
 
-```
-int age = 5;
-if (age == 5) {
-  System.out.println("It worked");
-} else {
-  System.out.println("It didn't work");
-}
-```
+If something is true, perform this action. Seems simple enough right?
 
-Let's break it down. First, inside the parenthesis we have a statement that has to be equal to true for the code to run. In this example, we state that age == 5 inside the parenthesis. The computer then evaulates that statement, and returns a true or false. **Double equal signs means debating whether a statement is true or false!!!** Now, if this statement was false, it would default back to the else statement. You can also modify the else statement. for instance:
-
+Here's how we create an if statement:
 
 ```
 int age = 3;
@@ -48,9 +63,33 @@ if (age == 5) {
 }
 ```
 
+Let's break this down:
+- `age` is a variable we are evaluating
+- `if` is the keyword to symbolize an if statement
+- `(age == 5)` is the condition, it checks if age is equal to 5.
+- `System.out.println("So old);` is the action. If the condition is true then this gets run
+- `else if (age == 3)` is the secondary condition, if the first one is wrong, `else if` checks the second condition and evualtes it.
+- `else` This is the fallback. If all conditions are false, anything other condition returns the default output.
+<Note>
+The double equal sign: `==` is used to check conditions, and is different from assigning values to variables: `=`
+</Note>
+
 In This scenario, we go through each statement and evaulate it in the same if block, and this way we don't need 2 separate if statements, and we don't need nested if statements. 
 
-But, what if you have many values that you are comparing one value to, then you don't want a whole list of unreadable if statements. That's where switch statements come in.
+ <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Here's the challenge:</span>
+
+ Create you're own if statement that acts like a bouncer at a club, if you're older than 18, print "permission granted", if not, print "Too young", if anything else, print "Not applicable"
+
+<JavaRunner
+  starterCode={`public class Main {
+    public static void main(String[] args) {
+        // Your code here
+        // Produce an if statement given the task above, make sure to include a variable for age
+
+    }
+}`}
+/>
+
 
 <Quiz questions={[
   {
@@ -83,6 +122,10 @@ But, what if you have many values that you are comparing one value to, then you 
   }
 ]}
  />
+
+But, what if you have many values that you are comparing one value to, then you don't want a whole list of unreadable if statements. That's where switch statements come in.
+
+
 
 
 ### Switch Statements
@@ -124,7 +167,7 @@ switch (month) {
 System.out.println(monthName);
 ```
 
-Where the output would be February because month = 2.
+The output would be 2 in this case (no pun intended)
 
 <Quiz questions={[
   {
@@ -160,21 +203,32 @@ Where the output would be February because month = 2.
 
 ## Loops
 
-Next up, we have loops. We now step away from if..then.. blocks and move towards blocks of code that loop, either continually until a condition is met, or until it goes through every part of a set.
+Now we're going to move away from logical statement and move towards another topic: <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Loops</span>
+
+There are two types of loops we'll learn about:;
+-  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>For Loops</span> These are loops that go until a condition is met, and have a continually increasing/decreasing counter
+-  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>While Loops</span> These are loops that can go forever, or until a condition is met
+
+Let's start with For Loops
 
 
 ### For Loops
 
-Think of a `for` loop as a way to automate a task you want to repeat a specific number of times. If you were told to write "I will not talk in class" 100 times on a chalkboard, a for loop is the robot you'd build to do it for you.
+Think of a for loop as a way to complete a task you want to repeat a specific number of times. If you wanted to get all the item inside an  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Array</span> you would use a **FOR LOOP**
 
-The Three Parts of a for Loop
-To make the loop work, you need to tell Java three things inside the parentheses:
 
-Initialization: Where do we start? (e.g., Start at count 1).
+#### The 3 Parts of a For Loop
+To make the loop work, you need to tell Java 3 things inside the parentheses:
 
-Condition: When do we stop? (e.g., Keep going as long as the count is 10 or less).
+- Initialization: Where do we start? (e.g., Start at count 1).
 
-Update: How do we change the count each time? (e.g., Add 1 to the count).
+- Condition: When do we stop? (e.g., Keep going as long as the count is 10 or less).
+
+- Update: How do we change the count each time? (e.g., Add 1 to the count).
+
+<Note>
+The condition usually involves the counter and another item, you will almost never see a condition without the counter
+</Note>
 
 Here is an example:
 ```
@@ -183,7 +237,13 @@ for (int i = 1; i <= 5; i++) {
 }
 ```
 
-We can clearly see that we have a counter that runs through 5 times and constantly updates. In our real code, we use this for vision and loop through targets. Numbers, lists, and combinations of items are all things that we use for loops for!.
+In this example:
+- `(int i = 1; i <= 5; i++)` is the condition. It contains the counter: `i`, the condition: `i <= 5`, and the update: `i++`
+- `System.out.println("Iteration number: " + i);` runs every iteration. Essentially: the code will run once, then update, then run again. This loop continues until the condition is false.
+<Note>
+Note the use of semicolons within the for loop, all three parts of the loop have a semicolon after them
+</Note>
+
 
 <Quiz questions={[
 {
@@ -219,28 +279,31 @@ explanation: "The initialization (e.g., int i = 0) happens only at the very begi
 Next up we have While Loops, which are a bit simpler to understand.
 
 ### While Loops
-A while loop is like a "repeat until" command. If a for loop is a robot that runs a specific number of laps, a while loop is a robot that keeps scrubbing the floor until the floor is clean. You don't necessarily know how many "scrubs" it will take; you just know it needs to keep going as long as the condition is true.
+A while loop is like a "repeat until" command. If a for loop is a robot that runs a specific number of laps, a while loop is a robot that keeps scrubbing the floor until the floor is clean.
 
-How it works
-The computer checks the condition before running the code.
+How it works:
 
-Check the condition: Is it true?
+- The computer checks the condition before running the code.
 
-Run the code: If yes, do the task inside the braces.
+- Check the condition: Is it true?
 
-Repeat: Go back to step 1.
+- Run the code: If yes, do the task inside the braces.
+
+- Repeat: Go back to step 1.
+
+
 ```
 int batteryLevel = 3;
 
 while (batteryLevel > 0) {
     System.out.println("Phone is on. Battery: " + batteryLevel + "%");    
-    batteryLevel--; 
+    break; 
 }
-
-System.out.println("Phone shut down.");
 ```
-
-You can also remove the `batteryLevel--`and the loop will run forever.
+In this example:
+- `(batteryLevel > 0)` is the condition. Since we're never modifying battery level this condition is always true
+- `System.out.println("Phone is on. Battery: " + batteryLevel + "%");` is what runs after every loop. It's the action
+- `break;` This stops the loop after one action. If the `break` wasn't there, this loop would be infinite.
 
 <Quiz questions={[
 {
