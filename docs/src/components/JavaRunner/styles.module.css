@@ -1,0 +1,123 @@
+.root {
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  background: #1e1e1e;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.filename {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btnRun {
+  background: #8B1E1E;
+  color: #fff;
+  border: none;
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnRun:hover:not(:disabled) {
+  background: #a62a2a;
+}
+
+.btnRun:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btnCheck {
+  background: transparent;
+  color: #9ca3af;
+  border: 1px solid #374151;
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btnCheck:hover:not(:disabled) {
+  border-color: #8B1E1E;
+  color: #cc2a2a;
+}
+
+.btnCheck:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Output pane ─────────────────────────────────────────── */
+.outputPane {
+  border-top: 1px solid #2a2a2a;
+  background: #0d0d0d;
+}
+
+.outputHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 1rem;
+  background: #111;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.outputLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4b5563;
+}
+
+.badgeSuccess {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.badgeWrong {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ef4444;
+}
+
+.badgeError {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f97316;
+}
+
+.outputBody {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.85rem;
+  color: #d4d4d4;
+  min-height: 56px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}

@@ -4,6 +4,7 @@ sidebar_position: 2
 
 import Quiz from '@site/src/components/Quiz.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
+import JavaRunner from '@site/src/components/JavaRunner'
 
 
 # Basics 102 Logic & Loops
@@ -279,29 +280,47 @@ explanation: "While loops are great for situations where the end depends on a dy
 
 
 ## Next Steps
+
 If you understand everything, we have a slightly difficult question for you. Use what you've learned so far to solve this problem:
 
-We are trying to find the sum of a series of numbers in which each term is 3x the previous term. The last term is the 12 term, and the first term is 2. Find the sum of all terms
-**Hint**: You will need math for this, it's a simple Algebra question that can be modeled through code.
+We are trying to find the **sum of a geometric series** where each term is **3× the previous term**, the first term is **2**, and there are **12 terms total**.
+
+**Hint:** You'll need a loop and a running total. Think about how the term changes each iteration.
+
+**Hint:** If you do not know what a Geometric Series is you may find this [resource](https://mathbitsnotebook.com/Algebra2/Sequences/SSGeometric.html) helpful.
+
+When your code is correct, the output should be a single line: `Sum: 531440`
+
+<JavaRunner
+  starterCode={`public class Main {
+    public static void main(String[] args) {
+        // Your code here
+        // Print a single line in the format: Sum: <number>
+
+    }
+}`}
+  expectedOutput="Sum: 531440"
+/>
 
 <details>
   <summary>💡 See the solution</summary>
 
-  This is a **geometric series** where the first term is `2` and the ratio is `3`. Use a for loop to build it up:
+  This is a **geometric series** — first term `2`, ratio `3`, 12 terms. A `for` loop that multiplies by 3 each iteration works perfectly:
+
 ```java
-  int term = 2;
-  int last = 12;
-  int sum = 0;
+int term = 2;
+int last = 12;
+int sum = 0;
 
-  for (int i = 1; i <= last; i++) {
-      sum += term;
-      term *= 3;
-  }
+for (int i = 1; i <= last; i++) {
+    sum += term;
+    term *= 3;
+}
 
-  System.out.println("Sum: " + sum);
+System.out.println("Sum: " + sum);
 ```
 
-  Each iteration multiplies the current term by 3 and adds it to the running total. After 12 terms, the sum is **531440**
+  Each iteration adds the current term to the running total, then triples it. After 12 terms the sum is **531440**.
 </details>
 
 This problem and others like it are just simple examples of how much math and science translate into programming, so if you love those subjects you're in the right place!
