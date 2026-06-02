@@ -25,7 +25,7 @@ function HomepageHeader() {
         <div className={styles.heroText}>
           <Heading as="h1" className={styles.heroTitle}>
             Steel<span> Hawks</span>
-            <span className={styles.heroAccentWord}>Curriculum</span>
+            <span className={styles.heroAccentWord}>Hawk Academy</span>
           </Heading>
 
           <div className={styles.heroCtas}>

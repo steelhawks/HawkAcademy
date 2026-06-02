@@ -240,6 +240,11 @@ for (int i = 1; i <= 5; i++) {
 In this example:
 - `(int i = 1; i <= 5; i++)` is the condition. It contains the counter: `i`, the condition: `i <= 5`, and the update: `i++`
 - `System.out.println("Iteration number: " + i);` runs every iteration. Essentially: the code will run once, then update, then run again. This loop continues until the condition is false.
+
+*Why do we have the counter in the condition?*
+
+This helps to break the loop, once the counter passes the item being compared, the loop will end
+
 <Note>
 Note the use of semicolons within the for loop, all three parts of the loop have a semicolon after them
 </Note>

@@ -47,6 +47,21 @@ Congratulations! You created you're own print statements!
    <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>*HERE'S A CHALLENGE*</span> Create multiple print statements, each telling something different about you. Remember everything displayed should be in quotation marks.  **YOU MUST HAVE SEMICOLONS**
 
 
+## Operators
+These are the arithmetic operators in Java, you should know them as they will pop up in later lessons and can be used with <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**VARIABLES**</span>, which is your next topic
+
+Here are the operators:
+- `+` adding variables or numbers, concatenation
+- `-` subtracting variables or numbers
+- `*` multiplying numbers or variables
+- `/` dividing variables and numbers
+- `%` finding the remainder of a division problem
+
+Now let's jump into variables!
+
+## Variables
+
+
 ### Variables
 You've touched your first line of code! Now, lets get a bit more complicated with something called <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**Variables**</span>
 

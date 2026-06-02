@@ -3,16 +3,28 @@ sidebar_position: 3
 ---
 
 import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
+import SolutionDropdown from '@site/src/components/Dropdown.jsx'
+import JavaRunner from '@site/src/components/JavaRunner'
 
 
-# Basics 103: Methods, Classes, Constructors & Interfaces
+# Basics 103: Methods
+These groups of topic are going to be broken up into two parts. In this part, we're going to be covering two <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**MAJOR**</span> code structures. These code structures are used constantly, so aim to be fluent at these.
 
-In this section we are going to dive deep into a lot of complex topics, so be prepared to cry a bit :). First, we're going to dive into methods.
+
 
 ## Methods
-Methods, or functions, are blocks of code that can be run at anytime. They can contain anything from if statements to lines of code that calculate angles. Functions are useful because instead of writing 40 lines each time you want to do the same thing, you can write 40 lines one time and call the function instead. 
+Methods, or functions, are <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>blocks of code that can be run anytime</span>  They can contain anything from if statements to lines of code that calculate angles.
 
-So how do we create a function. First, you need something called an access modifier. An access modifier is something that makes a function public or private. With a private function, you cannot access it outside the file, but a public function can be accessed anywhere. So first you need an access modifier, in this case we'll go with `public`. Next we need a data type. For now we'll go with `double`. This means that our function has to have a `return` statement, and it has to be a double that is returned. If your function doesn't return anything, put `void`. This means that your function isn't returning one of the data types and is doing something else.
+Functions are useful because instead of writing 40 lines each time you want to do the same thing, you can write 40 lines one time and call the function instead (1 line to call a function)
+
+*What does a function compose of?*
+
+When creating a function, you need 3 (sometimes 4) things:
+- access modifier: `public` or `private`. This either hides the function from other files, or allows other files to call the same function
+- return type: `double`, `int` or any other data type. This means that the output of the function **MUST** be that said data type
+- A name: Every function must have a name, and this is how we call the function
+- **OPTIONAL** parameters: A parameter is essentially something that the function takes in. If a function does the same thing with multiple values, you add a parameter and enter whatever value you need as the parameter
 
 
 Here is an example method:
@@ -22,267 +34,95 @@ public double agePlusValue(int age) {
     return age + 5.4;
 }
 
-System.out.println(agePlusValue(5));
 ```
+Let's break down this function:
+- `public` this is the access modifier. This means any other file can call this file
+- `double` This is the return type. This means that the function must return a double
+-  `agePlusValue` is the name of the function
+- `int age` this is the parameter. it is a variable that's used within the function but isn't clearly defined or assigned a value. **Note all parameters go inside `()`**
 
-In this example, we have `public`, our access modifier. Then we have `double`, our return data type. Inside the parenthesis, we have something called a `parameter`. A parameter is something you input when calling a function, and you manipulate parameters inside the function. Parameters are useful because sometimes the value you are returning will change based on the context of where the function is called. We use parameters a lot in our code.
+To call a function: `agePlusValue(5)`
+
+*Now what's in the function?*
+In the function we have something called a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**return statement**</span> (the `return` keyword notes a return statement)
+
+When a function has a return type, we need a return statement, and the return statement must return the data type.
+
+#### No Return Type
+some functions do something, but don't need to return anything, such as functions that do **actions** instead of **calculations**. These functions that do actions don't need a return type, so what do we put instead. 
+
+We use the `void` keyword. So a function with <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**no return statement**</span> looks like this: `public void agePlusValue(int age)`
 
 ### Shorthand Functions
-Sometimes, a function is only called once in the entire code, and we don't need a name or separate block of code for this function. This function is called a *lambda function* A lambda function is created like this: `() -> whatever goes inside`. Inside the parenthesis we have any parameters needed, however you'll notice there isn't any return type. That's becuase these functions don't return something usually, but do an action. This doesn't mean you can't return anything but it's not normally used for that. s
+Sometimes, a function is only called once in the entire code, and we don't need a name or separate block of code for this function. This function is called a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**lambda function**</span>
 
-**Best Practice** Use parameters until you get to the last instance of your function (e.i. using the same parameter throughout functions until you really have to put a value)
+A lambda function is created like this:
 
-
-
-<Quiz questions={[
-{
-prompt: "What happens if you define a method with the 'void' keyword?",
-options: [
-"The method must return a decimal number",
-"The method will run but does not send a value back to where it was called",
-"The method is private and cannot be seen by other files",
-"The method is empty and contains no code"
-],
-correct: 1,
-explanation: "The 'void' keyword specifically tells Java that the method performs an action but does not provide a return value."
-},
-{
-prompt: "Which part of the method signature allows you to pass external data into the function to be manipulated?",
-options: [
-"The Access Modifier",
-"The Return Type",
-"The Parameter",
-"The Method Name"
-],
-correct: 2,
-explanation: "Parameters act as inputs for a method, allowing it to use different data each time it is called."
-},
-{
-prompt: "If a method is labeled as 'private', where can it be accessed?",
-options: [
-"Anywhere in the entire project",
-"Only within the same file (class) where it was defined",
-"Only inside other methods that are public",
-"It cannot be accessed at all"
-],
-correct: 1,
-explanation: "Private access modifiers restrict the method's use to the specific file it lives in, keeping the logic hidden from the rest of the program."
-}
-]} />
+ ```
+ () -> {
+    System.out.println("Hello this is a lambda function");
+ }
+``` 
+<Note>
+See there isn't any return type in a lambda function, and all parameters go in `()`
+</Note>
 
 
-## Classes
-A class, is a blueprint for an object. For example. What characteristics define the object of a dog. A dog has either thick fur or thin fur. This is an example of what would be in the Dog class. Another one could be color of the dog, size of the dog, etc. These characteristics would go inside of a Class. A class also has methods, which we discussed earlier, and a constructor, which we'll discuss next.
+<span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**IMPORTANT**</span>: Almost all functions you see will be in a class, and within the Steel Hawks programming team we always write functions inside of classes.
 
-How do we create a class. Well, we start with an access modifier, in this case `public`. Next we need the keyword `class`, followed by the name of your class.
 
-```
-public class Dog {
-    private String fur_thickness;
-    private String color;
-    private String name;
+<span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**HERE'S THE CHALLENGE:**</span> Everyone should know the quadratic formula, Create a function that takes **a, b, c** and outputs the **corresponding x values** for the zeroes of the equation.
 
-    public void bark() {
-        System.out.println(name +  " barked");
+Here's a resource to the formula: **[Quadratic Formula](https://en.wikipedia.org/wiki/Quadratic_formula)**
+
+Some things you'll need to know and do:
+- to square anything use `Math.pow(variable, number to be squared by)`
+- to square root anything use `Math.sqrt(variable)`
+- the part of the formula that is under the square root is called the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**discriminant**</span>
+- the return type should be String. we want a statement that includes the two roots
+- The new method should be static, so `public static String whateverFunctionName`
+- The return statement should be `The roots are x1 and x2`
+
+Assume that for this challenge the discriminant is greater than 0, so you'll get real values
+
+<JavaRunner
+  starterCode={`public class Main {
+    public static void main(String[] args) {
+        // call the quadratic function like shown below
+        // System.out.println(quadratic(1, 0, 0)); this is just x^2
+
     }
+
+    // create a new function here, and name it quadratic
+}`}
+/>
+
+<details>
+  <summary>💡 See the solution</summary>
+
+ This is the function that should be called
+
+```java
+public static String quadratic(double a, double b, double c) {
+    double b_squared = Math.pow(b, 2);
+    double discriminant = Math.sqrt(b_squared - (4*a*c));
+
+    double numerator1 = -b + discriminant;
+    double numerator2 = -b - discriminant;
+
+    double x1 = numerator1 / (2 * a);
+    double x2 = numerator2 / (2 * a);
+
+    String statement = "The roots are " + x1 + " and " + x2;
+    return statement;
+
 }
 ```
 
-The way we structure our classes is we define the characteristics of a class outside of the constructor, and assign values inside the constructor. This method of creating characteristics makes code much more readable. 
+  After creating this function, call it in the main function by doing `System.out.println(quadratic(1, 0, 0));`
+</details>
 
-We also included a method, which took the characteristic of name and used it in our method.
+## Next Steps
+This group of topics is too big for one lesson, so we've split it into 3. In the next section, we'll talk about **Classes & Constructors**.
 
-How do you call a class? well you start by creating a variable, but the data type get's replaced with the name of your class. This is called an object. For example, we have the class (blueprint) for an object, then we create an instance of it by following the process mentioned before, and you now have a "phyiscal" instance of that object. For example: `private Dog mark`
-
-<Quiz questions={[
-{
-prompt: "If a 'Class' is a blueprint for a Dog, what is the actual, living dog you create in your code called?",
-options: [
-"A Method",
-"An Access Modifier",
-"An Object (or Instance)",
-"A Constructor"
-],
-correct: 2,
-explanation: "While the class defines what a Dog is, the 'Object' is the actual individual dog (like 'Fido') that exists in the computer's memory."
-},
-{
-prompt: "Why do we define characteristics like 'fur_thickness' and 'name' inside the class but outside of any specific method?",
-options: [
-"So that all methods in the class can see and use those variables",
-"Because Java doesn't allow variables inside methods",
-"To make the code run faster",
-"Because names must always be private"
-],
-correct: 0,
-explanation: "Variables defined at the class level (fields) represent the state of the object and are accessible to all methods within that class, such as your bark() method."
-},
-{
-prompt: "In the provided Dog class, which keyword tells Java that we are defining a new blueprint rather than a method or a variable?",
-options: [
-"public",
-"class",
-"void",
-"String"
-],
-correct: 1,
-explanation: "The 'class' keyword is the specific identifier used to declare a new class in Java."
-}
-]} />
-
-## Constructors
-Constructors are what we run when you create a new object from a class. For example, when you create a new dog from the `Dog` class above, a constructor runs to actually "create" that dog. A code example is provided below:
-
-```
-Dog rufus = new Dog();
-```
-In this example we create a variable with name of `rufus`, data type of `Dog` and we set it equal to `new Dog();`. this just means it's running the constructor for a new object.
-
-**IMPORTANT**: `Dog();` is the constructor, not the entire line.
-
-**ANOTHER WAY**
-
-```
-Dog rufus;
-
-/* inside the constructor code */
-rufus = new Dog();
-```
-> /* */ are comments, comments are things you can write but do not get picked up by the code at all
-
-how do we create a constructor:
-
-```
-public class Dog {
-    private String fur_thickness;
-    private String color;
-    private String name;
-
-    // constructor here:
-    public Dog() {
-        fur_thickness = "thick";
-        color = "brown";
-        name = "hi";
-    }
-}
-```
-> the double backslash // is also for comments
-
-In this example, we label each property of the dog in the constructor, and we learned that the constructor gets run when a new object is created, so it creates a dog with those properties.
-
-The constructor takes the blueprint we made and starts to literally build it, before presenting the finished object (instance) when we call it. This is the basics of how we create files in java. Each file contains one class, or a class within a class, and we call those classes in order to reach the methods inside each class. 
-
-<Quiz questions={[
-{
-prompt: "What is the primary purpose of a constructor in a Java class?",
-options: [
-"To define the access level (public/private) of the file",
-"To initialize the object's state (assign starting values to variables)",
-"To delete an object from memory once the program is finished",
-"To prevent other classes from seeing the internal methods"
-],
-correct: 1,
-explanation: "The constructor's main job is to set up the object's initial data so it is ready for use the moment it is created."
-},
-{
-prompt: "How can you recognize a constructor in a Java class?",
-options: [
-"It always starts with the keyword 'new'",
-"It must have the exact same name as the Class and no return type",
-"It is always named 'init'",
-"It must be the very first line of code in the file"
-],
-correct: 1,
-explanation: "In Java, a constructor must match the class name exactly (e.g., public Dog()) and does not use 'void' or any other return type."
-},
-{
-prompt: "In the line 'Dog myDog = new Dog();', which part specifically triggers the constructor?",
-options: [
-"Dog myDog",
-"=",
-"new Dog()",
-"public class"
-],
-correct: 2,
-explanation: "The 'new' keyword combined with the constructor name is what actually tells Java to allocate memory and run the construction code."
-}
-]} />
-
-
-## Interfaces
-Think of an Interface as a contract or a standardized plug.
-
-Imagine you are a manufacturer of wall clocks. You don’t care if the clock is shaped like a cat, made of wood, or digital—you just need to make sure that whatever battery the customer puts in fits the slot and provides power.
-
-In this scenario, the "Battery" is the Interface. It defines a set of rules:
-
-It must be a certain size.
-
-It must have a positive and negative end.
-
-It must provide electricity.
-
-Any battery (Duracell, Energizer, or a generic brand) can work in your clock as long as it "implements" those battery rules.
-
-In Programming Terms
-An interface tells a class what it must be able to do, but not how it should do it. Think of it like a checklist of required methods. Any class that implements that interface must write code for those methods.
-
-An interface is created like this: `public interface TurretIO {}`. Inside the interface, we would list required methods like this: `void randomMethod();`. To use an interface with a class we do this: `public class Turret implements TurretIO {}`. Then the class writes the actual code for each required method:
-```
-@Override
-public void randomMethod() {
-    // do this, do that
-}
-```
-The @Override tag allows us to use that method and change what it does.
-
-<Quiz questions={[
-{
-prompt: "Which of these best describes an Interface?",
-options: [
-"A blueprint that fully builds an object",
-"A contract that lists actions a class must perform",
-"A private variable that stores data",
-"A method that only works for Dog classes"
-],
-correct: 1,
-explanation: "An interface defines the 'what' (the actions) but leaves the 'how' (the logic) up to the specific class that implements it."
-},
-{
-prompt: "If a class 'implements' an interface but doesn't write the code for one of the required methods, what happens?",
-options: [
-"Java will write the code for you automatically",
-"The program will run but skip that method",
-"The code will fail to compile (it will show an error)",
-"The method becomes private"
-],
-correct: 2,
-explanation: "A contract is a promise. If a class says it implements an interface, it MUST provide the code for every method listed in that interface, or the code won't build."
-},
-{
-prompt: "Which keyword is used in Java to connect a Class to an Interface?",
-options: [
-"extends",
-"constructor",
-"implements",
-"void"
-],
-correct: 2,
-explanation: "We use the 'implements' keyword to tell Java that a class is going to follow the rules of a specific interface."
-}
-]} />
-
-
-Practice creating characteristics of a Turret class and implementing interfaces with random methods.
-
-
-## Imports
-When you want to access a class from another file, you need to import it. Usually this happens from a dropdown autocomplete menu,
-but you can also manually import it. Imports are important for sharing classes between files. An example of an import would be `import org.steelhawks.util.LoggedTunableNumber`
-You don't have to manually import most things unless the dropdown menu doesn't detect it, in which case you might have a syntax problem.
-
-Sometimes, there are multiple classes with the same name, so make sure you import the right thing!
-
-
-
-**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You now know the very basics of java needed to help you start your robotic programming journey. Be warned, this is just the beginning, if you found any ideas difficult talk to a lead programmer to help you better understand everything. If you are confident in your skills, you may now move onto WPILIB Basics, which includes getting set up, hardware, and some basic programming concepts.**
+<span style={{color: '#8f0f0f', fontWeight: 'bold', fontSize: '30px'}}>**You may move on to the next section!**</span>

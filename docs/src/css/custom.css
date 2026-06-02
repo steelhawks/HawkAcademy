@@ -98,6 +98,83 @@
   --prism-color: #333333;
 }
 
+/* <details> / <summary> collapsible blocks */
+/* Override Docusaurus's alert--info blue theme on details */
+details,
+details.alert,
+details.alert--info {
+  --docusaurus-details-decoration-color: #dc143c;
+  --ifm-alert-background-color: #111111;
+  --ifm-alert-border-color: #dc143c;
+  background-color: #111111 !important;
+  border: 1px solid #2a0a0a !important;
+  border-left: 4px solid #dc143c !important;
+  border-radius: 0 6px 6px 0 !important;
+  padding: 0.75rem 1.25rem !important;
+  margin: 1.5rem 0 !important;
+  color: #e8e0e0 !important;
+  overflow: hidden;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #dc143c !important;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Recolor the Docusaurus built-in CSS triangle arrow */
+details > summary::before {
+  border-color: transparent transparent transparent #dc143c !important;
+}
+
+details[open] summary {
+  margin-bottom: 0.75rem;
+}
+
+details p,
+details li {
+  color: #e8e0e0;
+}
+
+details code {
+  background-color: #1f0808;
+  color: #ff6b6b;
+  border: 1px solid #3d1010;
+  border-radius: 4px;
+  padding: 0.1em 0.45em;
+  font-size: 0.88em;
+}
+
+[data-theme='light'] details,
+[data-theme='light'] details.alert,
+[data-theme='light'] details.alert--info {
+  --docusaurus-details-decoration-color: #8b1e1e;
+  background-color: #fff5f5 !important;
+  border-color: #f5c0c0 !important;
+  border-left-color: #dc143c !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme='light'] details summary {
+  color: #8b1e1e !important;
+}
+
+[data-theme='light'] details > summary::before {
+  border-color: transparent transparent transparent #8b1e1e !important;
+}
+
+[data-theme='light'] details code {
+  background-color: #fdf0f0;
+  color: #b91c1c;
+  border-color: #f5c0c0;
+}
+
 /* Fenced code blocks */
 :root {
   --prism-background-color: #110808;
