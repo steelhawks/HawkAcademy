@@ -76,8 +76,8 @@ See there isn't any return type in a lambda function, and all parameters go in `
 Here's a resource to the formula: **[Quadratic Formula](https://en.wikipedia.org/wiki/Quadratic_formula)**
 
 Some things you'll need to know and do:
-- to square anything use `Math.pow(variable, number to be squared by)`
-- to square root anything use `Math.sqrt(variable)`
+- to square anything use `Math.pow(variable, number);` for 8² write `Math.pow(8, 2);`
+- to square root anything use `Math.sqrt(variable);`
 - the part of the formula that is under the square root is called the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**discriminant**</span>
 - the return type should be String. we want a statement that includes the two roots
 - The new method should be static, so `public static String whateverFunctionName`
@@ -123,6 +123,6 @@ public static String quadratic(double a, double b, double c) {
 </details>
 
 ## Next Steps
-This group of topics is too big for one lesson, so we've split it into 3. In the next section, we'll talk about **Classes & Constructors**.
+This group of topics is too big for one lesson, so we've split it into 2. In the next section, we'll talk about **Classes, Constructors & Interfaces**.
 
 <span style={{color: '#8f0f0f', fontWeight: 'bold', fontSize: '30px'}}>**You may move on to the next section!**</span>

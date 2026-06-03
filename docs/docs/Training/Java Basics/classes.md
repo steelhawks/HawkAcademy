@@ -7,30 +7,66 @@ import Note from '@site/src/components/Note.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
 import JavaRunner from '@site/src/components/JavaRunner'
 
-# Basics 103: Classes & Constructors
+# Basics 103: Classes, Constructors & Interfaces
+In this section we'll learn about classes, a major part of all code, and constructors. This topic is a bit dense so read carefully and ask questions when needed.
 
 ## Classes
-A class, is a blueprint for an object. For example. What characteristics define the object of a dog. A dog has either thick fur or thin fur. This is an example of what would be in the Dog class. Another one could be color of the dog, size of the dog, etc. These characteristics would go inside of a Class. A class also has methods, which we discussed earlier, and a constructor, which we'll discuss next.
 
-How do we create a class. Well, we start with an access modifier, in this case `public`. Next we need the keyword `class`, followed by the name of your class.
+*What is a class?*
+
+A class is a blueprint for an object. *What does this mean?* This means, a class defines the characteristics of something.
+
+For example: What characteristics define the object of a dog. 
+- Name
+- Fur type (thick or thin)
+- Color (light or dark)
+- Size (big or small)
+- Type of dog (maybe it's a dalmation)
+
+These characteristics are all listed in a class.
+
+
+
+How do we create a class. Well, we start with an access modifier, in this case `public`. Next we need the keyword `class`, followed by the name of your class. 
+<Note>
+Most classes start with public, we rarely have private classes in our code and they aren't really applicable
+</Note>
 
 ```
 public class Dog {
+    // characteristics
     private String fur_thickness;
     private String color;
     private String name;
 
+    // some method here
     public void bark() {
         System.out.println(name +  " barked");
     }
 }
 ```
+:::note
+remember `//` is used to note comments, which don't get run by the code
+:::
 
-The way we structure our classes is we define the characteristics of a class outside of the constructor, and assign values inside the constructor. This method of creating characteristics makes code much more readable. 
+Let's break this down:
+- `public class Dog` is the class name, which is `Dog`
+- `private String fur_thickness;` is a variable, with a data type of string. It represents a characteristic. Notice we don't assign any value to the variable, we do that later in something called the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**constructor**</span>
+- `public void bark() {}` is a method within the function, relating to what a dog does. These are action functions, and we don't have a return statement.
 
-We also included a method, which took the characteristic of name and used it in our method.
+Now the main question is: *How does one create a new Dog?*
 
-How do you call a class? well you start by creating a variable, but the data type get's replaced with the name of your class. This is called an object. For example, we have the class (blueprint) for an object, then we create an instance of it by following the process mentioned before, and you now have a "phyiscal" instance of that object. For example: `private Dog mark`
+How do you create an object (instance) based off of the blueprint (class). Here's an example:
+
+```
+public Dog rufus = new Dog();
+```
+
+Here's what each part means:
+- `public` is an access modifier, meaning any file can access rufus
+- `Dog` is the data type. Whatever class we want to create an object off, we use the class name as a data type
+- `rufus` is the name of the dog
+- `new Dog();` this essentially just means we're creating a new object.
 
 <Quiz questions={[
 {
@@ -69,26 +105,24 @@ explanation: "The 'class' keyword is the specific identifier used to declare a n
 ]} />
 
 ## Constructors
-Constructors are what we run when you create a new object from a class. For example, when you create a new dog from the `Dog` class above, a constructor runs to actually "create" that dog. A code example is provided below:
+Constructors are a bit of a complex topic. <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>A constructor is a *packager*</span> It assigns the characteristic's values and packages it all up. 
+
+Here's an example:
+- We define a Dog, and give it blank characteristics
+- A constructor gives the dog specific qualities
+- We call a new dog off that type, with the qualities that the constructor packaged
+
+Remember this example:
 
 ```
-Dog rufus = new Dog();
+public Dog rufus = new Dog();
 ```
-In this example we create a variable with name of `rufus`, data type of `Dog` and we set it equal to `new Dog();`. this just means it's running the constructor for a new object.
 
-**IMPORTANT**: `Dog();` is the constructor, not the entire line.
+We said that `new Dog();` creates a new dog, but `Dog();` is actually the constructor being called.
 
-**ANOTHER WAY**
+<span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Think about this:</span> if `public Dog rufus` is a variable, and it's value is `new Dog();`, then you could assign the value of the variable later. It's something we do often.
 
-```
-Dog rufus;
-
-/* inside the constructor code */
-rufus = new Dog();
-```
-> /* */ are comments, comments are things you can write but do not get picked up by the code at all
-
-how do we create a constructor:
+Here's an example of a constructor
 
 ```
 public class Dog {
@@ -104,11 +138,27 @@ public class Dog {
     }
 }
 ```
-> the double backslash // is also for comments
+<Note>
+Notice how the constructor has the same name as the class, and looks like a method without the return type
+</Note>
 
-In this example, we label each property of the dog in the constructor, and we learned that the constructor gets run when a new object is created, so it creates a dog with those properties.
+In the constructor we assign values for all of the specific characteristics we have. Sometimes we want them to be specific to each dog, so we make them parameters. Here's an example below:
 
-The constructor takes the blueprint we made and starts to literally build it, before presenting the finished object (instance) when we call it. This is the basics of how we create files in java. Each file contains one class, or a class within a class, and we call those classes in order to reach the methods inside each class. 
+```
+public class Dog {
+    private String fur_thickness;
+    private String color;
+    private String name;
+
+    public Dog(String thickness, String color, String name) {
+        this.fur_thickness = thickness;
+        this.color = color;
+        this.name = name;
+    }
+}
+```
+Let's explain:
+- `String thickness, String color, String name` are parameters, when you create a new Dog (object), you specify these qualities, and this constructor packages these values.
 
 <Quiz questions={[
 {
@@ -165,7 +215,13 @@ Any battery (Duracell, Energizer, or a generic brand) can work in your clock as 
 In Programming Terms
 An interface tells a class what it must be able to do, but not how it should do it. Think of it like a checklist of required methods. Any class that implements that interface must write code for those methods.
 
-An interface is created like this: `public interface TurretIO {}`. Inside the interface, we would list required methods like this: `void randomMethod();`. To use an interface with a class we do this: `public class Turret implements TurretIO {}`. Then the class writes the actual code for each required method:
+An interface is created like this: `public interface TurretIO {}`. 
+
+Inside the interface, we would list required methods like this: `void randomMethod();`.
+
+
+ To use an interface with a class we do this: `public class Turret implements TurretIO {}`. Then the class writes the actual code for each required method:
+ 
 ```
 @Override
 public void randomMethod() {
@@ -215,12 +271,15 @@ Practice creating characteristics of a Turret class and implementing interfaces 
 
 
 ## Imports
-When you want to access a class from another file, you need to import it. Usually this happens from a dropdown autocomplete menu,
-but you can also manually import it. Imports are important for sharing classes between files. An example of an import would be `import org.steelhawks.util.LoggedTunableNumber`
-You don't have to manually import most things unless the dropdown menu doesn't detect it, in which case you might have a syntax problem.
+When you want to access a class from another file, you need to **import it** Usually this happens from a dropdown autocomplete menu,
+but you can also manually import it.
+
+
+An example of an import would be `import org.steelhawks.util.LoggedTunableNumber`
 
 Sometimes, there are multiple classes with the same name, so make sure you import the right thing!
 
+## Next Steps
+**You have now completed all Java Basics lessons**
 
-
-**Once you are done, you have officially completed the basic Java section. CONGRATULATIONS!!!! You now know the very basics of java needed to help you start your robotic programming journey. Be warned, this is just the beginning, if you found any ideas difficult talk to a lead programmer to help you better understand everything. If you are confident in your skills, you may now move onto WPILIB Basics, which includes getting set up, hardware, and some basic programming concepts.**
+Please move on to WPILIB Basics, where you'll learn to setup WPILIB and work on robot code
