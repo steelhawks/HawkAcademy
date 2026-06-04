@@ -2,29 +2,60 @@
 sidebar_position: 2
 ---
 
+import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
+import SolutionDropdown from '@site/src/components/Dropdown.jsx'
+import JavaRunner from '@site/src/components/JavaRunner'
+
+
 # Explore WPILIB VSCode
+In this section we'll get you familiarized with WPILIB VSCode. Here are the main points we'll cover:
+- How to create a new project
+- Running, simulating, and deploying your new project
+- Basic File Structure
+- Vendordeps
 
-In This section we will explore how to create a project, the file structure behind a project how we would create our 2026 project.
+*Ready?*
 
-## Create a Project through WPILIB 
+Let's dive in!
 
-After opening up, you should be on the welcome page, click the little icon of WPILIB on the top right corner, and type in Create New Project, then click enter:
+## Creating A New Project
+
+To open up vscode go to the start menu and search for it. On a mac press `cmd + space` to search for it. After opening it up you should see something like the image below:
 
 ![Alt text](../../../static/img/wpilib-icon.png)
 
-Alternatively, you can do `ctrl + shift + p` or `cmd + shift + p` on mac and type WPILIB Create new project, then click enter.
+click the little icon of WPILIB on the top right corner, and type in Create New Project, then click enter.
+
+Alternatively, you can do `ctrl + shift + p` or `cmd + shift + p` on mac and type `WPILIB Create new project`, then click enter.
 
 After you do that you should be on a page similar to this:
 
 ![Alt text](../../../static/img/create-project.png)
 
-From here, fill template not example, java not cpp, and search Command Robot as a base. This is the most common type that is normally used, however we use something called a LoggedRobot, which you will learn about later. 
+Here's how you fill it out:
+- Choose the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Template</span>  box
+- Choose  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Java</span>
+- Search for  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Command Robot</span>. This is most common, but we use something a little bit different called  <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Logged Robot</span>  
+- You'll need to select a project name, and then fill out our team number: <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>2601</span>
 
-After selecting the folder you want it to be in, naming the project: "Curriculum", and giving our team number **(you should know it)**: 2601, click Generate Project.
-> Remember the name Curriculum, as we will go back to it after all this setup is done.
+After all the information is correct, check with a lead programmer and then click **Generate Project**
+
+## Running Your Project
+We can do three things with our project:
+- `Build` this allows us to make sure there are no syntax errors
+- `Simulate` This allows us to simulate real robot code ona virtual robot, where we can test mechanisms, autonomous routines, or trajectories
+- `Deploy` This allows us to send our code to the real robot and have our code running on the real robot
+<Note>
+Syntax means structure of language. Just like normal languages, Java has grammar. `Build` checks if your grammar is wrong
+</Note>
+
+All three of these actions can be run by opening the command palette. Do either `ctrl + shift + p` or `cmd + shift + p` to open up the command palette, then search `WPILIB` and either build, simulate, or deploy.
+
+For now, try building and simulating your project. We'll use simulate later with autonomous pathing!
 
 ## File Structure
-Here is where we will explore the folders and files of this project. It's ok not to know much, and you will get used to everything later once you learn a bit of basic java. If you have any questions at this point or are very confused/lost, please reach out to a lead programmer and they will help you. 
+Now it's time to review the files and folders that make up our project. You should know how to navigate through the basic structure in order to properly program mechanisms
 
 ### RobotContainer.java and Robot.java
 
