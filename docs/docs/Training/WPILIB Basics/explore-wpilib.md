@@ -50,14 +50,27 @@ We can do three things with our project:
 Syntax means structure of language. Just like normal languages, Java has grammar. `Build` checks if your grammar is wrong
 </Note>
 
-All three of these actions can be run by opening the command palette. Do either `ctrl + shift + p` or `cmd + shift + p` to open up the command palette, then search `WPILIB` and either build, simulate, or deploy.
+All three of these actions can be run by opening the **command palette.** Do either `ctrl + shift + p` or `cmd + shift + p` to open up the command palette, then search `WPILIB` and either build, simulate, or deploy.
 
 For now, try building and simulating your project. We'll use simulate later with autonomous pathing!
+
+Now that you know how to do all of these things, let's move on to File Structure
 
 ## File Structure
 Now it's time to review the files and folders that make up our project. You should know how to navigate through the basic structure in order to properly program mechanisms
 
-### RobotContainer.java and Robot.java
+### Folders
+
+Before we talk about any specific files, we'll talk about some important folders. Here are the main important files and what they do:
+- `generated` This is where we put files that are not made by us, but by third party software
+- `subsystems` This is where we program all our mechanisms for each subsystems
+- `commands` This is where we create <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>**command compositions**</span> You'll learn about these later. 
+
+### Some Important Files
+
+Some important files include these below:
+- `RobotContainer.java` This is where we intialize subsystems and configure the controls of the xbox controller
+- `Robot.java`This is the file that starts the robot up, and runs all of the code to get the robot started
 
 RobotContainer.java is where we **Initialize** our subsystems and configure our controllers. **A subsystem is a specific part of our robot**, such a robot arm, our wheels and driving system (called the drivetrain), and any other mechanisms we want. For example, last year we had a rotating shooter. This is an example of a subsystem that we would be programming.
 
