@@ -70,30 +70,18 @@ Before we talk about any specific files, we'll talk about some important folders
 
 Some important files include these below:
 - `RobotContainer.java` This is where we intialize subsystems and configure the controls of the xbox controller
-- `Robot.java`This is the file that starts the robot up, and runs all of the code to get the robot started
+- `Robot.java` This is the file that starts the robot up, and runs all of the code to get the robot started
+- `Main.java` When you run the build, deploy or simulate the program, this is the file that's looked at. We don't touch this file, but it is the one that makes the robot run. 
 
-RobotContainer.java is where we **Initialize** our subsystems and configure our controllers. **A subsystem is a specific part of our robot**, such a robot arm, our wheels and driving system (called the drivetrain), and any other mechanisms we want. For example, last year we had a rotating shooter. This is an example of a subsystem that we would be programming.
-
-Robot.java is our main robot loop. This means that every 20 milliseconds, we are monitoring the robot. We also  **Initialize** our robot container. These things are a necessity for our robot to run. Robot.java isn't touched that much, and we mainly do all of our configurations in RobotContainer.java.
 
 ![Alt text](../../../static/img/robot-robotcontainer.png)
 > P.S. It's ok if you don't know what some of the code is in the image. These are relatively advanced concepts, and will definitely be covered. If you're curious about them ask a lead programmer.
 
 
-### Subsystems
-
-This is where we will create our subsystems (big parts of the robot), we usually have a folder for each subsystem, which consists of five files you will dive into later. These five files allow for us to have immense control over the mechanisms and create a boilerplate pattern based way to program each subsystem, making this easy peasy. Each subsystem would look something like this:
-
-
-![Alt text](../../../static/img/subsystem.png)
-
-
-
-### Commands
-
-We will cover commands in depth later too, but they are a way of basically telling a robot what do specifically, and are capable of being modified to create a combination of commands, which streamline effiency. Don't worry about this folder too much yet.
 
 
 ## Next Steps
 
-Good Job! You have sucessfully downloaded and installed WPILIB, created your first project, and learned about subsystems and our main files. Now it's time to delve into actual programming, but before that you have 1 more topic to complete: hardware. We use specialized hardware in robotics, and it's important to know what each component does.  You can now move onto the next section **Hardware 101**
+Good Job! You have sucessfully downloaded and installed WPILIB, created your first project, and learned about the file and folder structure and our main files. 
+
+In engineering there are many pieces of unique and special components. We program and utilize these components a lot, so in the next section we'll learn more about the components we use and how we use them as programmers. 
