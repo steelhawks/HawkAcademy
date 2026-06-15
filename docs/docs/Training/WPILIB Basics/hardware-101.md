@@ -4,19 +4,42 @@ sidebar_position: 3
 
 
 import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
+import SolutionDropdown from '@site/src/components/Dropdown.jsx'
+import JavaRunner from '@site/src/components/JavaRunner'
+
+
 
 
 # Hardware 101
-Welcome to Hardware 101! Congratulations again on completing basic java! I know it was hard, and you're still a bit confused, but with practice you'll get better. You have to have faith in the learning process. In this section we'll cover the different pieces of electrical equipment we program and use, as well as how they are all connected. When you're ready, let's begin!
+Welcome to <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Hardware 101</span> This section is broken up into two parts. In the first part we'll introduce each component. In the second part we'll explain function and how each component interacts with others. All hardware shown here has it's own documentation, which could be an excellent extra resource if needed.
+
+## Vocab
+All vocab will be highlighted in bold, and you can find the definitions here:
+- **Brownout** is when the mechanisms draw too much power from the battery, so things don't work properly
+- **CANBus** A network of signals (like your wifi) that transmit data to and from motors
+- **IO** Connection points where you can send information out or in.
+- **PMW** controls how much power mechanisms/motors get by pulsing power to the mechanism
+- **LED's** These are small lightbulbs that are used often in robotics.
 
 ## Systemcore
 
-Welcome to our first piece of equipment. The systemcore is the 2027 brain of our robot. This is similar to a computer. It contains a cpu, and processes all our code. We then connect everything to the systemcore and then it runs our code on the correct mechanisms. The main breakdown of ports and information of the Systemcore is here: **[Systemcore Docs](https://downloads.limelightvision.io/documents/systemcore_specifications_june15_2025_alpha.pdf)**
-Some pertinent information inlcudes it has 5 CANBus interfaces and It has io ports and also pmw ports, as well as addressable LED (which we use for our led's). It also has brownout protection.
+Welcome to our first piece of equipment! The systemcore is the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>brain</span> of our robot. It is the reason any of our code works!
 
+Here's what it can do and what is has:
+- Process all our code. It is similar to a mini computer and processes all our code
+- Connect to all the other components
+- **Brownout** protection
+- 5 **CANBus** interfaces
+- **IO/PMW** ports
+- **LED's**
+<Note>
+As of Summer 2026 the Systemcore hasn't been released and this section will be updated when more is known
+</Note>
 
+This is the basis of the Systemcore. To find specific information look at their spec documentation here: **[Systemcore Docs](https://downloads.limelightvision.io/documents/systemcore_specifications_june15_2025_alpha.pdf)**
 
- You might be asking how do we send code to systemcore, well, checkout the radio section for information about how we send code.
+Now let's move on to another key component of the robot: <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>The Radio</span>
 
 ## Radio
 The radio is what we use to deploy code on the robot. It broadcasts a wifi signal, and we connect to it's wifi, then we click deploy robot code. When we deploy, the radio connects to the systemcore and then sends the code, which then get's processed. We do something called radio tethering, to learn more about it go to this link: **[FRC Radio Programming](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/radio-programming.html)**. The radio is extremely important in having a succesful robot, and we will talk more about radio tethering in Hardware 102
