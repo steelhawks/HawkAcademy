@@ -66,7 +66,7 @@ You *could* imagine throwing every motor for the whole robot into one giant file
 
 **Encapsulation** means hiding the complicated inner workings of something behind a small, clean set of controls. You already use encapsulation every day: a car has a steering wheel and pedals. You don't reach into the engine to turn — you turn the wheel, and the messy engine stuff is *hidden* behind that simple control.
 
-A subsystem does the same thing for a mechanism. Open our intake, `subsystems/intake/Intake.java`, and you'll find it's **almost 400 lines long** — trapezoid motion profiles, current-based homing, stall detection, feedforward math. That's the "engine." But the rest of the robot never has to touch any of that. It only sees a handful of simple controls, like:
+A subsystem does the same thing for a mechanism. Open our intake, `subsystems/intake/Intake.java`, and you'll find it's **several hundred lines long** — trapezoid motion profiles, current-based homing, stall detection, feedforward math. That's the "engine." But the rest of the robot never has to touch any of that. It only sees a handful of simple controls, like:
 
 ```java
 // From subsystems/intake/Intake.java — the clean "outside" of the intake
@@ -125,6 +125,9 @@ It has two parts:
 ```java
 // subsystems/indexer/IndexerIO.java
 public interface IndexerIO {
+
+    // SpindexerIOInputs is defined right here too, the same way as FeederIOInputs
+    // (its own @AutoLog class of motor1.../motor2... fields) — omitted for brevity.
 
     @AutoLog
     class FeederIOInputs {
@@ -210,6 +213,15 @@ public void setDesiredState(State state) {
 
 So the rest of the robot never says "set the intake motor to 0.3 meters." It says `setDesiredState(State.INTAKE)` — a goal, not a raw command. The subsystem figures out the rest. That single idea is the whole reason we call ourselves a state-machine team, and the **State Machines** page (next) goes much deeper into it.
 
+<Note title="Two flavors of subsystem (read this)">
+Not every subsystem has a converging <code>desiredState</code> field. In practice we write two kinds:
+<ul>
+<li><strong>Position / goal mechanisms</strong> (intake, elevator, turret) — like the one above. They hold a <code>desiredState</code>/<code>desiredGoal</code> field, expose <code>setDesiredState(...)</code>, and <code>periodic()</code> runs a motion profile that <em>converges</em> toward the goal. Their enum values are <strong>targets</strong> (positions, angles).</li>
+<li><strong>Simpler output mechanisms</strong> (indexer, rollers) — no goal field to converge to. They're driven directly by <strong>command factories</strong>, and their enum values are <strong>output presets</strong> (voltages/percentages), not targets.</li>
+</ul>
+Being a "state-machine team" means a subsystem tracks <em>what it's trying to do</em> instead of scattering "if button pressed, spin motor" logic everywhere — but how literally that becomes a converging <code>desiredState</code> loop depends on the mechanism. The intake above is the full version; the <strong>Indexer</strong> we dissect below is the simpler kind, so don't expect to find a <code>desiredState</code> field in it.
+</Note>
+
 <Note title="New term: enum">
 An <code>enum</code> ("enumeration") is a Java type with a fixed list of named values. <code>State.HOME</code>, <code>State.INTAKE</code>, <code>State.CENTER_OF_MOTION</code>, <code>State.RETRACTED</code> — those are the only intake states that can exist, so it's impossible to set the intake to a state that doesn't make sense. Enums are perfect for state machines.
 </Note>
@@ -243,8 +255,15 @@ public void periodic() {
 
 For job #2, the intake's `periodic()` looks at its `goal` and runs a motion profile toward it every loop. That math is advanced (it belongs to the **control theory** material, not here), but the shape is simple: *read inputs → log them → move toward the desired state.*
 
-<Note title="Two ways things get logged">
-<strong><code>@AutoLog</code> inputs</strong> are sensor readings coming <em>in</em> (velocity, current, temperature) — logged automatically. <strong><code>Logger.recordOutput("...", value)</code></strong> is for decisions we compute and want to see, like the intake's <code>"Intake/IsHomed"</code> flag. You'll see both all over our subsystems.
+<Note title="Logging: inputs vs. outputs">
+<strong><code>@AutoLog</code> inputs</strong> are sensor readings coming <em>in</em> (velocity, current, temperature) — logged automatically by <code>Logger.processInputs(...)</code>, as shown above.
+<br /><br />
+For decisions we <em>compute</em> and want to see (outputs), there are two equivalent forms, and you'll see both in our code:
+<ul>
+<li><strong><code>Logger.recordOutput("Intake/IsHomed", value)</code></strong> — an explicit call you write inside <code>periodic()</code>. The intake uses this.</li>
+<li><strong><code>@AutoLogOutput(key = "Indexer/Jammed")</code></strong> — an annotation on a method or field that does the same thing automatically. The indexer uses this (you'll see it on <code>isJammed()</code> in the anatomy below).</li>
+</ul>
+Both publish a value to AdvantageScope; pick whichever fits. They're just two ways to log an output.
 </Note>
 
 ### 5. A small public interface — everything else is private
@@ -311,7 +330,9 @@ Let's put every piece together by walking through one real, complete subsystem: 
 // subsystems/indexer/Indexer.java
 public class Indexer extends SubsystemBase {          // ① extends SubsystemBase
 
-    // ③ STATE: the named situations this mechanism can be in
+    // ③ STATE: named output presets this mechanism can run at
+    //    (each value is a motor output, NOT a goal to converge toward —
+    //     the Indexer is the simpler, command-factory-driven kind of subsystem)
     public enum IndexerState {
         RUNNING(1.0, 1.0),
         OUTTAKING(-0.6, -1.0);
@@ -336,7 +357,7 @@ public class Indexer extends SubsystemBase {          // ① extends SubsystemBa
     public void periodic() {                          // ④ heartbeat, every 20 ms
         io.updateInputs(spindexerInputs, feederInputs);          // read hardware
         Logger.processInputs("Indexer/Feeder/Inputs", feederInputs);  // log it
-        ...                                                       // then act on state
+        ...                                                       // then e.g. watch for jams
     }
 
     // ⑤ SMALL PUBLIC INTERFACE: getters + command factories, nothing else
@@ -353,8 +374,8 @@ Read top to bottom, every subsystem we write is that same shape:
 
 1. **`extends SubsystemBase`** — it's a subsystem.
 2. **IO layer** — `IndexerIO io` plus the `@AutoLog` input objects; no raw motors in sight.
-3. **State** — the `IndexerState` enum naming what it can do.
-4. **`periodic()`** — reads + logs the hardware every 20 ms, then acts on state.
+3. **State** — the `IndexerState` enum naming the output presets it can run at (not goal states — this is the simpler, command-factory kind of subsystem, with no `desiredState` field).
+4. **`periodic()`** — reads + logs the hardware every 20 ms (and here, watches for jams).
 5. **Small public interface** — a getter (`isJammed`) and command factories (`feed`); `shouldRun` is private.
 6. **Constants** — handed in through the constructor, never typed inline.
 
