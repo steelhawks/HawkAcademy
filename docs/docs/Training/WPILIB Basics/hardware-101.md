@@ -7,6 +7,7 @@ import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
 import JavaRunner from '@site/src/components/JavaRunner'
+import Caption from '@site/src/components/Caption'
 
 
 
@@ -17,10 +18,12 @@ Welcome to <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Hardware 101</sp
 ## Vocab
 All vocab will be highlighted in bold, and you can find the definitions here:
 - **Brownout** is when the mechanisms draw too much power from the battery, so things don't work properly
-- **CANBus** A network of signals (like your wifi) that transmit data to and from motors
+- **CANBus** A network of signals (like your wifi) that transmit data to and from motors.
 - **IO** Connection points where you can send information out or in.
 - **PMW** controls how much power mechanisms/motors get by pulsing power to the mechanism
 - **LED's** These are small lightbulbs that are used often in robotics.
+- **Main Breaker** A large manual switch that connects or disconnects the battery from the entire robot. Flipping it off cuts all power immediately.
+- **Fuse** A small safety device that breaks a circuit if too much current flows through it, protecting components from damage.
 
 ## Systemcore
 
@@ -39,27 +42,104 @@ As of Summer 2026 the Systemcore hasn't been released and this section will be u
 
 This is the basis of the Systemcore. To find specific information look at their spec documentation here: **[Systemcore Docs](https://downloads.limelightvision.io/documents/systemcore_specifications_june15_2025_alpha.pdf)**
 
-Now let's move on to another key component of the robot: <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>The Radio</span>
+<Caption src="/img/systemcore.png" alt="The Systemcore, the brain of the FRC robot" caption="The Systemcore — the central processing unit of the robot." />
+
+
+
+Now let's move on to another key component of the robot, <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>The Radio</span>
 
 ## Radio
-The radio is what we use to deploy code on the robot. It broadcasts a wifi signal, and we connect to it's wifi, then we click deploy robot code. When we deploy, the radio connects to the systemcore and then sends the code, which then get's processed. We do something called radio tethering, to learn more about it go to this link: **[FRC Radio Programming](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/radio-programming.html)**. The radio is extremely important in having a succesful robot, and we will talk more about radio tethering in Hardware 102
+
+*So what is the radio?* 
+
+The radio is a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>Communication Device</span> It connects to your computer via it's own wifi network, and is the middleman between your computer and the systemcore. 
+
+**Here's how to think about it:**
+
+$$Computer\;\xrightarrow{}\; Radio \;\xrightarrow{}\; Systemcore$$
+
+When we run `Deploy` on our code, it sends it to the radio, which then is connected to the systemcore, the systemcore processes all the code and does what it needs to do for the robot to function.
+<Note title="WPILIB Actions Refresher">
+The `Deploy` feature is one of three features that you can run from the wpilib command palette. If you forgot all about this, visit **Exploring WPILIB VSCode** to jog your memory
+</Note>
+
+### Radio Tethering
+Radio tethering is when we connect one radio to another, amplifying the distance we are able to stay connected in. When implementing radio tethering, here's how it would look:
+
+$$Computer\;\xrightarrow{}\; Driver\;Station\;Radio\;\xrightarrow{}\; Robot\;Radio\;\xrightarrow{}\; Systemcore$$
+
+
+<Caption src="/img/radio.png" alt="The Radio" caption="The current Radio that we have in use" />
+
 
 ## PDP/PDH
 
-The PDP or PDH are used for distributing power everywhere. We connect the battery to a breaker that connects to this device, then we use that power to send power out to the rest of the components that we need. This is like the heart, pumping out power to all the components.
+*So what is the PDP/PDH?*
+
+The PDP (Power Distribution Panel) or PDH (Power Distribution Hub) is the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>heart</span> of the robot's electrical system. Every component that needs power gets it from here.
+
+**Here's how power flows through the robot:**
+
+$$Battery\;\xrightarrow{}\; Breaker\;\xrightarrow{}\; PDP/PDH\;\xrightarrow{}\; Components$$
+
+The battery connects through a **main breaker** into the PDP/PDH, which then distributes power out to motors, the Systemcore, and every other component that needs it. Each output slot has its own **fuse**, so a short in one device won't take down the entire robot.
+
+<Caption src="/img/pdp.png" alt="The Power Distribution Panel/Hub" caption="The PDP/PDH — distributes battery power to all robot components." width="500px"/>
 
 ## Motors
 
-We use a variety of motors, mainly from this company called CTRE. CTRE produces motors called Kraken's, which we mainly use. We also use talon srx's, which is just another type of motor. These motors run everything on our robot from intake to wheels to turret to how we actually move on the floor. These all come with something called a motor controller, which we program and use to set voltage to the motor. 
+Motors are the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>muscles</span> of our robot. They control everything from giant mechanisms to small wheels.
+
+*What does a motor do?*
+A motor spins. That's it. A motor is just a device that spins as fast as you want it to, for as long as you want it to.
+
+*What Kind of Motors do we use?* 
+
+We use a variety of motors, mainly from <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>CTRE</span> 
+
+Motors have four wire ports:
+- **Ground:** Where power leaves
+- **Positive:** Where power enters
+- **CAN High:** Signals enter
+- **CAN Low:** Signals leave
+
+Some of the most common motors we used are called **Kraken x44** and **Kraken x60**
+
+### Motor Controllers vs. Motors
+A motor controller is what we actually program. A motor controller takes the instructions and gives them to the motor so it can spin a certain way. 
+
+Most motors that we use have the motor controller and motor in the same place, not as two separate pieces. 
+
+To visit the CTRE Motors documentation visit this site: **[CTRE DOCS](https://v6.docs.ctr-electronics.com/en/stable/)**
+
+<Caption src="/img/kraken.png" alt="The Power Distribution Panel/Hub" caption="This is one of the motors that we use"/>
+
 
 
 ## Encoders & Cancoders
-What are encoders and cancoders? These are what we use to track the rotation distance of our mechanisms, for example, if a turret rotated 360 degrees, it would have 1 revolution, and 2 pi radians. 
 
-### Encoder vs Cancoder
-An encoder doesn't keep track of motor positions when the motor turns off, but a cancoder keeps track of the motor positions of all time, and it provides useful information for things like **Swerve** angle motors.
+*So how does the robot know where anything is?*
 
-To learn more about Encoders and Cancoders visit this site: **[Encoders](https://docs.wpilib.org/en/stable/docs/hardware/sensors/encoders-hardware.html)**
+Encoders and Cancoders are the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>senses</span> of the robot. Without them, a motor has no idea how far it has spun — it just goes until you tell it to stop.
+
+**Here's how to think about it:**
+
+$$Motor\;Spins\;\xrightarrow{}\; Encoder\;Counts\;\xrightarrow{}\; Code\;Knows\;Position$$
+
+An encoder sits on a motor and counts every rotation. Your code reads that count and uses it to know exactly where a mechanism is — whether that's a turret angle, an arm height, or how far a wheel has traveled.
+
+### Encoder vs. Cancoder
+
+*What's the difference?*
+
+A standard encoder is <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>relative</span> — it starts counting from zero every time the robot powers on. A Cancoder is <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>absolute</span> — it always knows its true position, even after a power cycle.
+
+- **Encoder** — cheap, simple, resets on boot. Fine for things like drive wheels where you only care about distance traveled.
+- **Cancoder** — remembers its angle forever. Essential for **Swerve** steering modules, where the robot needs to know which way each wheel is pointing the moment it turns on.
+
+To learn more visit: **[Encoders](https://docs.wpilib.org/en/stable/docs/hardware/sensors/encoders-hardware.html)**
+
+<Caption src="/img/cancoder.png" alt="A Cancoder in its components" caption="A Cancoder — tracks absolute position across power cycles." />
 
 ## Pneumatics & Solenoids
 Think of pneumatics like a circuit, but instead of electricity flowing through wires, compressed air flows through plastic tubes.
@@ -91,15 +171,26 @@ In Code: It has three states: Forward, Reverse, or Off (Neutral).
 
 
 ## Vision
-We use two types of vision, Photonvision and Limelights. Here we'll discuss both.
 
-### Photonvision
+*How does the robot see the field?*
 
-Photonvision is a software system used for us to detect these QR-code like things called **april tags**. April tags help us identify key points on the game field, which help us complete the objective of the game. For running photonvision software (which you'll learn how it works later) we use something called **arducams**, which are hooked up to a raspberry pi processor that runs some other software. This is a more complex system, but later on we'll break it down for you.
+Vision cameras are the <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>eyes</span> of the robot. They let the robot detect targets on the field and make decisions based on what they see — without any driver input.
+
+**Here's how vision fits into the robot:**
+
+$$Camera\;\xrightarrow{}\; Image\;Data\;\xrightarrow{}\; Processor\;\xrightarrow{}\; Systemcore$$
+
+We use two different camera systems depending on what we need.
+
+### Arducam
+
+An Arducam is a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>lightweight USB camera</span> that streams video to an onboard processor. On its own it's just a camera — the processing happens in software elsewhere. Arducams are small, cheap, and easy to mount anywhere on the robot.
 
 ### Limelight
 
-Last year, we mainly used limelights for advanced vision processing, where we trained an ML model on object detection. Limelights are way heavier, and require a cooler as well. These are mainly for object detection and other processing intensive stuff, whereas photonvision is easier to manipulate.
+A Limelight is a <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>self-contained vision unit</span> — the camera and processor are built into one housing. You plug it in, point it at a target, and it handles all the computation internally before sending results to the Systemcore. Because everything is on-board, Limelights are heavier and generate more heat, but they can handle more processing-intensive tasks like running ML models for object detection.
+
+<Caption src="/img/limelight.png" alt="A Limelight vision camera" caption="The Limelight — an all-in-one camera and vision processor." />
 
 ## Quiz
 <Quiz questions={[
@@ -142,6 +233,6 @@ explanation: "The Power Distribution Panel (PDP) or Hub (PDH) is responsible for
 
 ## Next Steps
 
-Use the links provided to research more about these components, and you'll learn how we wire them in the next section.
+Use the links provided to research more about these components, and you'll learn the connections between them in the next section.
 
-**Now that you've learned the basics, you can move into Hardware 102. You have finished this section**
+**You can move into Hardware 102. You have finished this section!**

@@ -92,3 +92,42 @@
 .noteContent a:hover {
   color: #ff7096;
 }
+
+.captionFigure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 0;
+}
+
+.captionImage {
+  max-width: 100%;
+  border-radius: 6px 6px 0 0;
+  display: block;
+}
+
+.captionText {
+  width: 100%;
+  max-width: 100%;
+  background-color: #111111;
+  border: 1px solid #2a0a0a;
+  border-top: none;
+  border-left: 4px solid #dc143c;
+  border-radius: 0 0 6px 0;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+:global([data-theme='light']) .captionText {
+  background-color: #fff5f5;
+  border-color: #f5c0c0;
+  border-left-color: #dc143c;
+  color: #4a4a4a;
+}
