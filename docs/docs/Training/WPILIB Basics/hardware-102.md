@@ -3,9 +3,16 @@ sidebar_position: 4
 ---
 
 import Quiz from '@site/src/components/Quiz.jsx'
+import Note from '@site/src/components/Note.jsx'
+import SolutionDropdown from '@site/src/components/Dropdown.jsx'
+import JavaRunner from '@site/src/components/JavaRunner'
+import Caption from '@site/src/components/Caption'
+
 
 # Hardware 102
-In this section we'll go through connections and wiring, as well as what radio tethering is. As the build season progresses, you should go and learn from electrical, as whatever we program highly involves electrical data and you should know what you're looking at.
+In this section we'll cover 2 major connections between hardware:
+- **Daisy Chain Wiring:** The way we wire motors and mechanisms to each other
+- **Radio Tethering:** Connecting Radios together
 
 ## Daisy Chain Wiring
 
@@ -38,12 +45,19 @@ Efficiency: All devices share the same "bus," so they can all hear what the brai
 
 ## Radio Tethering
 
-What is radio tethering? Radio tethering is actually very simple. It's when you take one radio and connect to it from your computer, then have the radio on the robot and the radio near your computer connect to each other, allowing for a stronger signal and better communication. The link to achieving radio tethering is hardware 101.
+If you don't remember what radio tethering is, please visit **Hardware 101** 
+
+To achieve radio tethering connect the radio to your computer using an **Ethernet Cable** then go to this website: `http://radio.local/`
+
+After that follow these instructions:
+
+<Caption src="/img/tethering.png" alt="Description of Radio Tethering" caption="How to program the radio" />
+
+**OR**
+
+Visit this site: **[FRC RADIO PROGRAMMING](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/radio-programming.html)**
 
 ## Quiz Time
-It looks like you're building out a great second chapter for the hardware documentation! The Christmas light analogy for Daisy Chaining is a classic for a reason—it makes the concept of a series circuit click instantly.
-
-Here is the quiz for Hardware 102, focusing on wiring logic and radio communication:
 
 <Quiz questions={[
 {
