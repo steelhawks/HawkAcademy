@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 import Quiz from '@site/src/components/Quiz.jsx'
@@ -166,7 +166,9 @@ Here's how all the pieces connect:
 <SolutionDropdown
   label="See how the B button binding from Motors connects to all four phases"
   explanation="When you wrote this in RobotContainer: m_Controller.b().whileTrue(Commands.startEnd(() -> s_Turret.runMotor(0.2), () -> s_Turret.stop(), s_Turret)) — here's what actually happens under the hood:"
-  code={`// initialize() → called once when B is pressed
+  code={`
+  
+// initialize() → called once when B is pressed
 () -> s_Turret.runMotor(0.2)
 
 // execute() → empty, motor keeps spinning from initialize
