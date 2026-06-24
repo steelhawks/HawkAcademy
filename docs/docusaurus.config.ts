@@ -154,8 +154,9 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Steel Hawks Robotics — Team 2601. Built on Docusaurus, heavily modified.`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.vsDark,
+      darkTheme: prismThemes.vsDark,
+      additionalLanguages: ['java'],
     },
   } satisfies Preset.ThemeConfig,
 };

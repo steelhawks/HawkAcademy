@@ -94,8 +94,8 @@
   --docusaurus-highlighted-code-line-bg: rgba(139, 30, 30, 0.1);
   
   /* Code block background for light mode */
-  --prism-background-color: #ffffff;
-  --prism-color: #333333;
+  --prism-background-color: #141414;
+  --prism-color: #d4d4d4;
 }
 
 /* <details> / <summary> collapsible blocks */
@@ -177,22 +177,22 @@ details code {
 
 /* Fenced code blocks */
 :root {
-  --prism-background-color: #110808;
+  --prism-background-color: #141414;
 }
 
 [data-theme='light'] {
-  --prism-background-color: #1a0a0a;
+  --prism-background-color: #141414;
 }
 
 div[class*="codeBlockContainer"] {
-  border: 1px solid #3d1010;
+  border: 1px solid #2a2a2a;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
 [data-theme='light'] div[class*="codeBlockContainer"] {
-  border: 1px solid #3d1010;
+  border: 1px solid #2a2a2a;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   overflow: hidden;
@@ -201,8 +201,8 @@ div[class*="codeBlockContainer"] {
 /* Title bar (language label) */
 div[class*="codeBlockTitle"] {
   border-radius: 10px 10px 0 0;
-  background-color: #1f0808;
-  border-bottom: 1px solid #3d1010;
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
   color: #dc143c;
   font-size: 0.8rem;
   font-weight: 600;
@@ -210,8 +210,8 @@ div[class*="codeBlockTitle"] {
 }
 
 [data-theme='light'] div[class*="codeBlockTitle"] {
-  background-color: #1a0808;
-  border-bottom: 1px solid #3d1010;
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
   color: #ff6b6b;
 }
 
