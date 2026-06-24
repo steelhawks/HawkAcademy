@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -94,7 +96,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(139, 30, 30, 0.1);
   
   /* Code block background for light mode */
-  --prism-background-color: #1E1E1E;
+  --prism-background-color: #1E1E2E;
   --prism-color: #d4d4d4;
 }
 
@@ -175,49 +177,64 @@ details code {
   border-color: #f5c0c0;
 }
 
-/* Fenced code blocks */
+/* ── Fenced Code Blocks ─────────────────────────────────── */
+/* Catppuccin Mocha base — rich dark navy, editor-accurate   */
 :root {
-  --prism-background-color: #1E1E1E;
+  --prism-background-color: #1E1E2E;
+  --hawk-code-font: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
 }
 
-[data-theme='light'] {
-  --prism-background-color: #1E1E1E;
-}
-
+/* Code blocks always stay dark — even in light page mode */
 div[class*="codeBlockContainer"] {
-  border: 1px solid #2a2a2a;
+  border: 1px solid #313244;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
   overflow: hidden;
 }
 
-[data-theme='light'] div[class*="codeBlockContainer"] {
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+/* The <pre> tag that wraps all code */
+div[class*="codeBlockContainer"] pre {
+  background-color: #1E1E2E !important;
+  font-family: var(--hawk-code-font) !important;
+  font-size: 0.88rem !important;
+  line-height: 1.65 !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+/* The <code> inside the pre */
+div[class*="codeBlockContainer"] pre code {
+  font-family: var(--hawk-code-font) !important;
+  font-size: inherit !important;
+  background: transparent !important;
+  color: #CDD6F4;
 }
 
 /* Title bar (language label) */
 div[class*="codeBlockTitle"] {
+  background-color: #181825 !important;
+  border-bottom: 1px solid #313244 !important;
   border-radius: 10px 10px 0 0;
-  background-color: #1a1a1a;
-  border-bottom: 1px solid #2a2a2a;
-  color: #dc143c;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  color: #CBA6F7;
+  font-family: var(--hawk-code-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 1rem;
 }
 
-[data-theme='light'] div[class*="codeBlockTitle"] {
-  background-color: #1a1a1a;
-  border-bottom: 1px solid #2a2a2a;
-  color: #ff6b6b;
+/* Line numbers (if enabled) */
+div[class*="codeBlockContainer"] .token-line {
+  line-height: 1.65;
 }
 
 /* Copy button */
 div[class*="codeBlockContainer"] button[class*="copyButton"] {
   border-radius: 6px;
+  color: #6C7086;
+}
+div[class*="codeBlockContainer"] button[class*="copyButton"]:hover {
+  color: #CDD6F4;
+  background-color: #313244;
 }
 
 /* Inline code (backticks in markdown) */
