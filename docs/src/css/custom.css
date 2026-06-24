@@ -237,6 +237,121 @@ div[class*="codeBlockContainer"] button[class*="copyButton"]:hover {
   background-color: #313244;
 }
 
+/* ══════════════════════════════════════════════════════════
+ * PRISM TOKEN COLORS — Catppuccin Mocha palette            
+ * These CSS rules guarantee color even before JS hydrates. 
+ * Mirrors hawkCodeTheme.ts exactly.                        
+ * ════════════════════════════════════════════════════════ */
+
+/* Comments — muted, italic */
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6C7086 !important;
+  font-style: italic !important;
+}
+
+/* Keywords — bold mauve: public, private, return, class, void, new … */
+.token.keyword,
+.token.builtin {
+  color: #CBA6F7 !important;
+  font-weight: bold !important;
+}
+
+/* Type / class names — sky blue: String, Command, System … */
+.token.class-name {
+  color: #89DCEB !important;
+}
+
+/* Functions / methods — sapphire: println(), run(), withTimeout() … */
+.token.function {
+  color: #89B4FA !important;
+}
+
+/* Annotations — italic green: @Override, @Deprecated */
+.token.annotation {
+  color: #A6E3A1 !important;
+  font-style: italic !important;
+}
+
+/* Strings — peach: "Steel Hawks" */
+.token.string,
+.token.char,
+.token.attr-value,
+.token.template-string,
+.token.template-punctuation {
+  color: #FAB387 !important;
+}
+
+/* Numbers — yellow: 42, 3.14, 0xFF */
+.token.number {
+  color: #F9E2AF !important;
+}
+
+/* Booleans & null — same mauve as keywords */
+.token.boolean,
+.token.null {
+  color: #CBA6F7 !important;
+  font-weight: bold !important;
+}
+
+/* Operators — cyan: =, ->, +, !=, && */
+.token.operator {
+  color: #89DCEB !important;
+}
+
+/* Punctuation — overlay gray: ( ) { } ; . */
+.token.punctuation {
+  color: #9399B2 !important;
+}
+
+/* Variables / parameters — lavender */
+.token.variable,
+.token.attr-name,
+.token.parameter {
+  color: #B4BEFE !important;
+}
+
+/* Properties — teal */
+.token.property {
+  color: #89DCEB !important;
+}
+
+/* Tags (HTML/JSX) — red */
+.token.tag {
+  color: #F38BA8 !important;
+}
+
+/* Selectors (CSS) — mauve */
+.token.selector {
+  color: #CBA6F7 !important;
+}
+
+/* Regex — red */
+.token.regex {
+  color: #F38BA8 !important;
+}
+
+/* Diff: inserted (+) */
+.token.inserted {
+  color: #A6E3A1 !important;
+  background-color: rgba(166, 227, 161, 0.12) !important;
+}
+
+/* Diff: deleted (-) */
+.token.deleted {
+  color: #F38BA8 !important;
+  background-color: rgba(243, 139, 168, 0.14) !important;
+}
+
+/* Diff: changed (~) */
+.token.changed {
+  color: #F9E2AF !important;
+  background-color: rgba(249, 226, 175, 0.10) !important;
+}
+
 /* Inline code (backticks in markdown) */
 :not(pre) > code {
   background-color: #1f0808;

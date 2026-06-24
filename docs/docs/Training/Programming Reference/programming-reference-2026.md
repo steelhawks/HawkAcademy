@@ -107,7 +107,7 @@ Some systems use both feedback and feedforward controllers together.
 
 One of the most common feedback algorithms is the **PID algorithm**.
 
-```
+```java
 u(t) = Kp * e(t) + Ki * ∫e(τ)dτ + Kd * de(t)/dt
 ```
 
@@ -174,7 +174,7 @@ WPILib provides formulas for common mechanisms:
 
 ### Simple Motor Feedforward
 
-```
+```java
 V = Ks * sgn(d') + Kv * d' + Ka * d''
 ```
 
@@ -188,7 +188,7 @@ Where:
 
 ### Elevator Feedforward
 
-```
+```java
 V = Kg + Ks * sgn(d') + Kv * d' + Ka * d''
 ```
 
@@ -196,7 +196,7 @@ Adds **kG** — the voltage to hold the elevator in place, counteracting gravity
 
 ### Arm Feedforward
 
-```
+```java
 V = Kg * cos(θ) + Ks * sgn(θ') + Kv * θ' + Ka * θ''
 ```
 
@@ -560,7 +560,7 @@ AdvantageKit uses an isolated structure with three layers:
 
 Data logging of inputs should occur **between** the control logic and hardware interface — this ensures control logic can be replayed in the simulator.
 
-```
+```java
 Subsystem (public interface → control logic) → IO (hardware interface → hardware implementation)
 ```
 

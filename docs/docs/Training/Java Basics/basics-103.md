@@ -29,7 +29,7 @@ When creating a function, you need 3 (sometimes 4) things:
 
 Here is an example method:
 
-```
+```java
 public double agePlusValue(int age) {
     return age + 5.4;
 }
@@ -58,7 +58,7 @@ Sometimes, a function is only called once in the entire code, and we don't need 
 
 A lambda function is created like this:
 
- ```
+ ```java
  () -> {
     System.out.println("Hello this is a lambda function");
  }

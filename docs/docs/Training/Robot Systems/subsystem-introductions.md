@@ -37,7 +37,7 @@ Look at a physical robot and point at the parts that move on their own:
 Each one of those is a subsystem. In our code, each gets its own folder under
 `src/main/java/org/steelhawks/subsystems/`. If you list that folder in `Rebuilt2026` you'll see exactly this:
 
-```
+```java
 subsystems/
 ├── swerve/        ← the drivetrain
 ├── intake/        ← grabs fuel off the floor
