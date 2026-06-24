@@ -181,19 +181,43 @@ details code {
 }
 
 [data-theme='light'] {
-  --prism-background-color: #fdf0f0;
+  --prism-background-color: #1a0a0a;
 }
 
 div[class*="codeBlockContainer"] {
   border: 1px solid #3d1010;
-  border-left: 4px solid #dc143c;
-  border-radius: 0 6px 6px 0;
-  box-shadow: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
 [data-theme='light'] div[class*="codeBlockContainer"] {
-  border: 1px solid #f5c0c0;
-  border-left: 4px solid #dc143c;
+  border: 1px solid #3d1010;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Title bar (language label) */
+div[class*="codeBlockTitle"] {
+  border-radius: 10px 10px 0 0;
+  background-color: #1f0808;
+  border-bottom: 1px solid #3d1010;
+  color: #dc143c;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+[data-theme='light'] div[class*="codeBlockTitle"] {
+  background-color: #1a0808;
+  border-bottom: 1px solid #3d1010;
+  color: #ff6b6b;
+}
+
+/* Copy button */
+div[class*="codeBlockContainer"] button[class*="copyButton"] {
+  border-radius: 6px;
 }
 
 /* Inline code (backticks in markdown) */
