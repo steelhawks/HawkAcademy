@@ -94,7 +94,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(139, 30, 30, 0.1);
   
   /* Code block background for light mode */
-  --prism-background-color: #141414;
+  --prism-background-color: #1E1E1E;
   --prism-color: #d4d4d4;
 }
 
@@ -177,11 +177,11 @@ details code {
 
 /* Fenced code blocks */
 :root {
-  --prism-background-color: #141414;
+  --prism-background-color: #1E1E1E;
 }
 
 [data-theme='light'] {
-  --prism-background-color: #141414;
+  --prism-background-color: #1E1E1E;
 }
 
 div[class*="codeBlockContainer"] {

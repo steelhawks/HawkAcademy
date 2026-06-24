@@ -1,4 +1,5 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import hawkCodeTheme from './hawkCodeTheme';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
@@ -154,8 +155,8 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Steel Hawks Robotics — Team 2601. Built on Docusaurus, heavily modified.`,
     },
     prism: {
-      theme: prismThemes.vsDark,
-      darkTheme: prismThemes.vsDark,
+      theme: hawkCodeTheme,
+      darkTheme: hawkCodeTheme,
       additionalLanguages: ['java'],
     },
   } satisfies Preset.ThemeConfig,
