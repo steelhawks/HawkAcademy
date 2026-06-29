@@ -29,7 +29,7 @@ function HomepageHeader() {
           </Heading>
 
           <div className={styles.heroCtas}>
-            <Link className={styles.ctaPrimary} to="/docs/intro">
+            <Link className={styles.ctaPrimary} to="/programming/intro">
               Get Started
               <span className={styles.ctaArrow}>→</span>
             </Link>
@@ -51,28 +51,28 @@ const features = [
     title: 'Java Fundamentals',
     body:
       'Start with the basics of Java programming. Learn about variables, control flow, OOP principles, and how to set up your development environment for FRC coding.',
-    href: '/docs/Training/Java Basics/simple-basics',
+    href: '/programming/Training/Java Basics/simple-basics',
   },
   {
     icon: '🤖',
     title: 'WPILib & Command-Based Programming',
     body:
       'Dive into the WPILib command-based framework. Learn subsystems, commands, the scheduler, and how hardware IO is abstracted using AdvantageKit\'s IO layer.',
-    href: '/docs/Training/WPILIB Basics/wpilib-install',
+    href: '/programming/Training/WPILIB Basics/wpilib-install',
   },
   {
     icon: '🛠️',
     title: 'PID and Control Theory',
     body:
       'Understand the fundamentals of control systems. Learn how to implement PID controllers, tune them for your robot, and apply them to various mechanisms.',
-    href: '/docs/intro',
+    href: '/programming/intro',
   },
   {
     icon: '🛣️',
     title: 'Autonomous & Choreo',
     body:
       'Build full auto routines using Choreo path planning. Learn trajectory following, event markers, AutoFactory patterns, and how to debug with AdvantageScope.',
-    href: '/docs/intro',
+    href: '/programming/intro',
   },
 ];
 
@@ -107,12 +107,12 @@ function FeatureCards() {
 
 const footerLinks = {
   Curriculum: [
-    { label: 'Java Basics',     href: '/docs/Training/Java Basics/simple-basics' },
-    { label: 'Git & OOP',        href: '/docs/intro' },
-    { label: 'WPILib',           href: '/docs/Training/WPILIB Basics/wpilib-install' },
-    { label: 'Hardware IO',      href: '/docs/intro' },
-    { label: 'AdvantageKit',     href: '/docs/intro' },
-    { label: 'Autonomous',       href: '/docs/intro' },
+    { label: 'Java Basics',     href: '/programming/Training/Java Basics/simple-basics' },
+    { label: 'Git & OOP',        href: '/programming/intro' },
+    { label: 'WPILib',           href: '/programming/Training/WPILIB Basics/wpilib-install' },
+    { label: 'Hardware IO',      href: '/programming/intro' },
+    { label: 'AdvantageKit',     href: '/programming/intro' },
+    { label: 'Autonomous',       href: '/programming/intro' },
   ],
   Resources: [
     { label: 'WPILib Docs',     href: 'https://docs.wpilib.org' },
@@ -170,9 +170,9 @@ function SiteFooter() {
             © {new Date().getFullYear()} SteelHawks Inc. All rights reserved.
           </p>
           <div className={styles.footerLegal}>
-            <Link to="/docs/intro" className={styles.footerLink}>Privacy</Link>
-            <Link to="/docs/intro" className={styles.footerLink}>Terms</Link>
-            <Link to="/docs/intro" className={styles.footerLink}>Contact</Link>
+            <Link to="/programming/intro" className={styles.footerLink}>Privacy</Link>
+            <Link to="/programming/intro" className={styles.footerLink}>Terms</Link>
+            <Link to="/programming/intro" className={styles.footerLink}>Contact</Link>
           </div>
         </div>
 

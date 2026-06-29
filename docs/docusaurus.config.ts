@@ -53,8 +53,8 @@ const config: Config = {
       '@docusaurus/plugin-content-docs',
       {
         id: 'cad',
-        path: 'cad-learn',
-        routeBasePath: 'cad/learn',
+        path: 'cad',
+        routeBasePath: 'cad',
         sidebarPath: './sidebarsCad.ts',
       },
     ],
@@ -87,6 +87,8 @@ const config: Config = {
       'classic',
       {
         docs: {
+          path: 'programming',
+          routeBasePath: 'programming',
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],

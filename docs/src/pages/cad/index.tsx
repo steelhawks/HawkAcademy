@@ -2,6 +2,7 @@ import type {ReactNode} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
+import useBrokenLinks from '@docusaurus/useBrokenLinks';
 
 import styles from './index.module.css';
 
@@ -22,7 +23,7 @@ function Hero() {
             anything gets cut.
           </p>
           <div className={styles.heroCtas}>
-            <Link to="/cad/learn/intro" className={styles.ctaPrimary}>
+            <Link to="/cad/intro" className={styles.ctaPrimary}>
               Start learning
               <span className={styles.ctaArrow}>→</span>
             </Link>
@@ -171,25 +172,25 @@ const DIVE_CARDS = [
   {
     title: 'Start Here',
     body: 'New to CAD? Begin with the Learn CAD curriculum from lesson one.',
-    href: '/cad/learn/intro',
+    href: '/cad/intro',
     accent: 'A',
   },
   {
     title: 'Onshape Basics',
     body: 'Account setup, the interface, your first sketch.',
-    href: '/cad/learn/intro',
+    href: '/cad/intro',
     accent: 'B',
   },
   {
     title: 'Part Studios & Assemblies',
     body: 'Build real parts and mate them into a working assembly.',
-    href: '/cad/learn/intro',
+    href: '/cad/intro',
     accent: 'C',
   },
   {
     title: 'Manufacturing Outputs',
     body: 'Drawings, DXFs for laser, STLs for the printer.',
-    href: '/cad/learn/intro',
+    href: '/cad/intro',
     accent: 'D',
   },
 ];
@@ -229,6 +230,11 @@ function DiveIn() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function CadHome(): ReactNode {
+  // Register the in-page section anchors so Docusaurus' broken-link checker
+  // knows they exist (raw `id` attributes aren't collected automatically).
+  const brokenLinks = useBrokenLinks();
+  ['why', 'workflow', 'resources'].forEach((id) => brokenLinks.collectAnchor(id));
+
   return (
     <Layout
       title="CAD Curriculum"

@@ -13,7 +13,7 @@ type Section = {
 };
 
 const SECTIONS: Section[] = [
-  {label: 'Programming', to: '/docs/intro', match: '/docs'},
+  {label: 'Programming', to: '/programming/intro', match: '/programming'},
   {label: 'Electrical', to: '/electrical/intro', match: '/electrical'},
   {label: 'Mechanical', to: '/mechanical/intro', match: '/mechanical'},
   {label: 'CAD', to: '/cad/', match: '/cad'},
