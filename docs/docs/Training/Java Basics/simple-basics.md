@@ -117,7 +117,7 @@ then print out all three of those in separate print statements.
 ### Concatenation
 Contatenation is the process of combining variables or text + variables. We do this very simply by *adding* these variables to text. Here's an example:
 
-```
+```java
 String name = "Steel Hawks";
 System.out.println("My name is " + name);
 ```

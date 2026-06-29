@@ -52,7 +52,7 @@ If something is true, perform this action. Seems simple enough right?
 
 Here's how we create an if statement:
 
-```
+```java
 int age = 3;
 if (age == 5) {
   System.out.println("So old");
@@ -145,7 +145,7 @@ Instead of asking "Is it A? No? Is it B? No? Is it C?" repeatedly, a switch stat
 
 An example would be:
 
-```
+```java
 int month = 2;
 String monthName;
 
@@ -231,7 +231,7 @@ The condition usually involves the counter and another item, you will almost nev
 </Note>
 
 Here is an example:
-```
+```java
 for (int i = 1; i <= 5; i++) {
     System.out.println("Iteration number: " + i);
 }
@@ -297,7 +297,7 @@ How it works:
 - Repeat: Go back to step 1.
 
 
-```
+```java
 int batteryLevel = 3;
 
 while (batteryLevel > 0) {

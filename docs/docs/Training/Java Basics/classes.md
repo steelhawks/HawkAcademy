@@ -32,7 +32,7 @@ How do we create a class. Well, we start with an access modifier, in this case `
 Most classes start with public, we rarely have private classes in our code and they aren't really applicable
 </Note>
 
-```
+```java
 public class Dog {
     // characteristics
     private String fur_thickness;
@@ -58,7 +58,7 @@ Now the main question is: *How does one create a new Dog?*
 
 How do you create an object (instance) based off of the blueprint (class). Here's an example:
 
-```
+```java
 public Dog rufus = new Dog();
 ```
 
@@ -114,7 +114,7 @@ Here's an example:
 
 Remember this example:
 
-```
+```java
 public Dog rufus = new Dog();
 ```
 
@@ -124,7 +124,7 @@ We said that `new Dog();` creates a new dog, but `Dog();` is actually the constr
 
 Here's an example of a constructor
 
-```
+```java
 public class Dog {
     private String fur_thickness;
     private String color;
@@ -144,7 +144,7 @@ Notice how the constructor has the same name as the class, and looks like a meth
 
 In the constructor we assign values for all of the specific characteristics we have. Sometimes we want them to be specific to each dog, so we make them parameters. Here's an example below:
 
-```
+```java
 public class Dog {
     private String fur_thickness;
     private String color;
@@ -222,7 +222,7 @@ Inside the interface, we would list required methods like this: `void randomMeth
 
  To use an interface with a class we do this: `public class Turret implements TurretIO {}`. Then the class writes the actual code for each required method:
  
-```
+```java
 @Override
 public void randomMethod() {
     // do this, do that

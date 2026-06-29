@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -94,8 +96,8 @@
   --docusaurus-highlighted-code-line-bg: rgba(139, 30, 30, 0.1);
   
   /* Code block background for light mode */
-  --prism-background-color: #ffffff;
-  --prism-color: #333333;
+  --prism-background-color: #1E1E2E;
+  --prism-color: #d4d4d4;
 }
 
 /* <details> / <summary> collapsible blocks */
@@ -175,25 +177,179 @@ details code {
   border-color: #f5c0c0;
 }
 
-/* Fenced code blocks */
+/* ── Fenced Code Blocks ─────────────────────────────────── */
+/* Catppuccin Mocha base — rich dark navy, editor-accurate   */
 :root {
-  --prism-background-color: #110808;
+  --prism-background-color: #1E1E2E;
+  --hawk-code-font: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
 }
 
-[data-theme='light'] {
-  --prism-background-color: #fdf0f0;
-}
-
+/* Code blocks always stay dark — even in light page mode */
 div[class*="codeBlockContainer"] {
-  border: 1px solid #3d1010;
-  border-left: 4px solid #dc143c;
-  border-radius: 0 6px 6px 0;
-  box-shadow: none;
+  border: 1px solid #313244;
+  border-radius: 10px;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
 }
 
-[data-theme='light'] div[class*="codeBlockContainer"] {
-  border: 1px solid #f5c0c0;
-  border-left: 4px solid #dc143c;
+/* The <pre> tag that wraps all code */
+div[class*="codeBlockContainer"] pre {
+  background-color: #1E1E2E !important;
+  font-family: var(--hawk-code-font) !important;
+  font-size: 0.88rem !important;
+  line-height: 1.65 !important;
+  padding: 0rem 0rem !important;
+}
+
+/* The <code> inside the pre */
+div[class*="codeBlockContainer"] pre code {
+  font-family: var(--hawk-code-font) !important;
+  font-size: inherit !important;
+  background: transparent !important;
+  color: #CDD6F4;
+}
+
+/* Title bar (language label) */
+div[class*="codeBlockTitle"] {
+  background-color: #181825 !important;
+  border-bottom: 1px solid #313244 !important;
+  border-radius: 10px 10px 0 0;
+  color: #CBA6F7;
+  font-family: var(--hawk-code-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 1rem;
+}
+
+/* Line numbers (if enabled) */
+div[class*="codeBlockContainer"] .token-line {
+  line-height: 1.65;
+}
+
+/* Copy button */
+div[class*="codeBlockContainer"] button[class*="copyButton"] {
+  border-radius: 6px;
+  color: #6C7086;
+}
+div[class*="codeBlockContainer"] button[class*="copyButton"]:hover {
+  color: #CDD6F4;
+  background-color: #313244;
+}
+
+/* ══════════════════════════════════════════════════════════
+ * PRISM TOKEN COLORS — Catppuccin Mocha palette            
+ * These CSS rules guarantee color even before JS hydrates. 
+ * Mirrors hawkCodeTheme.ts exactly.                        
+ * ════════════════════════════════════════════════════════ */
+
+/* Comments — muted, italic */
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6C7086 !important;
+  font-style: italic !important;
+}
+
+/* Keywords — bold mauve: public, private, return, class, void, new … */
+.token.keyword,
+.token.builtin {
+  color: #CBA6F7 !important;
+  font-weight: bold !important;
+}
+
+/* Type / class names — sky blue: String, Command, System … */
+.token.class-name {
+  color: #89DCEB !important;
+}
+
+/* Functions / methods — sapphire: println(), run(), withTimeout() … */
+.token.function {
+  color: #89B4FA !important;
+}
+
+/* Annotations — italic green: @Override, @Deprecated */
+.token.annotation {
+  color: #A6E3A1 !important;
+  font-style: italic !important;
+}
+
+/* Strings — peach: "Steel Hawks" */
+.token.string,
+.token.char,
+.token.attr-value,
+.token.template-string,
+.token.template-punctuation {
+  color: #FAB387 !important;
+}
+
+/* Numbers — yellow: 42, 3.14, 0xFF */
+.token.number {
+  color: #F9E2AF !important;
+}
+
+/* Booleans & null — same mauve as keywords */
+.token.boolean,
+.token.null {
+  color: #CBA6F7 !important;
+  font-weight: bold !important;
+}
+
+/* Operators — cyan: =, ->, +, !=, && */
+.token.operator {
+  color: #89DCEB !important;
+}
+
+/* Punctuation — overlay gray: ( ) { } ; . */
+.token.punctuation {
+  color: #9399B2 !important;
+}
+
+/* Variables / parameters — lavender */
+.token.variable,
+.token.attr-name,
+.token.parameter {
+  color: #B4BEFE !important;
+}
+
+/* Properties — teal */
+.token.property {
+  color: #89DCEB !important;
+}
+
+/* Tags (HTML/JSX) — red */
+.token.tag {
+  color: #F38BA8 !important;
+}
+
+/* Selectors (CSS) — mauve */
+.token.selector {
+  color: #CBA6F7 !important;
+}
+
+/* Regex — red */
+.token.regex {
+  color: #F38BA8 !important;
+}
+
+/* Diff: inserted (+) */
+.token.inserted {
+  color: #A6E3A1 !important;
+  background-color: rgba(166, 227, 161, 0.12) !important;
+}
+
+/* Diff: deleted (-) */
+.token.deleted {
+  color: #F38BA8 !important;
+  background-color: rgba(243, 139, 168, 0.14) !important;
+}
+
+/* Diff: changed (~) */
+.token.changed {
+  color: #F9E2AF !important;
+  background-color: rgba(249, 226, 175, 0.10) !important;
 }
 
 /* Inline code (backticks in markdown) */

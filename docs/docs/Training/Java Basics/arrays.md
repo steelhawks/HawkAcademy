@@ -25,7 +25,7 @@ Arrays (lists) are a special type of data that is widely used throughout program
 
 **Example**: A grocery list is an example of an array of strings. Yep, that's right, all arrays have a data type as well! Below is an example of how we would construct a normal variable and an array:
 
-```
+```java
 String name = "Steel Hawks"; // normal variable
 String[] grocery_items = {"Banana", "Milk", "Bread", "Bulgogi Beef"}; // array
 ```
@@ -40,7 +40,7 @@ This might be a bit hard to visualize, so ask a lead programmer to help you if y
 
 Put simply a multi dimensional array is <span style={{color: '#8f0f0f', fontWeight: 'bold'}}>An array within an array</span>. It's essentially a list within a list, and can be used for many purposes. Here's an example below:
 
-```
+```java
 double[][] random = {
   {0, 1, 2},
   {3, 2, 4},
@@ -55,7 +55,7 @@ An arraylist is the exact same thing as an array, except it doesn't have a <span
 ### Constructing ArrayLists
 To create an arraylist, we do something a little different:
 
-```
+```java
 ArrayList<String> groceryItems = new ArrayList<>();
 
 groceryItems.add("Bread");
@@ -70,7 +70,7 @@ In this example we created an arraylist of the <span style={{color: '#8f0f0f', f
 You don't just have to create empty arraylists. To create an arraylist that has some items to start, we can do this:
 
 
-```
+```java
 ArrayList<String> groceryItems = new ArrayList<>(Arrays.asList("Bread", "Milk", "Avocado"));
 
 groceryItems.add("Sugar");
