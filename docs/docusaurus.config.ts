@@ -7,8 +7,8 @@ import rehypeKatex from 'rehype-katex';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Steel Hawks Programming Curriculum',
-  tagline: 'Dinosaurs are cool',
+  title: 'Steel Hawks Curriculum',
+  tagline: 'Documentation for every Steel Hawks subteam',
   favicon: 'img/hawk.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -55,6 +55,28 @@ const config: Config = {
         path: 'cad-learn',
         routeBasePath: 'cad/learn',
         sidebarPath: './sidebarsCad.ts',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'electrical',
+        path: 'electrical',
+        routeBasePath: 'electrical',
+        sidebarPath: './sidebarsElectrical.ts',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'mechanical',
+        path: 'mechanical',
+        routeBasePath: 'mechanical',
+        sidebarPath: './sidebarsMechanical.ts',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
   ],

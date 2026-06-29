@@ -58,6 +58,18 @@ const SECTIONS: Section[] = [
     ],
   },
   {
+    match: '/electrical',
+    items: [
+      {label: 'Intro', to: '/electrical/intro'},
+    ],
+  },
+  {
+    match: '/mechanical',
+    items: [
+      {label: 'Intro', to: '/mechanical/intro'},
+    ],
+  },
+  {
     match: '/docs',
     items: [
       {label: 'Intro', to: '/docs/intro'},
