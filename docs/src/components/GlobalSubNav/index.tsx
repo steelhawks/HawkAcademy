@@ -105,8 +105,7 @@ const SECTIONS: Section[] = [
         label: 'Subsystems',
         to: '/programming/Training/Robot Systems/subsystem-introductions',
         children: [
-          {label: 'Subsystem Introduction', to: '/programming/Training/Robot Systems/subsystem-introduction'},
-          {label: 'Control Theory', to: '/programming/Training/Robot Systems/Control Theory'}
+          {label: 'Subsystem Introduction', to: '/programming/Training/Robot Systems/subsystem-introductions'},
         ]
       },
       {
