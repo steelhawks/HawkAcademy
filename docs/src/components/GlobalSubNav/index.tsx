@@ -101,6 +101,23 @@ const SECTIONS: Section[] = [
           {label: 'Configs', to: '/programming/Training/WPILIB Basics/configs'},
         ],
       },
+      {
+        label: 'Subsystems',
+        to: '/programming/Training/Robot Systems/subsystem-introductions',
+        children: [
+          {label: 'Subsystem Introduction', to: '/programming/Training/Robot Systems/subsystem-introduction'},
+          {label: 'Control Theory', to: '/programming/Training/Robot Systems/Control Theory'}
+        ]
+      },
+      {
+        label: 'Commands',
+        to: '/programming/Training/Commands/intro',
+        children: [
+          {label: 'Intro', to: '/programming/Training/Commands/intro'},
+          {label: 'What is A Command?', to: '/programming/Training/Commands/command'},
+          {label: 'Common Commands', to: '/programming/Training/Commands/common-commands'},
+        ]
+      },
     ],
   },
 ];
