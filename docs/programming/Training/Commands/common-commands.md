@@ -252,6 +252,15 @@ Commands.waitUntil(() -> s_Flywheel.atSpeed()).withTimeout(3.0)
 
 This is where commands get really powerful. WPILib lets you chain **decorators** onto any command to modify its behavior -- without changing the original command at all. You call them directly on the command object.
 
+### `.alongWith(Command command)`
+This simply runs two commands together, just like the name suggests. Essentially: "Do this command along with this command"
+
+```java
+driver.rightTrigger()
+            .whileTrue(
+                s_Intake.runIntake().alongWith(s_Intake.setDesiredStateCommand(Intake.State.INTAKE)));
+```
+
 ### `.withTimeout(double seconds)`
 
 Ends the command after a set time, even if `isFinished()` hasn't returned `true`. Essential for preventing the robot from getting stuck.
