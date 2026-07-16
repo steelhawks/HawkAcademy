@@ -117,6 +117,10 @@ const SECTIONS: Section[] = [
           {label: 'Common Commands', to: '/programming/Training/Commands/common-commands'},
         ]
       },
+      {
+        label: 'Swerve',
+        to: '/programming/Training/Swerve/intro',
+      },
     ],
   },
 ];
