@@ -47,6 +47,17 @@
   background: var(--ifm-color-emphasis-200);
 }
 
+.select {
+  border: 1px solid var(--ifm-color-emphasis-400);
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  max-width: 11rem;
+}
+
 .buttons button.active {
   background: var(--ifm-color-primary);
   color: #fff;
