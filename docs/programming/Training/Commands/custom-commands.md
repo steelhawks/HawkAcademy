@@ -381,33 +381,33 @@ Normally you should not schedule commands from inside another command. Here it's
 prompt: "Why do we define command factories inside the subsystem file rather than building commands inline in RobotContainer?",
 options: [
 "WPILib requires all commands to be defined in the subsystem class",
+"Command factories run faster than inline commands",
 "It lets the command access the subsystem's private fields and IO, and keeps RobotContainer clean",
-"It prevents the command from needing a subsystem requirement",
-"Command factories run faster than inline commands"
+"It prevents the command from needing a subsystem requirement"
 ],
-correct: 1,
+correct: 2,
 explanation: "Command factories live inside the subsystem because they can access private fields and IO methods that shouldn't be exposed outside the class. It also keeps RobotContainer readable — one-line bindings instead of multi-line constructions."
 },
 {
 prompt: "In the intake() factory, why is .finallyDo(() -> stopRollers()) attached to the whole sequence rather than just the last step?",
 options: [
 "Because finallyDo only works on sequences, not individual commands",
-"So the rollers stop no matter which step ended the sequence — timeout, cancel, or beam trigger",
 "Because the last step is a waitUntil and it can't have decorators",
-"It's just a style preference with no functional difference"
+"It's just a style preference with no functional difference",
+"So the rollers stop no matter which step ended the sequence — timeout, cancel, or beam trigger"
 ],
-correct: 1,
+correct: 3,
 explanation: "finallyDo fires in end(), which is called every time a command stops — normal finish or interrupted. Attaching it to the full sequence guarantees the rollers stop regardless of which step caused the sequence to end."
 },
 {
 prompt: "What does Commands.parallel() do differently from Commands.sequence()?",
 options: [
-"parallel() runs commands one at a time in order; sequence() runs them all at once",
 "parallel() runs all commands simultaneously and finishes when ALL of them finish; sequence() runs them one at a time",
+"parallel() runs commands one at a time in order; sequence() runs them all at once",
 "parallel() cancels all other commands when one finishes; sequence() does not",
 "parallel() requires that all commands use the same subsystem"
 ],
-correct: 1,
+correct: 0,
 explanation: "Commands.parallel() runs all its commands at the same time and the group finishes when every command has finished. Commands.sequence() runs them one at a time, starting the next only after the previous one finishes."
 },
 {
@@ -425,22 +425,22 @@ explanation: "If you feed before the turret has settled on its target, the game 
 prompt: "What is the difference between Commands.race() and Commands.parallel()?",
 options: [
 "race() runs commands sequentially; parallel() runs them simultaneously",
-"parallel() ends when all commands finish; race() ends when any one command finishes and cancels the rest",
 "race() can only take two commands; parallel() can take any number",
+"parallel() ends when all commands finish; race() ends when any one command finishes and cancels the rest",
 "They are identical — race() is just an alias for parallel()"
 ],
-correct: 1,
+correct: 2,
 explanation: "Commands.parallel() waits for every command in the group to finish before ending. Commands.race() ends as soon as the first command finishes, then cancels all the remaining ones."
 },
 {
 prompt: "In the shoot composition, .repeatedly() is applied to the feed + agitate group. What does this do?",
 options: [
 "It makes the feed() command run faster by looping its internal logic",
-"It restarts the whole group automatically each time it finishes, letting the robot shoot multiple pieces without the driver re-pressing the button",
 "It prevents the command from being cancelled by a new button press",
-"It makes finallyDo run on every repetition instead of just at the end"
+"It makes finallyDo run on every repetition instead of just at the end",
+"It restarts the whole group automatically each time it finishes, letting the robot shoot multiple pieces without the driver re-pressing the button"
 ],
-correct: 1,
+correct: 3,
 explanation: ".repeatedly() wraps the group in an infinite restart loop. When feed() reports the piece has cleared and the group finishes, .repeatedly() immediately starts it again. This lets the robot continuously feed and shoot all loaded pieces from a single button hold."
 }
 ]} />

@@ -159,7 +159,7 @@ A chassis is skeleton of the drivetrain, essentially all the metal and mechanica
 
 <CadRenderer
   src="/other/swerve.glb"
-  name="Swerve Module"
+  name="Swerve Module"f
   height="480px"
   upAxis="z"
 />
@@ -169,56 +169,56 @@ A chassis is skeleton of the drivetrain, essentially all the metal and mechanica
 {
 prompt: "What is the main limitation of tank drive?",
 options: [
-"It can't push other robots",
 "It can't strafe — to face a new direction, the whole robot has to physically rotate",
+"It can't push other robots",
 "It requires 8 motors",
 "It has no traction"
 ],
-correct: 1,
+correct: 0,
 explanation: "Tank drive can only move along the direction it's pointing. To change direction, you have to rotate the entire robot, which costs time."
 },
 {
 prompt: "Why does mecanum drive have worse traction than tank or swerve?",
 options: [
-"The wheels are made of a slippery material",
-"The 45° diagonal rollers redirect force at an angle instead of gripping straight ahead, reducing overall grip",
 "Mecanum wheels are smaller",
-"Mecanum robots are always heavier"
+"Mecanum robots are always heavier",
+"The wheels are made of a slippery material",
+"The 45° diagonal rollers redirect force at an angle instead of gripping straight ahead, reducing overall grip"
 ],
-correct: 1,
+correct: 3,
 explanation: "Mecanum wheels use angled rollers to enable strafing, but those same rollers reduce the contact patch and grip compared to a normal traction wheel, making mecanum robots easy to push around."
 },
 {
 prompt: "What are the three main components inside a single swerve module?",
 options: [
 "Two drive motors and a gearbox",
-"A drive motor, a steering motor, and an encoder",
 "A battery, a radio, and a Systemcore",
+"A drive motor, a steering motor, and an encoder",
 "Four wheels and a chain"
 ],
-correct: 1,
+correct: 2,
 explanation: "Each swerve module has a drive motor (spins the wheel), a steering motor (rotates the wheel's direction), and an encoder (reports the wheel's current angle)."
 },
 {
 prompt: "What algorithm coordinates the four swerve modules to produce a desired robot motion?",
 options: [
 "PID control",
-"Inverse kinematics",
 "Motion profiling",
-"Feedforward"
+"Feedforward",
+"Inverse kinematics"
 ],
-correct: 1,
+correct: 3,
 explanation: "Inverse kinematics takes a desired robot direction, speed, and rotation rate and calculates the exact angle and speed for each of the four independent modules."
 },
 {
 prompt: "What makes swerve drive holonomic while still keeping strong traction, unlike mecanum?",
 options: [
 "Swerve uses lighter wheels",
-"Swerve wheels are regular traction wheels that physically rotate to point any direction, instead of relying on angled rollers",
 "Swerve doesn't actually have strong traction",
+"Swerve wheels are regular traction wheels that physically rotate to point any direction, instead of relying on angled rollers",
 "Swerve only has 2 motors per module"
 ],
-correct: 1,
+correct: 2,
 explanation: "Because each swerve wheel itself rotates to face the desired direction, the wheel can stay a normal, high-traction wheel — it doesn't need angled rollers like mecanum to move sideways."
 }
 ]} />
