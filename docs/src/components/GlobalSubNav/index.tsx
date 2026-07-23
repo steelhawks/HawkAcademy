@@ -125,6 +125,10 @@ const SECTIONS: Section[] = [
         label: 'Vision',
         to: '/programming/Training/Vision/intro',
       },
+       {
+        label: 'Utils',
+        to: '/programming/Training/Util/intro',
+      },
     ],
   },
 ];
