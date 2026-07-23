@@ -2,6 +2,8 @@
 sidebar_position: 1
 ---
 
+import Note from '@site/src/components/Note.jsx'
+
 # Introduction to Utility Classes
 
 By now you've learned about subsystems, commands, swerve, and vision &rarr; the core pieces that make the robot move and see. But if you look closely at our codebase, you'll notice a folder that doesn't fit neatly into any of those categories: `org.steelhawks.util`.
@@ -47,7 +49,9 @@ We'll walk through each utility class in `Rebuilt2026`, grouped by what they're 
 - `VirtualSubsystem` &rarr; lets you run periodic logic outside the normal `SubsystemBase`/`CommandScheduler` flow, and automatically warns you if any of it takes longer than 20ms.
 - `LatchedBoolean` and `DoublePressTrigger` &rarr; small triggers for detecting a rising edge exactly once, or a double button press within a debounce window.
 - `DashboardTrigger` &rarr; a Kotlin `Trigger` that reads a boolean straight off a "controls" NetworkTables entry, handy for debugging or driver-station toggles.
-
+<Note>
+Some of these util classes are from our template code (meaning baseline code) and were not neccessary for this game. However we will still go through them as they might apply to future games
+</Note>
 
 ### How To Use Them In Your Own Code
 
