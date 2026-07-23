@@ -324,11 +324,12 @@ This blends three different pose sources: the historical pose buffer (`getPoseAt
   prompt: "Why does ObjectVision call getPoseAtTime(observation.timestamp()) instead of just using getEstimatedPose()?",
   options: [
     "getEstimatedPose() doesn't exist yet at that point in the code",
-    "Because of latency between when the camera frame was captured and when it's processed, the robot's pose at that exact past timestamp is needed to correctly place the detected object, not the robot's current pose",
     "getPoseAtTime() is faster to compute",
-    "It's purely a stylistic choice with no functional difference"
+    "It's purely a stylistic choice with no functional difference",
+    "Because of latency between when the camera frame was captured and when it's processed, the robot's pose at that exact past timestamp is needed to correctly place the detected object, not the robot's current pose",
+
   ],
-  correct: 1,
+  correct: 3,
   explanation: "By the time a camera detection is processed, the robot has moved. Using the current pose would misplace the detected object. getPoseAtTime() looks up the interpolated historical pose from the poseBuffer at the exact moment the photo was taken, giving an accurate field position for the detection."
 }
 ]} />
