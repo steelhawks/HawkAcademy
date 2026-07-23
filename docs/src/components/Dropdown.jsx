@@ -42,7 +42,7 @@ const SolutionDropdown = ({ code, explanation, label = "View Solution", language
             transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
             fontSize: '12px',
           }}>
-            ▶
+            {`>`}
           </span>
           {label}
         </summary>

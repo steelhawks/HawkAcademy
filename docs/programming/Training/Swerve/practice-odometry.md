@@ -296,7 +296,7 @@ samples= 400  x=2.0039  y=1.9961  error=0.0056`}
 - At **400 samples**, the error shrinks by about 10x again &mdash; down to just a few millimeters.
 
 <Note title="This is the whole justification for PhoenixOdometryThread">
-On the real robot, the main loop runs at 50 Hz. If the robot were only updating its pose once per main loop cycle while spinning fast, it would be exactly like your <code>driveArc(4)</code> run &mdash; a handful of big, inaccurate steps. Sampling wheel and gyro data at 100&ndash;250 Hz in a background thread (like <code>PhoenixOdometryThread</code> does) is exactly like calling <code>driveArc(400)</code> instead of <code>driveArc(4)</code>: more, smaller, more accurate twist steps, chasing the true curved path much more closely.
+On the real robot, the main loop runs at 50 Hz. If the robot were only updating its pose once per main loop cycle while spinning fast, it would be exactly like your <code>driveArc(4)</code> run &rarr; a handful of big, inaccurate steps. Sampling wheel and gyro data at 100&ndash;250 Hz in a background thread (like <code>PhoenixOdometryThread</code> does) is exactly like calling <code>driveArc(400)</code> instead of <code>driveArc(4)</code>: more, smaller, more accurate twist steps, chasing the true curved path much more closely.
 </Note>
 
 ---
