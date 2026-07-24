@@ -1459,8 +1459,4 @@ A small error may need only a short alignment correction.
 
 ---
 
-## Footnotes
-
-[^camera-offset]: A camera is normally mounted away from the robot's coordinate origin. The vision subsystem removes that mounting offset before publishing the robot-center pose.
-
 [^turret-offset]: The turret may be mounted away from the robot center. During close shots, using the turret's actual field position makes the direction and distance calculation more accurate than using the robot center.

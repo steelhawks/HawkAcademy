@@ -1307,8 +1307,6 @@ Vision.java checks the measurement
 
 ---
 
-## Footnotes
-
 [^camera-offset]: For example, a front camera may be mounted 40 centimeters ahead of the robot center. If PhotonVision finds the camera's field position, the code must account for those 40 centimeters before it knows the robot center's position.
 
 [^latency]: The image must be captured, processed by PhotonVision, and transferred to the roboRIO. The timestamp prevents the delayed result from being treated as if it were captured instantly.
