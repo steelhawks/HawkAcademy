@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 6
 title: "Practice: Vision Filtering"
 ---
 
@@ -329,45 +329,45 @@ explanation: "The whitelist already filtered which tags were logged. The missing
 {
 prompt: "Why can't you fix this bug by filtering out just the 'bad' tag from a multi-tag pose after PhotonVision solves it?",
 options: [
-"PhotonVision does not report which tags were used",
 "MultiTag combines all visible tags into a single pose — you can't isolate and remove one tag's contribution afterward",
+"PhotonVision does not report which tags were used",
 "Tag filtering must happen on the roboRIO, not the coprocessor",
 "Pose objects in WPILib are read-only"
 ],
-correct: 1,
+correct: 0,
 explanation: "MultiTag solves one combined pose from every visible tag's geometry at once. There's no way to subtract out 'the enemy tag's contribution' after the fact — the decision has to be made before the pose is trusted, not after."
 },
 {
 prompt: "In cameraHasAllowedTag, why does the method return true after finding just ONE matching tag, instead of requiring every tag to match?",
 options: [
 "Checking every tag would be too slow for the roboRIO",
-"Requiring every tag to match would reject perfectly good multi-tag frames any time an enemy tag was also visible",
 "WPILib requires exactly one tag per frame",
-"Multiple tags can never be seen in one frame"
+"Multiple tags can never be seen in one frame",
+"Requiring every tag to match would reject perfectly good multi-tag frames any time an enemy tag was also visible",
 ],
-correct: 1,
+correct: 3,
 explanation: "MultiTag pose solving is designed to combine several visible tags, potentially from a wide field of view. Requiring 100% of them to be ours would throw away good data any time the camera also happened to see a sliver of the opposing alliance's side."
 },
 {
 prompt: "Why does whitelistTagIds() call allowedTagIds.clear() before adding the new IDs?",
 options: [
-"Sets in Java cannot be reused without clearing",
 "To make sure IDs from a previous alliance/match don't remain and get trusted alongside the new ones",
+"Sets in Java cannot be reused without clearing",
 "Clearing improves performance on the roboRIO",
 "It is required syntax for varargs methods"
 ],
-correct: 1,
+correct: 0,
 explanation: "If old IDs weren't cleared, a robot could end up trusting tags from both alliances after a match or alliance color change — a different flavor of the exact same corruption bug."
 },
 {
 prompt: "What was the real-world consequence described in the Vision.java comment when this bug was present?",
 options: [
 "The robot failed to connect to the driver station",
-"The robot's field position was corrupted, causing bad shots at competition",
 "The camera overheated and disconnected",
+"The robot's field position was corrupted, causing bad shots at competition",
 "AprilTags stopped being detected entirely"
 ],
-correct: 1,
+correct: 2,
 explanation: "A camera solving a pose from opposing-alliance tags silently dragged the robot's believed field position toward the wrong side of the field, which led directly to inaccurate, bad shots during a match."
 }
 ]} />

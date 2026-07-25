@@ -36,6 +36,31 @@ const DEFAULT_QUESTIONS = [
 
 const LABELS = ["A", "B", "C", "D"];
 
+// Fisher-Yates shuffle — returns a new array, never mutates the input.
+function shuffleArray(arr) {
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+// Shuffles a single question's options and remaps `correct` to point at
+// the same option's new position, so the answer stays correct after shuffling.
+function shuffleQuestion(question) {
+  const order = shuffleArray(question.options.map((_, i) => i));
+  return {
+    ...question,
+    options: order.map((originalIndex) => question.options[originalIndex]),
+    correct: order.indexOf(question.correct),
+  };
+}
+
+function shuffleQuestions(questions) {
+  return questions.map(shuffleQuestion);
+}
+
 const quizStyles = `
   @keyframes quiz-fade-up {
     from { opacity: 0; transform: translateY(6px); }
@@ -258,7 +283,11 @@ function QuizQuestion({ question, index, total, onAnswer }) {
   );
 }
 
-export default function Quiz({ questions: qs = DEFAULT_QUESTIONS }) {
+export default function Quiz({ questions: baseQuestions = DEFAULT_QUESTIONS }) {
+  // Re-shuffling both the question order and each question's options every
+  // time the quiz is (re)started means a user retrying the quiz — or just
+  // reloading the page — never sees the same answer layout twice.
+  const [qs, setQs] = useState(() => shuffleQuestions(shuffleArray(baseQuestions)));
   const [current, setCurrent]             = useState(0);
   const [score, setScore]                 = useState(0);
   const [done, setDone]                   = useState(false);
@@ -279,6 +308,7 @@ export default function Quiz({ questions: qs = DEFAULT_QUESTIONS }) {
   };
 
   const reset = () => {
+    setQs(shuffleQuestions(shuffleArray(baseQuestions)));
     setCurrent(0);
     setScore(0);
     setDone(false);
