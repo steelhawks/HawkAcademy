@@ -104,6 +104,14 @@ public static double convert360To180(double angle) {
 "Wrapping" an angle means constraining it back into a fixed range (like -180° to 180°) after some calculation might have pushed it outside that range &rarr; for example, subtracting two headings can produce something like 350°, which really means -10° once wrapped. This is a concept learned in algebra 2 about angles, and the unit circle. Ask a lead programmer for more information if curious!
 </Note>
 
+<Note title="What does % (the modulo operator) actually do?">
+`%` gives you the *remainder* after division. `370 % 360` is `10`, because `370` is exactly one full `360` "lap" plus `10` left over. That's exactly what you want for angles: going past `360°` should just wrap back around to the small leftover amount, the same way an odometer rolling past `99999` miles wraps back to `00000`. `continuous180To360` adds `360` before taking `% 360` specifically so that negative angles (like `-10°`) also come out positive (`350°`) instead of staying negative.
+</Note>
+
+<Note title="Radians vs. degrees">
+Degrees split a full circle into 360 equal pieces &rarr; a leftover from ancient Babylonian astronomy. Radians instead measure an angle by the length of the arc it traces out on a circle of radius 1, which means a full circle is exactly `2π` radians (`π ≈ 3.14159`) instead of `360`. Most robotics math (trig functions, rotation matrices, WPILib's own `Rotation2d`) is written in radians internally because the formulas come out cleaner, but degrees are usually easier for a human to reason about ("turn 90°"), which is why `Maths` provides conversions in both directions.
+</Note>
+
 ---
 
 ### Unit conversions: wheel speed and distance
@@ -129,6 +137,10 @@ public static double metersToRotations(double wheelMeters, double circumference)
 ```
 
 The pattern is always the same: multiplying by the wheel's circumference converts a "spins" quantity into a "meters" quantity, and dividing does the reverse. Having all four spelled out as named methods (instead of an inline `* circumference` scattered through swerve code) makes it obvious at the call site which direction the conversion is going.
+
+<Note title="Why does circumference matter here?">
+A wheel's circumference is the distance around its outer edge (`circumference = π × diameter`). One full rotation of the wheel rolls it forward exactly one circumference's worth of distance &rarr; picture unrolling the wheel's edge onto the ground like a tape measure. So "0.5 rotations" times "a 0.3 m circumference" tells you the wheel rolled `0.15 m` forward. That's the whole trick behind every one of these four conversions: rotations become meters (or meters-per-second) by multiplying by circumference, and meters become rotations by dividing by it.
+</Note>
 
 ---
 
@@ -172,6 +184,14 @@ public static Translation2d[] toTranslation2dArray(Vector2[] vector) {
 
 <Note title="Why keep two different vector types around at all?">
 `dyn4j` is a general-purpose 2D physics engine with its own math types, built long before WPILib existed. Rather than rewriting our shot-solving physics code to avoid `dyn4j`, we just convert at the boundary, wherever WPILib types need to become `dyn4j` types (or back).
+</Note>
+
+<Note title="New terms: Vector, Translation, Pose, and Rotation">
+These four types all describe "where something is," but each answers a slightly different question:
+- A **vector** (`Vector2`/`Vector3`) is just an arrow with a length and direction, most commonly used to represent a displacement (like "3 meters this way, 2 meters that way") or a velocity.
+- A **`Translation2d`/`Translation3d`** is WPILib's version of the same idea: a specific point in space, described as an X (and Y, and Z) offset from some origin. Practically, `Translation2d` and `Vector2` hold the exact same information (`x` and `y`) &rarr; that's why converting between them is as simple as copying the two numbers over, as seen above.
+- A **`Rotation2d`** describes *only* an orientation (which way something is facing), with no position information at all.
+- A **`Pose2d`/`Pose3d`** combines a translation *and* a rotation together &rarr; both "where" and "which way it's facing." This is why you'll see poses used for anything that needs a full description of the robot, like its estimated position on the field.
 </Note>
 
 ---
@@ -272,6 +292,10 @@ public static double applyY(double y) {
     return shouldFlip() ? FieldConstants.FIELD_WIDTH - y : y;
 }
 ```
+
+<Note title="Why does subtracting from the field length mirror a coordinate?">
+Picture the field as a number line from `0` to `FIELD_LENGTH`. A point 2 meters from the Blue wall (`x = 2`) should mirror to a point 2 meters from the Red wall, which is `FIELD_LENGTH - 2`. In general, for any point `x` on that line, its mirror image across the midpoint is `FIELD_LENGTH - x` &rarr; you can check this works because a point sitting exactly on the midline (`x = FIELD_LENGTH / 2`) maps to itself, and a point at `x = 0` maps to `x = FIELD_LENGTH` (the opposite wall), which is exactly what "mirroring" should do.
+</Note>
 
 ### Flipping every WPILib geometry type
 
@@ -408,6 +432,10 @@ public static class Extension {
 
 Using a `DoubleSupplier` instead of a plain `double` means the extension's length is always read fresh &rarr; if the intake retracts, the footprint shrinks back down automatically on the very next call, with no manual updating required.
 
+<Note title="New term: DoubleSupplier">
+A `DoubleSupplier` is a *functional interface* &rarr; instead of storing a fixed number, it stores a tiny piece of code (usually written as a lambda, `() -> ...`) that gets run fresh every time you call `.getAsDouble()` on it. Storing `double extLength = intake.getPosition()` would freeze in whatever the intake's position happened to be *at that instant*, and it would never update again. Storing `DoubleSupplier` instead means every call to `getExtensionMeters()` re-runs the lambda and asks the intake for its *current* position, so the footprint is always accurate even as the intake moves in real time.
+</Note>
+
 `RobotState` wires this up for our actual intake:
 
 ```java
@@ -463,6 +491,14 @@ Two ideas are doing the real work here:
 - **`toFieldFrame`** takes a robot-relative point (like a bumper corner) and rotates + translates it into field coordinates, using the exact same rotation formula from the odometry practice page (`fx = x*cos - y*sin`, `fy = x*sin + y*cos`, then add the robot's position).
 - **`bumperProjection`** answers "how far is it from the robot's center to the bumper's edge, in this specific direction?" &rarr; this matters because an extension pointing diagonally out of a corner has a different bumper-to-edge distance than one pointing straight out of a flat side.
 
+<Note title="New terms: robot frame vs. field frame">
+A "frame" is just a choice of origin `(0, 0)` and axis directions to measure coordinates from. The **robot frame** measures everything relative to the robot's own center and the direction it's currently facing &rarr; "1 meter in front of the robot" always means the same thing regardless of where the robot is or which way it's turned. The **field frame** measures everything relative to a fixed spot on the actual field (usually a corner) &rarr; "1 meter from the Blue wall" always means the same physical spot regardless of where the robot is. Bumper corners and extension directions are naturally defined in the robot frame (they don't move when the robot drives around), but a `Boundary`/`Rectangle2d` check needs field-frame points, so `toFieldFrame` converts one into the other.
+</Note>
+
+<Note title="Where does fx = x*cos - y*sin come from?">
+This is called a **rotation matrix**, and it's the standard formula for rotating a 2D point by some angle `θ` around the origin. If you rotate a point `(x, y)` by angle `θ`, the new coordinates are `x' = x·cos(θ) - y·sin(θ)` and `y' = x·sin(θ) + y·cos(θ)`. Here, `θ` is the robot's current heading &rarr; rotating the robot-relative corner by the robot's heading turns "2 meters to my front-left" into "2 meters in *this specific compass direction*," matching however the robot is actually oriented on the field. After rotating, you still need to **translate** (add the robot's field position) to shift the point from "relative to the robot" to "an absolute spot on the field" &rarr; rotate first, then translate, in that order.
+</Note>
+
 ```java
 private double bumperProjection(Rotation2d robotRelativeAngle) {
     double cos = Math.abs(robotRelativeAngle.getCos());
@@ -475,6 +511,14 @@ private double bumperProjection(Rotation2d robotRelativeAngle) {
 
 This is a **ray-box intersection** &rarr; the same math used in graphics and physics engines to find where a ray first exits a rectangle. Whichever wall (front/back or left/right) the ray hits first is the actual bumper distance in that direction.
 
+<Note title="New term: ray-box intersection">
+A **ray** is like a vector, but thought of as a starting point plus a direction that extends forever (think of a laser beam, not an arrow with a fixed length). "Ray-box intersection" is the general problem of figuring out where that infinite ray first crosses the edge of a box (here, the rectangle formed by the robot's bumpers).
+
+Here's the intuition behind `bumperProjection`: imagine standing at the robot's center and shooting a laser out in the extension's direction. That laser has to exit the bumper rectangle through *one* of its four walls. `tx` calculates how far the laser would have to travel to reach the left/right walls if the front/back walls didn't exist, and `ty` does the same for the front/back walls. Since the rectangle's actual walls block the laser earlier than either of those two hypothetical distances individually (except in the case where it exits at a corner), the real exit distance is always the **smaller** of the two &rarr; which is exactly why the function returns `Math.min(tx, ty)`.
+
+For example: if `bumperHalfX = 0.4` (front/back) and `bumperHalfY = 0.3` (left/right), and the extension points nearly straight out the front (small `sin`, large `cos`), then `tx = 0.4 / cos` will be small and `ty = 0.3 / sin` will be huge, so `min` correctly picks `tx` &rarr; the laser exits through the front wall, not the sides. This same core idea (find the smallest distance to each pair of parallel walls, then take the minimum) is the standard algorithm used in 3D graphics engines to check whether a ray hits a bounding box, just simplified here to 2D and to a box centered at the origin.
+</Note>
+
 <Note title="Why does an extension's reach include bumpOffset, not just extLength?">
 `extensionMeters` measures how far a mechanism sticks out *past the bumper*, not from the robot's center. To get the extension tip's true distance from the robot center (which is what field-frame math needs), you have to add the bumper-to-edge distance first, then add the extension length on top of that.
 </Note>
@@ -484,6 +528,10 @@ This is a **ray-box intersection** &rarr; the same math used in graphics and phy
 ## `geometry/Boundary`
 
 Once you can compute the robot's footprint, the natural next step is: *is that footprint inside a rectangular zone on the field?* `Boundary` wraps that question into a WPILib `Trigger`, so the rest of the codebase can just bind commands to "entering the trench" the same way it binds commands to a controller button.
+
+<Note title="New term: point-in-rectangle test">
+`Rectangle2d.contains(point)` is answering a classic geometry question: given a rectangle (possibly rotated) and a point, is that point inside the rectangle? For an axis-aligned rectangle this is easy &rarr; check that the point's X is between the rectangle's left/right edges *and* its Y is between the top/bottom edges. For a rotated rectangle (like a boundary zone that isn't lined up with the field's X/Y axes), WPILib internally does the opposite of the rotation math from `toFieldFrame` above: it rotates the point *backwards* by the rectangle's own rotation so the rectangle becomes "axis-aligned" from the point's perspective, then does the simple X/Y range check. You don't need to implement this yourself &rarr; it's exactly why `Boundary` calls WPILib's built-in `.contains(...)` instead of writing this math again.
+</Note>
 
 ### Two modes
 
@@ -598,6 +646,14 @@ Neither `RobotFootprint` nor `Boundary` know anything about "the trench" or "the
 ## `AprilTag`
 
 The smallest class on this page, but a good example of using a Java `record` to bundle two related pieces of data &rarr; a tag's ID and its known pose on the field &rarr; into a single, clearly-named type.
+
+<Note title="New term: Java record">
+A `record` is a compact way to define a class whose entire purpose is holding a fixed set of values together, like `id` and `pose` here. Writing `public record AprilTag(int id, Pose3d pose) {}` automatically generates a constructor, getter methods (`id()` and `pose()`), `equals()`, `hashCode()`, and `toString()` &rarr; all the boilerplate you'd normally have to type out by hand for a simple "data holder" class. You can still add your own methods (like `tagToArrayIndex` below) or override the auto-generated ones (like `pose()` is overridden here) when you need custom behavior.
+</Note>
+
+<Note title="What's an AprilTag, physically?">
+An AprilTag is a small black-and-white square pattern (similar to a QR code) placed at known, fixed locations around the field. A camera on the robot can detect these tags and, because their exact field position is published ahead of time, use the tag's apparent size/angle in the camera image to figure out where the robot itself must be standing. `id` identifies *which* physical tag was seen, and `pose` is that tag's known, fixed location and orientation on the field &rarr; this class doesn't do any of the vision math itself, it's just a clean way to carry "which tag" and "where is it" around together.
+</Note>
 
 ```java
 public record AprilTag(int id, Pose3d pose) {
