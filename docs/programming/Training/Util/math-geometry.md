@@ -183,7 +183,7 @@ public static Translation2d[] toTranslation2dArray(Vector2[] vector) {
 ```
 
 <Note title="Why keep two different vector types around at all?">
-`dyn4j` is a general-purpose 2D physics engine with its own math types, built long before WPILib existed. Rather than rewriting our shot-solving physics code to avoid `dyn4j`, we just convert at the boundary, wherever WPILib types need to become `dyn4j` types (or back).
+`dyn4j` is a general-purpose 2D physics engine with its own math types, built long before WPILib existed. We use this library for our simulation collisions (a simulator called maple sim) and we just convert at the boundary, wherever WPILib types need to become `dyn4j` types (or back).
 </Note>
 
 <Note title="New terms: Vector, Translation, Pose, and Rotation">

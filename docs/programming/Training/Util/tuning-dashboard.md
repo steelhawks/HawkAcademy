@@ -87,7 +87,7 @@ public void initDefault(double defaultValue) {
     }
 }
 ```
-The `hasDefault` boolean guard means calling `initDefault` a second time does nothing. This protects against a common mistake: if `SwerveModule` is constructed four times (once per wheel) and each one called `drivekP.initDefault(...)` with a slightly different value, only the *first* call would matter anyway &rarr; so the guard makes that intention explicit instead of silently depending on which module happened to be built first.
+The `hasDefault` boolean guard means you called initDefault once, and it allows for an immutable `LoggedTunableNumber`. What this means is that the value of the tunable number is the only thing that can change, and it's what should be accessed and modified from **NetworkTables**, and mainly for tuning purposes. 
 </Note>
 
 ### Reading the value
