@@ -5,6 +5,7 @@ title: Hardware Helpers
 
 import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
+import NoteTabs, { NoteTab } from '@site/src/components/NoteTabs'
 
 # Hardware Helpers
 
@@ -30,13 +31,14 @@ public class SparkUtil {
     public static boolean sparkStickyFault = false;
 ```
 
-<Note title="New term: CAN bus">
+<NoteTabs>
+  <NoteTab title="New term: CAN bus">
 CAN (Controller Area Network) is the wiring standard almost every FRC motor controller and many sensors communicate over. Picture it like a single shared telephone line that every device on the robot is plugged into &rarr; each device takes turns "speaking" (sending small packets of data), and every other device on the bus can "hear" every message. Because it's a shared, real-time bus running over physical wires, a message can occasionally get corrupted, delayed, or dropped entirely &rarr; a loose connector, electrical noise, or a brief brownout can all cause a single read to fail even though the device is working fine a millisecond later.
-</Note>
-
-<Note title="New term: sticky fault">
+</NoteTab>
+  <NoteTab title="New term: sticky fault">
 A "fault" is hardware's way of reporting that something went wrong. A **sticky** fault is one that, once set, stays set (`true`) until something explicitly clears it &rarr; as opposed to a fault that automatically clears itself the next time a call succeeds. `sparkStickyFault` is a single global flag: if *any* Spark call anywhere in the robot code fails even once, this flag flips to `true` and stays `true`, which lets other code (like a dashboard alert) check "has anything gone wrong with a Spark today?" without needing to track every individual motor controller separately.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ### The core pattern: `ifOk`
 
@@ -248,13 +250,14 @@ public static void registerSignals(CANBus bus, BaseStatusSignal... signals) {
 }
 ```
 
-<Note title="New term: CANivore bus vs. the RoboRIO's onboard CAN bus">
+<NoteTabs>
+  <NoteTab title="New term: CANivore bus vs. the RoboRIO's onboard CAN bus">
 A robot doesn't have to have just one CAN bus &rarr; the roboRIO has a single built-in CAN bus (referred to here as the `rio` bus), but you can also plug in a **CANivore**, a separate CAN controller device that provides its own independent, higher-bandwidth bus (CAN FD, hence `isNetworkFD()`). `Rebuilt2026` uses two CANivores (`kDrivetrainBus` for the swerve modules, `kTurretBus` for the turret/hood/flywheel/indexer), plus the roboRIO's own `kRioBus` for everything else. Each physical bus can only efficiently batch-refresh signals that live *on that same bus* &rarr; you can't combine a drivetrain CANivore signal and a roboRIO signal into one refresh call &rarr; which is exactly why `registerSignals` sorts incoming signals into three separate arrays (`drivetrainCanivoreSignals`, `turretCanivoreSignals`, `rioSignals`) based on which bus they came from.
-</Note>
-
-<Note title="New term: variadic (varargs) parameter, and System.arraycopy">
+</NoteTab>
+  <NoteTab title="New term: variadic (varargs) parameter, and System.arraycopy">
 `BaseStatusSignal... signals` is a **varargs** parameter (you saw this same pattern with `LoggedTunableNumber.ifChanged` on the tuning page) &rarr; it lets a subsystem pass in any number of signals in one call, like `registerSignals(bus, leftPosition, leftVelocity, leftVoltage, ...)`. Since Java arrays have a fixed size once created, adding new signals to an existing bus's array means creating a brand new, bigger array and copying the old contents into it. `System.arraycopy(source, sourceStart, destination, destStart, length)` does that copying in one efficient native call, rather than writing a manual `for` loop to copy each element &rarr; `arraycopy` is used here twice per bus: once to copy over whatever signals were already registered, and once to append the newly passed-in ones.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 Every `IO` class calls `registerSignals` once, right after creating its `StatusSignal`s, so `PhoenixUtil` slowly accumulates the *entire robot's* set of signals across all the subsystems that get constructed at startup:
 
@@ -379,13 +382,14 @@ public static class RawDetection {
 }
 ```
 
-<Note title="New term: fiducial">
+<NoteTabs>
+  <NoteTab title="New term: fiducial">
 A "fiducial" is any marker placed in a scene specifically to be recognized by a machine vision system &rarr; in FRC, that's the AprilTag. `RawFiducial` represents one single detected AprilTag, with `id` telling you *which* tag it is, `ta` its apparent size in the camera image (target area, useful as a rough distance/confidence signal), and `ambiguity` a measure of how confident the camera is about that tag's exact orientation (a flat marker seen nearly edge-on can be ambiguous about which way it's actually facing).
-</Note>
-
-<Note title="New term: neural detector / classId">
+</NoteTab>
+  <NoteTab title="New term: neural detector / classId">
 Besides AprilTags, Limelight cameras can also run a neural network object detector to find game pieces (or other objects) that don't have a fiducial marker on them at all. `RawDetection` represents one such detected object, and `classId` identifies *what kind* of object it is (the neural network is trained to recognize a fixed set of object classes, and returns which class this particular detection matched). The four `cornerN_X`/`cornerN_Y` pairs are the pixel coordinates of the detected object's bounding box corners in the camera's raw image.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 `ObjectVisionIOLimelight` is a good real example of using `RawDetection`:
 
@@ -424,13 +428,14 @@ public static class PoseEstimate {
 }
 ```
 
-<Note title="Why does PoseEstimate carry more than just a Pose2d?">
+<NoteTabs>
+  <NoteTab title="Why does PoseEstimate carry more than just a Pose2d?">
 A single `Pose2d` tells you *where* the Limelight thinks the robot is, but not *how much to trust it*. `tagCount` (more tags seen at once generally means a more reliable estimate), `avgTagDist` (closer tags are more accurate than distant ones), and `tagSpan` (tags spread far apart across the field of view constrain the pose better than tags clustered together) are exactly the extra context a vision subsystem needs to decide *how strongly* to trust and blend this particular pose estimate into the robot's odometry &rarr; this is the same idea you'll see expanded on when the vision section of this curriculum covers standard deviations.
-</Note>
-
-<Note title="New term: MegaTag2">
+</NoteTab>
+  <NoteTab title="New term: MegaTag2">
 `isMegaTag2` flags whether this estimate came from Limelight's "MegaTag2" algorithm, an improved multi-tag pose estimation method that (unlike the original MegaTag) requires the robot's current heading to already be known accurately (usually from the gyro) in order to produce a more precise position estimate. You don't need to know the internal math to use it &rarr; just that `getBotPoseEstimate_..._MegaTag2(...)` variants exist alongside the regular ones, and expect you to have already told the Limelight the robot's current gyro heading first.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ```java
 public static PoseEstimate getBotPoseEstimate_wpiBlue(String limelightName) { /* ... */ }

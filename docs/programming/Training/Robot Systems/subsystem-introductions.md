@@ -5,6 +5,7 @@ title: Subsystem Introductions
 
 import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
+import NoteTabs, { NoteTab } from '@site/src/components/NoteTabs'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
 import JavaRunner from '@site/src/components/JavaRunner'
 
@@ -213,18 +214,19 @@ public void setDesiredState(State state) {
 
 So the rest of the robot never says "set the intake motor to 0.3 meters." It says `setDesiredState(State.INTAKE)` — a goal, not a raw command. The subsystem figures out the rest. That single idea is the whole reason we call ourselves a state-machine team, and the **State Machines** page (next) goes much deeper into it.
 
-<Note title="Two flavors of subsystem (read this)">
+<NoteTabs>
+  <NoteTab title="Two flavors of subsystem (read this)">
 Not every subsystem has a converging <code>desiredState</code> field. In practice we write two kinds:
 <ul>
 <li><strong>Position / goal mechanisms</strong> (intake, elevator, turret) — like the one above. They hold a <code>desiredState</code>/<code>desiredGoal</code> field, expose <code>setDesiredState(...)</code>, and <code>periodic()</code> runs a motion profile that <em>converges</em> toward the goal. Their enum values are <strong>targets</strong> (positions, angles).</li>
 <li><strong>Simpler output mechanisms</strong> (indexer, rollers) — no goal field to converge to. They're driven directly by <strong>command factories</strong>, and their enum values are <strong>output presets</strong> (voltages/percentages), not targets.</li>
 </ul>
 Being a "state-machine team" means a subsystem tracks <em>what it's trying to do</em> instead of scattering "if button pressed, spin motor" logic everywhere — but how literally that becomes a converging <code>desiredState</code> loop depends on the mechanism. The intake above is the full version; the <strong>Indexer</strong> we dissect below is the simpler kind, so don't expect to find a <code>desiredState</code> field in it.
-</Note>
-
-<Note title="New term: enum">
+</NoteTab>
+  <NoteTab title="New term: enum">
 An <code>enum</code> ("enumeration") is a Java type with a fixed list of named values. <code>State.HOME</code>, <code>State.INTAKE</code>, <code>State.CENTER_OF_MOTION</code>, <code>State.RETRACTED</code> — those are the only intake states that can exist, so it's impossible to set the intake to a state that doesn't make sense. Enums are perfect for state machines.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ### 4. `periodic()` — the heartbeat that acts on the state
 

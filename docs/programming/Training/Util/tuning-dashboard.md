@@ -5,6 +5,7 @@ title: Tuning & Dashboard
 
 import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
+import NoteTabs, { NoteTab } from '@site/src/components/NoteTabs'
 
 # Tuning & Dashboard
 
@@ -220,13 +221,14 @@ if (Toggles.tuningMode.get()) {
 }
 ```
 
-<Note title="Why the lazy tuningVolts == null check?">
+<NoteTabs>
+  <NoteTab title="Why the lazy tuningVolts == null check?">
 `tuningVolts` isn't created in the constructor &rarr; it's only created the first time the voltage override toggle is actually flipped on. This avoids cluttering the dashboard with a `Flywheel/TuningVolts` entry for every single mechanism at all times; the entry only appears once someone actually needs it. The same `Hood`, `Intake`, and `SwerveModule` (via `driveOpenLoop`/`turnOpenLoop`) classes follow this exact pattern for testing raw voltage or current output on a motor, bypassing closed-loop control entirely &rarr; useful for diagnosing "is this actually a PID problem, or is the motor/wiring broken?"
-</Note>
-
-<Note title="New term: open-loop vs. closed-loop control">
+</NoteTab>
+  <NoteTab title="New term: open-loop vs. closed-loop control">
 **Closed-loop** control means the code constantly checks the mechanism's actual position/velocity (from an encoder) and adjusts its output to correct any error &rarr; that's what a PID controller does. **Open-loop** control means just commanding a fixed voltage or duty cycle and not checking anything afterward &rarr; "just send 2 volts and see what happens." Testing a mechanism open-loop is a useful debugging step because it isolates hardware problems (bad wiring, a stuck mechanism, a miscalibrated encoder) from tuning problems (bad `kP`), since open-loop mode doesn't depend on the encoder feedback being correct at all.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ---
 
@@ -358,13 +360,14 @@ public final class Elastic {
         selectedTabTopic.publish(PubSubOption.keepDuplicates(true));
 ```
 
-<Note title="New term: Topic and Publisher">
+<NoteTabs>
+  <NoteTab title="New term: Topic and Publisher">
 In NetworkTables terms, a **topic** is the *name* of a communication channel (like `/Elastic/SelectedTab`), and a **publisher** is the object your code actually calls `.set(...)` on to send a new value out on that topic. Separating them lets you configure how values are sent (see `PubSubOption` below) once, up front, instead of every time you publish a value.
-</Note>
-
-<Note title="What do sendAll and keepDuplicates mean?">
+</NoteTab>
+  <NoteTab title="What do sendAll and keepDuplicates mean?">
 By default, NetworkTables optimizes bandwidth by *not* re-sending a value if it hasn't changed since the last publish. That's usually what you want for something like a sensor reading, but it's exactly wrong for notifications &rarr; if the robot wants to show the *same* warning message twice in a row (say, "Flywheel Overheating" fires again a minute later), a naive publisher would silently drop the second one since the string is identical to the first. `PubSubOption.sendAll(true)` and `PubSubOption.keepDuplicates(true)` disable that optimization for the notification publisher specifically, guaranteeing every `sendNotification(...)` call actually reaches the dashboard, even if it looks identical to the last one.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ### Selecting a tab
 
@@ -493,16 +496,17 @@ private static double calculateKV(List<Double> voltages, List<Double> velocities
 }
 ```
 
-<Note title="Why is slope the right way to calculate kV?">
+<NoteTabs>
+  <NoteTab title="Why is slope the right way to calculate kV?">
 If voltage and velocity are (roughly) proportional &rarr; which is the whole assumption behind a `kV` feedforward term &rarr; then plotting velocity against voltage should look close to a straight line through the origin, and `kV` is exactly that line's **slope** (`Δvelocity / Δvoltage`). Measuring the slope between several different voltage steps, then averaging those slopes together, gives a more reliable estimate than trusting any single data point, since it smooths out sensor noise or a mechanism that hadn't fully stabilized during the 1-second wait.
-</Note>
-
-<Note title="This class is marked 'UNTESTED' &rarr; why include it at all?">
+</NoteTab>
+  <NoteTab title="This class is marked 'UNTESTED' &rarr; why include it at all?">
 ```java
 // everything is UNTESTED
 ```
 Not every utility class in a season's codebase gets used in that season's robot. `FeedforwardCharacterize` is a good example of infrastructure that was written to be *available* &rarr; a generic tool any future mechanism could reach for &rarr; even if it wasn't exercised on this year's robot. Compare this to WPILib's own SysId tooling (which `Swerve.java` uses instead, via `driveSysIdQuasistatic`/`driveSysIdDynamic`), which solves a very similar problem with a more heavily tested, general-purpose library.
-</Note>
+</NoteTab>
+</NoteTabs>
 
 ---
 
