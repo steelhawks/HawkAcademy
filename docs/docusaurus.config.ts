@@ -7,6 +7,10 @@ import rehypeKatex from 'rehype-katex';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// "Edit this page" base. Docusaurus appends the file path relative to this
+// site dir, which lives at docs/ inside the repo.
+const editUrlBase = 'https://github.com/steelhawks/HawkAcademy/tree/main/docs/';
+
 const config: Config = {
   title: 'Steel Hawks Curriculum',
   tagline: 'Documentation for every Steel Hawks subteam',
@@ -56,6 +60,7 @@ const config: Config = {
         path: 'cad',
         routeBasePath: 'cad',
         sidebarPath: './sidebarsCad.ts',
+        editUrl: editUrlBase,
       },
     ],
     [
@@ -65,6 +70,7 @@ const config: Config = {
         path: 'electrical',
         routeBasePath: 'electrical',
         sidebarPath: './sidebarsElectrical.ts',
+        editUrl: editUrlBase,
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
       },
@@ -76,6 +82,7 @@ const config: Config = {
         path: 'mechanical',
         routeBasePath: 'mechanical',
         sidebarPath: './sidebarsMechanical.ts',
+        editUrl: editUrlBase,
         remarkPlugins: [remarkMath],
         rehypePlugins: [rehypeKatex],
       },
@@ -92,10 +99,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: editUrlBase,
         },
         blog: {
           showReadingTime: true,
@@ -103,10 +107,7 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: editUrlBase,
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
