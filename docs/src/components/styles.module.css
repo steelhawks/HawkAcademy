@@ -131,3 +131,55 @@
   border-left-color: #dc143c;
   color: #4a4a4a;
 }
+
+/* ── Light mode ─────────────────────────────────────────────────────────── */
+
+:global([data-theme='light']) .noteBox {
+  background-color: #fff5f5;
+  border-color: #f5c0c0;
+  border-left-color: #dc143c;
+  color: #1a1a1a;
+}
+
+:global([data-theme='light']) .noteDiamond {
+  color: #8b1e1e;
+}
+
+:global([data-theme='light']) .noteTitle {
+  color: #8b1e1e;
+}
+
+:global([data-theme='light']) .noteContent p {
+  color: #1a1a1a;
+}
+
+:global([data-theme='light']) .noteContent strong {
+  color: #000000;
+}
+
+:global([data-theme='light']) .noteContent code {
+  background-color: #fdf0f0;
+  color: #b91c1c;
+  border-color: #f5c0c0;
+}
+
+:global([data-theme='light']) .noteContent ul,
+:global([data-theme='light']) .noteContent ol {
+  color: #1a1a1a;
+}
+
+:global([data-theme='light']) .noteContent li {
+  color: #1a1a1a;
+}
+
+:global([data-theme='light']) .noteContent li::marker {
+  color: #8b1e1e;
+}
+
+:global([data-theme='light']) .noteContent a {
+  color: #b91c1c;
+}
+
+:global([data-theme='light']) .noteContent a:hover {
+  color: #8b1e1e;
+}
