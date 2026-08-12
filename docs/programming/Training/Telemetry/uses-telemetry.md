@@ -411,3 +411,7 @@ correct: 1,
 explanation: "record(subsystem) logs the elapsed time since the last record() call and then resets its internal timer. Calling it after each phase (PhoenixUtil refresh, command scheduling, battery integration) breaks the full loop time into named segments, so a slow loop can be traced to a specific phase instead of just 'the loop was slow.'"
 }
 ]} />
+
+# Next Steps
+
+Congratulations! You've finished the Telemetry section. It's time to move onto the Subsystems Implementation section. You've reviewed multiple subsystem sections, telemetry uses, and how to use **Control Theory**. Next, you'll put it into practice by creating your own, step by step. When you're ready, get started!
