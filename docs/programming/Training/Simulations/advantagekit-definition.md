@@ -33,54 +33,102 @@ No replay: A live log file on a driver station is usually just a lightweight col
 AdvantageKit, created by FRC Team 6328 (Mechanical Advantage), was built to solve every single one of these problems from the ground up.
 
 ## How AdvantageKit works under the hood
-AdvantageKit shifts the paradigm of how robot state is handled through three core mechanics:
+AdvantageKit shifts the paradigm of how robot state is handled through four core mechanics:
 
 ### 1. The IO Interface Pattern
 Instead of subsystems talking directly to hardware (like calling TalonFX.getPosition() deep inside a method), every subsystem talks to an IO interface.
 
-The interface defines a data class called inputs (annotated with @AutoLog).
+The interface defines a data class called inputs (annotated with `@AutoLog`).
 
-Every 20ms tick, an updateInputs(InputsAutoLogged inputs) method fetches fresh values from hardware (or simulation, or a log).
+Every 20ms tick, an `updateInputs(InputsAutoLogged inputs)` method fetches fresh values from hardware (or simulation).
 
 The subsystem logic only reads from those inputs. It never touches raw hardware directly.
 
-### 2. Zero-Allocation Logging and WPILOG Files
-Instead of spamming NetworkTables with hundreds of individual strings and numbers, AdvantageKit collects all inputs and outputs into a structured format every single loop iteration and writes them directly to a binary .wpilog file stored locally on the RoboRIO's USB log drive.
+### 2. `Logger.processInputs()` — the call that actually makes replay work
+Filling in the inputs object isn't enough by itself &mdash; every subsystem's `periodic()` also has to hand that object to the logger, right after calling `updateInputs()`:
+
+```java
+// Indexer.java — periodic(), simplified from our real subsystem
+@Override
+public void periodic() {
+    io.updateInputs(spindexerInputs, feederInputs);
+    Logger.processInputs("Indexer/Spindexer/Inputs", spindexerInputs);
+    Logger.processInputs("Indexer/Feeder/Inputs", feederInputs);
+    // ...the rest of the subsystem's logic reads from spindexerInputs/feederInputs
+}
+```
+
+`Logger.processInputs(key, inputs)` does one of two completely different things depending on the mode, and that's really the whole trick behind AdvantageKit:
+
+- **On a real robot or in simulation**, `updateInputs()` just filled `inputs` with real (or simulated) values. `processInputs()` takes those values and logs them &mdash; calling the AutoLogged class's generated `toLog()` method to write every field to the `.wpilog` file and NT.
+- **In replay**, the IO implementation passed in is an empty one (like `new IndexerIO() {}`), so `updateInputs()` did *nothing*. `processInputs()` instead calls the generated `fromLog()` method, which overwrites every field on `inputs` with the value recorded at that exact timestamp in the log file you're replaying.
+
+Either way, by the time `periodic()` gets past that line, `spindexerInputs`/`feederInputs` hold correct data and the rest of the method has no idea (and doesn't need to know) where that data actually came from.
+
+### 3. Zero-Allocation Logging and WPILOG Files
+Instead of spamming NetworkTables with hundreds of individual strings and numbers, AdvantageKit collects all inputs and outputs into a structured format every single loop iteration and writes them directly to a binary `.wpilog` file.
 
 Binary logging is hyper-efficient. It creates minimal garbage collection pressure in Java and handles massive amounts of data effortlessly.
 
-### 3. Live Publishing to AdvantageScope
-While the .wpilog file is being written locally on the robot, AdvantageKit selectively publishes data over NetworkTables using a compressed format so it can stream smoothly to AdvantageScope — our visualization tool of choice — without crashing the field radio.
+### 4. Live Publishing to AdvantageScope
+While the `.wpilog` file is being written, AdvantageKit can also publish data over NetworkTables (via an `NT4Publisher`) using a compressed format so it can stream smoothly to AdvantageScope — our visualization tool of choice — without crashing the field radio.
 
 ## Where AdvantageKit lives in our code
-You can see AdvantageKit initialized right at the entry point of our robot code. Open up `Robot.java` in `src/main/java/frc/robot/`:
+You can see AdvantageKit initialized right at the entry point of our robot code. This is pulled directly from `Robot.java` in our actual competition codebase (`org.steelhawks`, `Rebuilt2026`):
 
 ```java
-// Robot.java — AdvantageKit initialization
-Logger.recordMetadata("RuntimeEnvironment", getMode().toString()); // Set metadata
-if (isReal()) {
-    Logger.addDataReceiver(new WPILOGWriter("/U/logs")); // Log to USB stick on real robot
-    Logger.addDataReceiver(new NT4Publisher());          // Publish to NetworkTables for live viewing
-} else if (isSimulation()) {
-    Logger.addDataReceiver(new WPILOGWriter("logs/"));   // Log to local folder in sim
-    Logger.addDataReceiver(new NT4Publisher());          // Publish to NT4 in sim
-} else {
-    // REPLAY MODE: We don't write new logs; we read an old one!
-    setUseTiming(false); // Run as fast as possible during replay
-    String logPath = LogFileUtil.findReplayLog();
-    Logger.addDataReceiver(new WPILOGReader(logPath));   // Feed saved log into inputs
+// Robot.java — AdvantageKit initialization (robotInit)
+Logger.recordMetadata("Robot", Constants.ROBOT_NAME);
+Logger.recordMetadata("Robot Mode", Constants.getMode().toString());
+Logger.recordMetadata("Robot Type", Constants.getRobot().toString());
+
+switch (Constants.getMode()) {
+    case REAL -> {
+        // Running on a real robot, log to onboard storage
+        Logger.addDataReceiver(new WPILOGWriter("/home/lvuser/logs"));
+        if (!DriverStation.isFMSAttached()) {
+            Logger.addDataReceiver(new NT4Publisher());
+        }
+        new PowerDistribution(
+            Constants.POWER_DISTRIBUTION_CAN_ID, Constants.PD_MODULE_TYPE);
+    }
+    case SIM -> // Running a physics simulator, log to NT only
+        Logger.addDataReceiver(new NT4Publisher());
+    case REPLAY -> {
+        // Replaying a log, set up replay source
+        setUseTiming(false); // Run as fast as possible
+        String logPath = LogFileUtil.findReplayLog();
+        Logger.setReplaySource(new WPILOGReader(logPath));
+        Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+    }
 }
 
-Logger.start(); // Start the logger!
+Logger.start();
 ```
 
-This single block of code dictates how our robot adapts to its environment. Depending on whether Constants.getMode() returns REAL, SIM, or REPLAY, AdvantageKit swaps out its data receivers entirely.
+We also record Git metadata (commit SHA, branch, build date, and whether there were uncommitted changes) before this switch statement, so every single log is permanently stamped with the exact version of code that produced it &mdash; useful when you're staring at a log from three weeks ago trying to figure out what changed since.
 
-- Real Robot: Writes to a USB drive (/U/logs) and publishes to NetworkTables.
+This single block of code dictates how our robot adapts to its environment. `Constants.getMode()` (not a WPILib `isReal()`/`isSimulation()` check) decides which branch runs, and AdvantageKit swaps its data receivers and replay source entirely based on it:
 
-- Simulation: Writes to a local project folder and publishes to NetworkTables.
+- **REAL**: Writes a `.wpilog` to onboard storage (`/home/lvuser/logs`), and only adds an `NT4Publisher` if the robot **isn't** connected to the field's FMS &mdash; the exact NetworkTables-bandwidth problem described earlier in this page is why that check exists. It also spins up a `PowerDistribution` object here, which enables logging of PDH/PDP current draw for free.
+- **SIM**: Only publishes to NT4. Unlike a bare-bones AdvantageKit project, our SIM mode doesn't write its own `.wpilog` locally &mdash; live NT viewing in AdvantageScope is enough while you're iterating on your laptop.
+- **REPLAY**: Turns off real-time waiting (`setUseTiming(false)`) so the replay runs as fast as your CPU allows, points `Logger.setReplaySource(...)` at an old `.wpilog` file (note this is a *replay source*, not a data receiver &mdash; it's what feeds `fromLog()` calls during replay), and also registers a **new** `WPILOGWriter` with a `_sim` suffix so any newly computed outputs from this replay run get saved to their own log for comparison in AdvantageScope.
 
-- Replay: Turns off real-time waiting (setUseTiming(false)), opens a .wpilog file via WPILOGReader, and pushes historical sensor data straight into our subsystem inputs as if the robot were right there on the field.
+<Note title="A gotcha specific to our codebase: SIM vs. REPLAY aren't chosen the way you'd expect">
+`Constants.java` doesn't have a simple "sim mode" checkbox. Instead, you pick a `RobotType` (`OMEGABOT`, `ALPHABOT`, `SIMBOT`, etc.), and `getMode()` derives the `Mode` from it:
+
+```java
+public static Mode getMode() {
+    return switch (ROBOT_TYPE) {
+        case ALPHABOT, OMEGABOT, CHASSIS, LAST_YEAR, TEST_BOARD ->
+            RobotBase.isReal() ? Mode.REAL : Mode.REPLAY;
+        case SIMBOT -> Mode.SIM;
+    };
+}
+```
+
+Notice that picking a *real* robot type (like `OMEGABOT`) and then launching the WPILib simulator (`RobotBase.isReal()` is `false`) doesn't give you `Mode.SIM` &mdash; it gives you `Mode.REPLAY`! That's intentional: if you're not on real hardware and you haven't explicitly asked for a physics simulation, AdvantageKit assumes you're trying to replay an old log against that robot's real IO-less implementations. To actually get physics-based `Mode.SIM`, you have to set `ROBOT = RobotType.SIMBOT` at the top of `Constants.java` before launching the simulator.
+</Note>
 
 ## Run it: simulating the AdvantageKit data loop
 The simplified model below demonstrates how AdvantageKit abstracts data sources. Whether the input source is a physical motor sensor, a physics simulation calculation, or a row extracted from a .wpilog file, the subsystem logic processes it identically.
@@ -138,6 +186,17 @@ public static void main(String[] args) {
     ],
     correct: 1,
     explanation: "The IO layer isolates the subsystem from hardware. During normal operation, it uses real hardware; during simulation, it uses a physics sim; and during log replay, the inputs are provided directly from the log file, bypassing the implementation entirely."
+  },
+  {
+    prompt: "In our subsystem periodic() methods, what does Logger.processInputs(key, inputs) do differently during REPLAY compared to REAL or SIM?",
+    options: [
+      "Nothing — it behaves identically in every mode",
+      "During REPLAY it calls the generated fromLog() method to overwrite inputs with values from the log file, instead of toLog()-ing values updateInputs() just produced",
+      "During REPLAY it disables logging entirely to save CPU time",
+      "During REPLAY it automatically rewinds the match timer to zero"
+    ],
+    correct: 1,
+    explanation: "On a real robot or in sim, updateInputs() fills the inputs object and processInputs() logs (toLog()) it. In replay, the IO implementation is empty, so processInputs() instead reads (fromLog()) the values for that timestamp straight out of the log file — which is the actual mechanism that makes replay work."
   },
   {
     prompt: "Which application is primarily designed to visualize the .wpilog files generated by AdvantageKit?",
