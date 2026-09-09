@@ -5,7 +5,7 @@ title: "Phoenix Tuner X"
 
 import Note from '@site/src/components/Note.jsx'
 
-# A Comprehensive Guide to Phoenix Tuner X
+# A Comprehensive Guide to Phoenix Tuner 
 
 Phoenix Tuner X is CTRE's cross-platform configuration and diagnostics tool for CAN devices including Talon FX, Talon SRX, Victor SPX, CANcoder, Pigeon IMU, and CANdle. It runs on Windows, macOS, Linux, and in the browser.
 
