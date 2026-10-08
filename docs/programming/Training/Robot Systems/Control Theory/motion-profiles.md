@@ -104,7 +104,7 @@ The Intake splits them (rio profile, controller PID). The Turret keeps both onbo
 For most position mechanisms, generating the profile **on the TalonFX** is the better choice. Here's the full argument:
 
 - **Speed.** The TalonFX runs its control loop at roughly **1 kHz**; the RoboRIO's main loop runs at **50 Hz** (every 20 ms). A loop running 20× faster produces smoother, more responsive motion.
-- **It off-loads the rio's CPU.** This is a safety issue, not just performance. If rio code takes longer than 20 ms in a loop, you get a **`CommandScheduler` loop overrun** — and as our Programming Reference warns, an overrun is *extremely dangerous*: critical code like **swerve stops running and the robot goes unresponsive**. Pushing profiling onto the controllers keeps the rio loop light.
+- **It off-loads the rio's CPU.** This is a safety issue, not just performance. If rio code takes longer than 20 ms in a loop, you get a **`CommandScheduler` loop overrun** — and an overrun is *extremely dangerous*: critical code like **swerve stops running and the robot goes unresponsive**. Pushing profiling onto the controllers keeps the rio loop light.
 - **Lower latency.** You send the target **once**. With rio-side profiling you send a fresh setpoint over the CAN bus every single loop — a round trip each time. MotionMagic skips all of that.
 - **Deterministic timing.** The controller's loop isn't subject to rio thread starvation or garbage-collection pauses, so the timing is rock-steady.
 - **Less CAN traffic.** One target instead of 50 setpoints per second frees up the bus.

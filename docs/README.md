@@ -58,7 +58,7 @@ docs/
 │       │       ├── _category_.json
 │       │       ├── calculus-basics.md
 │       │       └── ...
-│       └── Programming Reference/
+│       └── Util/                 ← labeled "Utility Classes"
 ├── src/
 │   ├── components/               ← reusable interactive components (see §5)
 │   │   ├── Quiz.jsx
@@ -107,7 +107,7 @@ A section's label and position come from its `_category_.json`:
 }
 ```
 
-Current section order (the `position` values): Java Basics `4` → Robot Code Basics `6` → Building a Robot `7` → Programming Reference `8`. To insert a new section, give it a `position` that slots it where you want and bump the others if needed.
+Current section order (the `position` values): Java Basics `3` → Git & GitHub `4` → Robot Code Basics `5` → Building a Robot `6` → Programming With Commands `7` → Swerve & Odometry `8` → Vision `9` → Utility Classes `10` → Telemetry `11` → Real Implementation `12` → AdvantageKit & Sims `13`. To insert a new section, give it a `position` that slots it where you want and bump the others if needed.
 
 ### d. Write the content
 Standard Markdown, plus our components (next section). Use fenced code blocks with a language for syntax highlighting:
