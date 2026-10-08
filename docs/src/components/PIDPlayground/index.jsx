@@ -4,6 +4,7 @@ import styles from './styles.module.css';
 import {
   CONTROL_DT, MAX_VOLTS, makeRng, randomPlant, createSim, stepSim, createScore, updateScore,
 } from './sim';
+import { WINDOW_S, INK, PALETTE, PAD, fmt, fit, axes, line, endLabel, tooltip } from './chart';
 
 /**
  * PIDPlayground — a live, tunable PID loop driving a simulated 1 m carriage.
@@ -14,13 +15,10 @@ import {
  * The physics and scoring live in ./sim.js.
  */
 
-const WINDOW_S = 8; // seconds of history shown
 const DEFAULT_GAINS = { kP: 20, kI: 0, kD: 0 };
 
-// Chart ink. The panel is always dark (like JavaRunner), so these are fixed.
-const INK = { primary: '#f0f0f0', secondary: '#9ca3af', grid: '#2f2f2f', surface: '#1e1e1e' };
-// P / I / D use the first three slots of a colorblind-validated categorical palette.
-const SERIES = { p: '#3987e5', i: '#d95926', d: '#199e70' };
+// P / I / D take the three validated categorical slots.
+const SERIES = { p: PALETTE[0], i: PALETTE[1], d: PALETTE[2] };
 
 const VERDICTS = {
   critical: {
@@ -50,7 +48,6 @@ const VERDICTS = {
   },
 };
 
-const fmt = (v, digits = 1) => (Object.is(v, -0) ? 0 : v).toFixed(digits);
 
 function Playground() {
   const [gains, setGains] = useState(DEFAULT_GAINS);
@@ -293,75 +290,7 @@ function Playground() {
   );
 }
 
-/* ── canvas drawing ────────────────────────────────────────────────────── */
-
-const PAD = { l: 34, r: 58, t: 8, b: 18 };
-
-function fit(canvas) {
-  const dpr = window.devicePixelRatio || 1;
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-  if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-  }
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, w, h);
-  return { ctx, w, h };
-}
-
-function axes(ctx, w, h, ticks, yOf, now) {
-  ctx.font = '11px ui-sans-serif, system-ui, sans-serif';
-  ctx.textBaseline = 'middle';
-  ctx.lineWidth = 1;
-  for (const tick of ticks) {
-    const y = Math.round(yOf(tick)) + 0.5;
-    ctx.strokeStyle = INK.grid;
-    ctx.beginPath(); ctx.moveTo(PAD.l, y); ctx.lineTo(w - PAD.r, y); ctx.stroke();
-    ctx.fillStyle = INK.secondary; ctx.textAlign = 'right';
-    ctx.fillText(String(tick), PAD.l - 6, y);
-  }
-  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-  for (let s = 0; s <= WINDOW_S; s += 2) {
-    const x = PAD.l + ((WINDOW_S - s) / WINDOW_S) * (w - PAD.l - PAD.r);
-    ctx.fillText(s === 0 ? 'now' : `-${s}s`, x, h - 4);
-  }
-  return (t) => PAD.l + ((t - (now - WINDOW_S)) / WINDOW_S) * (w - PAD.l - PAD.r);
-}
-
-function line(ctx, ts, ys, xOf, yOf, start, color, width, dash) {
-  ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineJoin = 'round';
-  ctx.setLineDash(dash || []);
-  ctx.beginPath();
-  for (let k = start; k < ts.length; k++) {
-    const x = xOf(ts[k]), y = yOf(ys[k]);
-    if (k === start) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-  ctx.setLineDash([]);
-}
-
-function endLabel(ctx, text, x, y) {
-  ctx.font = '11px ui-sans-serif, system-ui, sans-serif';
-  ctx.fillStyle = INK.secondary; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-  ctx.fillText(text, x + 6, y);
-}
-
-function tooltip(ctx, x, top, rows) {
-  ctx.font = '11px ui-sans-serif, system-ui, sans-serif';
-  const width = Math.max(...rows.map((r) => ctx.measureText(r.text).width)) + 28;
-  const height = rows.length * 16 + 8;
-  const left = x + width + 12 > ctx.canvas.clientWidth - PAD.r ? x - width - 8 : x + 8;
-  ctx.fillStyle = '#0d0d0d'; ctx.strokeStyle = '#3a3a3a'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.roundRect(left, top, width, height, 4); ctx.fill(); ctx.stroke();
-  ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-  rows.forEach((r, k) => {
-    const y = top + 12 + k * 16;
-    if (r.color) { ctx.fillStyle = r.color; ctx.fillRect(left + 8, y - 4, 8, 8); }
-    ctx.fillStyle = INK.primary;
-    ctx.fillText(r.text, left + (r.color ? 22 : 8), y);
-  });
-}
+/* ── drawing (shared canvas helpers live in ./chart.js) ───────────────── */
 
 function draw(L, posCanvas, outCanvas) {
   if (!posCanvas || !outCanvas) return;

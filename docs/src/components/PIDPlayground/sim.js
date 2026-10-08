@@ -25,9 +25,9 @@ export function makeRng(seed) {
   };
 }
 
-const lerp = (lo, hi, t) => lo + (hi - lo) * t;
-const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-const level = (t, names) => names[Math.min(names.length - 1, Math.floor(t * names.length))];
+export const lerp = (lo, hi, t) => lo + (hi - lo) * t;
+export const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+export const level = (t, names) => names[Math.min(names.length - 1, Math.floor(t * names.length))];
 
 /** A random mechanism. Every one needs different gains. */
 export function randomPlant(seed) {
@@ -82,6 +82,12 @@ export function stepSim(sim, plant, gains, target, push, rng) {
 
   const u = clamp(p + i + d, -MAX_VOLTS, MAX_VOLTS);
 
+  applyOutput(sim, plant, u, push);
+  return { p, i, d, u };
+}
+
+/** Run the physics for one controller period with `u` volts commanded. */
+export function applyOutput(sim, plant, u, push) {
   const h = CONTROL_DT / PHYSICS_STEPS;
   for (let k = 0; k < PHYSICS_STEPS; k++) {
     // the motor does not respond instantly: its real output chases the command
@@ -100,7 +106,6 @@ export function stepSim(sim, plant, gains, target, push, rng) {
     if (sim.pos >= 1) { sim.pos = 1; if (sim.vel > 0) sim.vel = 0; }
   }
   sim.t += CONTROL_DT;
-  return { p, i, d, u };
 }
 
 /* ── Scoring one move to a new target ─────────────────────────────────── */

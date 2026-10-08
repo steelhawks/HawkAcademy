@@ -6,7 +6,7 @@ title: Feedforward
 import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
-import JavaRunner from '@site/src/components/JavaRunner'
+import FeedforwardPlayground from '@site/src/components/FeedforwardPlayground'
 
 # Feedforward
 
@@ -90,35 +90,35 @@ motorConfig.Slot0.kA = constants.kA();   // acceleration
 
 For mechanisms where we compute the feedforward on the RoboRIO instead (like the intake's rack), the value is passed into the control request with **`.withFeedForward(...)`** — you saw this on the flywheel's `velocityVoltage.withVelocity(setpoint).withFeedForward(feedforward)` call, and the intake does the same with `PositionTorqueCurrentFOC`. Either way, the feedforward voltage gets *added* to the PID output, exactly like our reactive-plus-predictive picture.
 
-## Run it: feedforward vs. pure feedback
+## Try it: tune kG, kS and kV
 
-The demo below holds a mechanism against a constant "gravity" disturbance. **Run 1** uses pure proportional feedback (kP only) and settles *below* the target — that leftover gap is **steady-state error**. **Run 2** adds a feedforward term that predicts the gravity push, and it lands on target. This is the whole argument for feedforward-over-kI, in numbers.
+Below is the same carriage from the [PID page](./what-is-pid), but this time it follows a planned move up and down the rail, alternating **slow** and **fast** moves. The output is the elevator equation from above, plus feedback:
 
-<JavaRunner
-  starterCode={`public class Main {
-    // hold 'position' at target against a constant gravity pull
-    static double simulate(double kP, double kG_feedforward) {
-        double target = 1.0, position = 0.0, dt = 0.02;
-        double gravity = 0.30;   // constant downward push (volts-equivalent)
-        for (int i = 0; i < 200; i++) {
-            double error = target - position;
-            double output = kP * error + kG_feedforward;  // feedback + feedforward
-            position += (output - gravity) * dt;          // gravity fights us
-        }
-        return position;
-    }
+$$V = K_g + K_s\,\operatorname{sgn}(\dot{d}) + K_v\,\dot{d} + \text{feedback}$$
 
-    public static void main(String[] args) {
-        double settledNoFF = simulate(2.0, 0.00);   // feedback only
-        double settledWithFF = simulate(2.0, 0.30); // + feedforward that predicts gravity
+All three constants start at **zero**, so feedback is doing all the work, and doing it badly: the carriage sags and lags behind. Your job is to find the constants for this mechanism.
 
-        System.out.printf("Target = 1.000%n");
-        System.out.printf("Feedback only   -> settles at %.3f   (steady-state error!)%n", settledNoFF);
-        System.out.printf("Feedback + kG FF -> settles at %.3f   (on target)%n", settledWithFF);
-        System.out.println("\\nFeedforward predicted the holding push, so no leftover gap - no kI needed.");
-    }
-}`}
-/>
+<FeedforwardPlayground />
+
+The bottom chart is the thing to watch. It shows what each feedforward term is contributing, and the thick white line is **feedback**. Feedback only pushes when the mechanism is somewhere it shouldn't be, so the goal is simple: **get the white line to sit near zero.**
+
+Tune in this order:
+
+1. **`kG` first.** Watch the carriage while it is holding still. It sags below the setpoint, and feedback is pushing up to stop it falling further. Raise `kG` until it holds its height on its own.
+2. **`kV` next.** Watch a **fast** move. The carriage falls behind the setpoint, and feedback has to drag it along. Raise `kV` until it keeps up.
+3. **`kS` last.** Watch a **slow** move. If it still falls a little behind, by about the same amount on slow and fast moves, that is fixed friction. Raise `kS` to cover it.
+4. **Turn feedback down to 0.** With good constants the carriage still follows the plan closely on feedforward alone. With bad constants it does not follow it at all. That is the difference between predicting and reacting.
+5. **Turn feedback back up and press "Bump it".** Feedforward has no idea the bump happened. Feedback is what brings the carriage back.
+6. **Press "New mechanism".** Different weight, different friction, different constants. Feedforward constants describe one specific mechanism, which is why we measure them for every one.
+
+<Note title="Things worth noticing">
+<ul>
+<li><strong>You cannot tune this away with a bigger kP.</strong> Raising feedback shrinks the error but never removes it, because feedback needs an error before it does anything.</li>
+<li><strong>The spikes at the start and end of every move are acceleration.</strong> Speeding the carriage up and slowing it down takes extra push that none of these three constants predict. That is what <strong>kA</strong> is for. We usually leave it to feedback.</li>
+<li><strong>kS flips sign with direction; kG does not.</strong> Watch the kS line jump between positive and negative as the carriage changes direction, while kG stays flat. That is the sgn in the equation.</li>
+<li><strong>This is the same job our <code>feedforwardCharacterization()</code> command does.</strong> It runs the mechanism and fits these constants from the data. Here you are doing the fit by eye.</li>
+</ul>
+</Note>
 
 <Quiz questions={[
 {
