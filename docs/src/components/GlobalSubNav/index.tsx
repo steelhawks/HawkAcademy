@@ -74,19 +74,20 @@ const SECTIONS: Section[] = [
     items: [
       {label: 'Intro', to: '/programming/intro'},
       {
-        label: 'Training',
-        to: '/programming/Training/github-basics',
-        children: [
-          {label: 'GitHub Basics', to: '/programming/Training/github-basics'},
-        ],
-      },
-      {
         label: 'Java Basics',
         to: '/programming/Training/Java Basics/simple-basics',
         children: [
           {label: 'Simple Basics', to: '/programming/Training/Java Basics/simple-basics'},
           {label: 'Basics 103', to: '/programming/Training/Java Basics/basics-103'},
           {label: 'Logic & Loops', to: '/programming/Training/Java Basics/logic-loops'},
+        ],
+      },
+      {
+        label: 'Git & GitHub',
+        to: '/programming/Training/Git/github-basics',
+        children: [
+          {label: 'GitHub Basics', to: '/programming/Training/Git/github-basics'},
+          {label: 'Working as a Team', to: '/programming/Training/Git/team-workflow'},
         ],
       },
       {

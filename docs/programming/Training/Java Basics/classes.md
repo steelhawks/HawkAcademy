@@ -282,4 +282,4 @@ Sometimes, there are multiple classes with the same name, so make sure you impor
 ## Next Steps
 **You have now completed all Java Basics lessons**
 
-Please move on to WPILIB Basics, where you'll learn to setup WPILIB and work on robot code
+Now that you have code worth saving, move on to **Git & GitHub**, where you'll learn how to store your code and work on it with the rest of the team. After that comes Robot Code Basics, where you'll set up WPILIB and work on robot code

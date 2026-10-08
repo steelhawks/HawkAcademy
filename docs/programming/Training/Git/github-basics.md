@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # GitHub Basics
@@ -51,7 +51,7 @@ First, let's go over some vocab:
 
 After a coding session, you should check to make sure your code isn't incorrect or have any issues, then commit your code. When you have completed a big chunk or task, push your code for everyone to see
 
-![Alt text](../../static/img/github-commit.png)
+![Alt text](../../../static/img/github-commit.png)
 
 Put a simple summary, just one to two words. You might need a description if you have more than a few words or more than one concept to say, then click commit. After it's commited, you'll see an option to push the code, which will lead to it being in github on the web. **Congratulations, you have learned how to commit and push code!**
 
@@ -83,17 +83,17 @@ A git branch is essentially a copy of you're current code that you can start wor
 - Write subsystems (rookies)
 - Test some extremely experimental design
 
-You'll learn how to branch in homework, but you can also create them through GitHub Desktop.
+You'll learn how to branch in homework, but you can also create them through GitHub Desktop. The next page, **Working as a Team**, covers how we name branches and get them merged.
 
 ## Next Steps
 
 Now that you've learned the basics, it's time for some real practice. Head over to **[Git Branching](https://learngitbranching.js.org/)** and practice. Go over Introduction Sequence: 1, 2, 3, and 4. Then Go to Remote:
 
-![Alt text](../../static/img/gitlearn.png)
+![Alt text](../../../static/img/gitlearn.png)
 
 and go through **EVERYTHING** because this will be very useful and neccessary in the future. This is considered your first homework, so please complete it as soon as possible. 
 
 Remember this is a two way commitment, and you need to put in the work for you to get amazing results, and it starts with going through long and tedious processes to learn.
 
 
-**After you're done with this section, you can finally learn Java! Please move on to the next section: Basics 101 of Java.**
+**After you're done with this page, move on to [Working as a Team](./team-workflow.md) to learn how we share one codebase without stepping on each other.**
