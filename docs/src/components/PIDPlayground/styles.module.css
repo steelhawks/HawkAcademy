@@ -1,0 +1,304 @@
+/* Always-dark panel, matching JavaRunner. */
+.root {
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  background: #1e1e1e;
+  color: #f0f0f0;
+  font-size: 0.88rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: #111;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.mech {
+  color: #9ca3af;
+  font-size: 0.82rem;
+}
+
+.mech strong {
+  color: #f0f0f0;
+}
+
+/* ── stage: rail + charts ─────────────────────────────────── */
+.stage {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 0.75rem 0 0.75rem;
+}
+
+.rail {
+  position: relative;
+  flex: 0 0 26px;
+  /* lines up with the plot area of the position chart */
+  height: 194px;
+  margin-top: 30px;
+}
+
+.track {
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: #333;
+}
+
+.carriage {
+  position: absolute;
+  left: 3px;
+  width: 20px;
+  height: 12px;
+  margin-bottom: -6px;
+  border-radius: 3px;
+  background: #f0f0f0;
+}
+
+.marker {
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 0;
+  border-top: 2px dashed #9ca3af;
+  margin-bottom: -1px;
+}
+
+.charts {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.chartTitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.posCanvas,
+.outCanvas {
+  display: block;
+  width: 100%;
+  cursor: crosshair;
+}
+
+.posCanvas {
+  height: 220px;
+}
+
+.outCanvas {
+  height: 150px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  font-weight: 400;
+  color: #c9cdd3;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legend i {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.readout {
+  padding: 0.4rem 1rem 0.2rem 1rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.8rem;
+  color: #c9cdd3;
+  white-space: pre-wrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── controls ─────────────────────────────────────────────── */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem 1.25rem;
+  padding: 0.75rem 1rem 0.25rem 1rem;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 0.4rem;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.sliderHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.sliderName {
+  font-weight: 700;
+}
+
+.sliderValue {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-variant-numeric: tabular-nums;
+  color: #f0f0f0;
+}
+
+.slider input[type='range'] {
+  width: 100%;
+  accent-color: #cc2a2a;
+}
+
+.sliderHelp {
+  color: #8b929c;
+  font-size: 0.74rem;
+  line-height: 1.25;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem 0.8rem 1rem;
+}
+
+.btn,
+.btnPrimary {
+  border-radius: 4px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn {
+  background: transparent;
+  color: #c9cdd3;
+  border: 1px solid #374151;
+}
+
+.btn:hover {
+  border-color: #8b1e1e;
+  color: #fff;
+}
+
+.btnPrimary {
+  background: #8b1e1e;
+  color: #fff;
+  border: 1px solid #8b1e1e;
+}
+
+.btnPrimary:hover {
+  background: #a62a2a;
+}
+
+.btn:focus-visible,
+.btnPrimary:focus-visible,
+.slider input:focus-visible,
+.check input:focus-visible {
+  outline: 2px solid #e5e7eb;
+  outline-offset: 2px;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #c9cdd3;
+  font-size: 0.82rem;
+  margin-left: 0.35rem;
+  cursor: pointer;
+}
+
+.check input {
+  accent-color: #cc2a2a;
+}
+
+/* ── scorecard ────────────────────────────────────────────── */
+.score {
+  border-top: 1px solid #2a2a2a;
+  border-left: 4px solid #374151;
+  background: #151515;
+  padding: 0.7rem 1rem 0.8rem 1rem;
+  min-height: 5.6rem;
+}
+
+.good {
+  border-left-color: #199e70;
+}
+
+.warn {
+  border-left-color: #c98500;
+}
+
+.bad {
+  border-left-color: #e66767;
+}
+
+.scoreTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.9rem;
+  font-weight: 700;
+}
+
+.streak {
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1.4rem;
+  margin: 0.25rem 0;
+  color: #9ca3af;
+  font-size: 0.82rem;
+}
+
+.stats b {
+  color: #f0f0f0;
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  color: #c9cdd3;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rail {
+    display: none;
+  }
+}

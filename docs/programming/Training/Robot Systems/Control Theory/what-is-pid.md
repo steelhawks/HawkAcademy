@@ -6,7 +6,7 @@ title: What is PID
 import Quiz from '@site/src/components/Quiz.jsx'
 import Note from '@site/src/components/Note.jsx'
 import SolutionDropdown from '@site/src/components/Dropdown.jsx'
-import JavaRunner from '@site/src/components/JavaRunner'
+import PIDPlayground from '@site/src/components/PIDPlayground'
 
 # What is PID
 
@@ -138,54 +138,35 @@ s_Swerve().runVelocity(/* chassis speeds using omegaRadPerSec */);
 
 We'll come back to this exact distinction as an axis of the decision tree on the [final page](./choosing-a-control-method).
 
-## Run it: a PID loop you can tune
+## Try it: tune a live PID loop
 
-Theory is cheap. Below is a tiny **P-D controller** (we left I at 0, per our doctrine) driving a simulated mass from 0 toward a target of **1.0**. Press **▶ Run** and read the approach. Then:
+Theory is cheap. Below is a live PID loop driving a simulated carriage up and down a 1 meter rail, a bit like a small elevator. It runs on its own: every few seconds it gets a new target, and now and then something bumps it. Your job is to tune it.
 
-- **Crank `kP` up** (try 0.9) and watch it overshoot and oscillate — *underdamped*.
-- **Add some `kD`** (try kP 0.9, kD 0.5) and watch the oscillation get damped out — closer to *critically damped*.
-- **Set `kD` huge** (try kP 0.2, kD 2.0) and watch it crawl — *overdamped*.
+<PIDPlayground />
 
-<JavaRunner
-  starterCode={`public class Main {
-    public static void main(String[] args) {
-        // ---- knobs to play with ----
-        double kP = 0.4;
-        double kI = 0.0;   // our default: leave it at 0
-        double kD = 0.0;
-        // ----------------------------
+The top chart shows the **position** chasing the dashed **target**. The bottom chart shows what the controller is doing about it: the **P**, **I** and **D** terms, and the total **output** they add up to. That bottom chart is the PID equation drawn live.
 
-        double target = 1.0;
-        double position = 0.0;
-        double velocity = 0.0;
-        double dt = 0.02;          // 20 ms loop
+Work through it in this order:
 
-        double errorSum = 0.0;     // the integral (running total of error)
-        double prevError = 0.0;
+1. **Watch one move with the starting gains.** It will overshoot and ring, stop short of the target, or both.
+2. **Raise `kP`** until the carriage gets to the target quickly. It will start to overshoot and oscillate: *underdamped*.
+3. **Add `kD`** until the ringing dies out. Watch the D line push against the motion as the carriage closes in. Go too far and the move turns sluggish: *overdamped*.
+4. **Look at where it stops.** If it settles a little away from the target and stays there, that is **steady-state error**. Add a small amount of `kI` and watch the I line slowly grow until the gap closes. Then add too much and watch it overshoot.
+5. **Press "Bump it"** to shove the carriage and see how fast your gains recover.
+6. **Press "New mechanism".** You get a different mass, friction, gravity and motor. The gains you just found will probably be wrong, and you tune again.
 
-        System.out.println("step | position | error  | output");
-        for (int step = 1; step <= 20; step++) {
-            double error = target - position;
-            errorSum += error * dt;                 // I: accumulate
-            double dError = (error - prevError) / dt; // D: rate of change
-            prevError = error;
+After every move, the panel under the sliders tells you the overshoot, how long it took to settle, and whether the response was underdamped, overdamped, or close to critically damped.
 
-            double output = kP * error + kI * errorSum + kD * dError;
+<Note title="Things worth noticing">
+<ul>
+<li><strong>The output is capped at 12 volts.</strong> A motor can only push so hard. When the output line is flat at the top, asking for more does nothing.</li>
+<li><strong>Too much gain makes it worse, not better.</strong> A real motor takes a moment to respond, and so does this one. Push the gains high enough and the loop starts fighting itself.</li>
+<li><strong>A big kD makes the output jittery.</strong> Sensors are never perfectly clean, and D reacts to every tiny wobble in the measurement.</li>
+<li><strong>kI is slow and overshoots easily.</strong> That is the windup problem from earlier on this page, and it is why we prefer feedforward, which is the next page.</li>
+</ul>
+</Note>
 
-            // pretend physics: output pushes the mass, with a little inertia
-            velocity += output * dt;
-            velocity *= 0.85;          // friction/damping of the plant
-            position += velocity * dt;
-
-            System.out.printf("  %2d |  %+.3f | %+.3f | %+.3f%n",
-                step, position, error, output);
-        }
-        System.out.println("\\nGoal: reach 1.000 fast, with no overshoot (critically damped).");
-    }
-}`}
-/>
-
-Every number you changed maps straight to the equation: `kP * error` is P, `kI * errorSum` is the integral term, `kD * dError` is the derivative term. That's PID — nothing hidden.
+Every line on the bottom chart maps straight to the equation: the P line is `kP * error`, the I line is `kI` times the running total of error, and the D line is `kD` times how fast the error is changing. That's PID, with nothing hidden.
 
 <Quiz questions={[
 {
